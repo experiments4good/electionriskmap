@@ -1,0 +1,31 @@
+name: Election Update Monitor
+
+on:
+  schedule:
+    # Runs daily at 8am ET (1pm UTC)
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+    # Manual trigger — click "Run workflow" in GitHub Actions tab
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run election monitor
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/monitor.py

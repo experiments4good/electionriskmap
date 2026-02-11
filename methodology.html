@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology — Election Risk Map</title>
+<meta name="description" content="How risk levels are assigned on the Federal Election Interference Risk Map. Sources, criteria, and methodology explained.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script async src="https://plausible.io/js/pa-v1FyNvvVmKydr_ekLQUKe.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070710;--surface:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06);
+  --text:#E2E8F0;--text-dim:#94A3B8;--text-muted:#475569;--text-faint:#334155;
+  --critical:#B91C1C;--high:#DC2626;--elevated:#EA580C;--moderate:#D97706;
+  --complied:#6B7280;--noaction:#1E293B;--accent:#EF4444;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:48px 48px}
+.container{max-width:740px;margin:0 auto;padding:2.5rem 1.5rem;position:relative;z-index:1}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--text-muted);text-decoration:none;
+  padding:5px 12px;border-radius:6px;background:var(--surface);border:1px solid var(--border);transition:all 0.15s;margin-bottom:24px}
+.back:hover{color:var(--text);border-color:rgba(255,255,255,0.15)}
+.badge{display:inline-block;padding:4px 14px;background:rgba(185,28,28,0.15);border:1px solid rgba(185,28,28,0.3);
+  border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;letter-spacing:-0.03em;line-height:1.15;
+  background:linear-gradient(135deg,#F8FAFC,#94A3B8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.updated{font-size:11px;color:var(--text-faint);margin-bottom:32px}
+h2{font-size:1rem;font-weight:700;color:var(--text);margin:32px 0 12px;letter-spacing:-0.01em}
+h2:first-of-type{margin-top:0}
+p{font-size:14px;color:var(--text-dim);line-height:1.75;margin-bottom:14px}
+a{color:var(--accent);text-underline-offset:2px}
+.risk-table{width:100%;border-collapse:collapse;margin:20px 0 28px;font-size:13px}
+.risk-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);
+  padding:8px 12px;border-bottom:1px solid var(--border)}
+.risk-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:top}
+.risk-table tr:last-child td{border-bottom:none}
+.risk-swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:middle}
+.risk-name{font-weight:700;color:var(--text);white-space:nowrap}
+.risk-criteria{color:var(--text-dim);line-height:1.6}
+.source-list{margin:16px 0 28px}
+.source-item{padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;
+  display:flex;gap:12px;align-items:flex-start;font-size:13px}
+.source-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.source-name{font-weight:700;color:var(--text)}
+.source-desc{color:var(--text-dim);line-height:1.5;margin-top:2px;font-size:12px}
+.source-url{font-size:11px;color:var(--text-muted);word-break:break-all}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:var(--text-faint);line-height:1.6;padding-top:20px;border-top:1px solid var(--border)}
+.footer a{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
+@media(max-width:600px){.container{padding:1.5rem 1rem}.risk-table{font-size:12px}.risk-table td,.risk-table th{padding:8px 6px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back">← Back to map</a>
+  <div class="badge mono">Methodology</div>
+  <h1>How Risk Levels Are Assigned</h1>
+  <p class="updated">Last updated: February 10, 2026</p>
+
+  <p>Every state and the District of Columbia is assigned one of six risk levels based on <strong>observable federal actions</strong> — not predictions, partisanship, or speculation. Risk levels reflect what has already happened, not what might happen.</p>
+
+  <h2>Risk Level Criteria</h2>
+  <table class="risk-table">
+    <thead><tr><th>Level</th><th>Criteria</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="risk-swatch" style="background:#B91C1C"></span><span class="risk-name">Critical</span></td>
+        <td class="risk-criteria">Direct federal enforcement action against state election infrastructure. Currently applies only to Georgia, where the FBI physically raided county election offices, seizing ballots and voter records.</td>
+      </tr>
+      <tr>
+        <td><span class="risk-swatch" style="background:#DC2626"></span><span class="risk-name">High</span></td>
+        <td class="risk-criteria">State has been sued by the DOJ for voter data <strong>and</strong> has at least one additional risk factor: competitive 2026 battleground status, coercion attempts (e.g., leveraging voter data for ICE operations), machine access attempts, or being named as a prosecution target in Project 2025 planning documents. States: CO, MI, MN, NH, NV, PA, WI.</td>
+      </tr>
+      <tr>
+        <td><span class="risk-swatch" style="background:#EA580C"></span><span class="risk-name">Elevated</span></td>
+        <td class="risk-criteria">State has been sued by the DOJ for voter data (first wave or January 2026 wave) or has had its case already dismissed by a court. These states were among the earliest or most prominent targets. States: AZ, CA, CT, HI, IL, MA, ME, NY, OR, VA.</td>
+      </tr>
+      <tr>
+        <td><span class="risk-swatch" style="background:#D97706"></span><span class="risk-name">Moderate</span></td>
+        <td class="risk-criteria">State was sued in a later wave (December 2025 second wave) with no additional risk factors beyond the lawsuit itself. States: DE, DC, MD, NM, RI, VT, WA.</td>
+      </tr>
+      <tr>
+        <td><span class="risk-swatch" style="background:#6B7280"></span><span class="risk-name">Complied</span></td>
+        <td class="risk-criteria">State voluntarily provided full voter registration files to the DOJ, including sensitive personal information (driver's license numbers, partial SSNs). Some signed confidential memoranda of understanding. States: AK, AR, IN, KS, LA, MS, NE, SD, TN, TX, WY.</td>
+      </tr>
+      <tr>
+        <td><span class="risk-swatch" style="background:#1E293B"></span><span class="risk-name">No Major Action</span></td>
+        <td class="risk-criteria">No major reported federal election interference action targeting this state as of the last update. This does not mean these states are safe — only that no specific federal enforcement actions have been publicly reported.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>What This Map Does Not Do</h2>
+  <p>This map does not assess the overall health of state election systems, predict future interference, rate state-level voting laws, or evaluate partisan gerrymandering. It is narrowly focused on federal executive branch actions that target state election infrastructure and data.</p>
+
+  <h2>Official and Race Data</h2>
+  <p>Secretary of State and Attorney General names and party affiliations are sourced from the National Association of Secretaries of State (NASS) official roster, cross-referenced with <a href="https://teritome.com" target="_blank">Teri Tome's tracker</a> (updated January 24, 2026) and <a href="https://ballotpedia.org" target="_blank">Ballotpedia</a> for 2026 ballot status. Competitive House race ratings use the <a href="https://www.cookpolitical.com/ratings/house-race-ratings" target="_blank">Cook Political Report</a> ratings as of their January 15, 2026 update.</p>
+
+  <h2>Primary Sources</h2>
+  <div class="source-list">
+    <div class="source-item">
+      <div class="source-icon">⚖️</div>
+      <div>
+        <div class="source-name">Brennan Center for Justice</div>
+        <div class="source-desc">Comprehensive tracker of all DOJ voter information requests and lawsuits, updated continuously. Primary source for lawsuit status, state responses, and court rulings.</div>
+        <div class="source-url"><a href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">brennancenter.org — DOJ Voter Info Tracker →</a></div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon">🏛️</div>
+      <div>
+        <div class="source-name">DOJ Office of Public Affairs</div>
+        <div class="source-desc">Official press releases announcing lawsuits and enforcement actions.</div>
+        <div class="source-url"><a href="https://www.justice.gov/opa" target="_blank">justice.gov/opa →</a></div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon">📰</div>
+      <div>
+        <div class="source-name">News Reporting</div>
+        <div class="source-desc">NPR, CBS News, AP, USA Today, CNN, Fox News, NBC News, and The Washington Post for breaking developments including the Fulton County FBI raid. Fox News specifically for December 2025 second-wave lawsuit reporting.</div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon">🗳️</div>
+      <div>
+        <div class="source-name">Ballotpedia &amp; NASS</div>
+        <div class="source-desc">Secretary of State roster, Attorney General elections, 2026 ballot status. Cross-referenced with Teri Tome's SoS/AG tracker.</div>
+        <div class="source-url"><a href="https://ballotpedia.org/Secretary_of_State_elections,_2026" target="_blank">Ballotpedia — 2026 SoS Elections →</a></div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon">📊</div>
+      <div>
+        <div class="source-name">Cook Political Report</div>
+        <div class="source-desc">House race competitiveness ratings. Using the January 15, 2026 update which shifted 7 races.</div>
+        <div class="source-url"><a href="https://www.cookpolitical.com/ratings/house-race-ratings" target="_blank">cookpolitical.com — House Ratings →</a></div>
+      </div>
+    </div>
+    <div class="source-item">
+      <div class="source-icon">🔍</div>
+      <div>
+        <div class="source-name">Democracy Docket &amp; Votebeat</div>
+        <div class="source-desc">Supplementary legal tracking and election administration reporting.</div>
+        <div class="source-url"><a href="https://www.democracydocket.com" target="_blank">democracydocket.com →</a> · <a href="https://www.votebeat.org" target="_blank">votebeat.org →</a></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Updates and Corrections</h2>
+  <p>This map is updated as events unfold. If you spot an error or have a correction with a primary source, email <a href="mailto:info@electionriskmap.org">info@electionriskmap.org</a>. Accuracy matters more than speed.</p>
+
+  <div class="footer">
+    <a href="index.html">← Back to map</a> · <a href="about.html">About this project</a>
+    <br>Data as of February 2026. This is an informational resource, not legal advice.
+    <br>Contact: <a href="mailto:info@electionriskmap.org">info@electionriskmap.org</a>
+  </div>
+</div>
+</body>
+</html>

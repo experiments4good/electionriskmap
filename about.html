@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Election Risk Map</title>
+<meta name="description" content="About the Federal Election Interference Risk Map — why it exists and how to help.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script async src="https://plausible.io/js/pa-v1FyNvvVmKydr_ekLQUKe.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070710;--surface:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06);
+  --text:#E2E8F0;--text-dim:#94A3B8;--text-muted:#475569;--text-faint:#334155;
+  --accent:#EF4444;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:48px 48px}
+.container{max-width:740px;margin:0 auto;padding:2.5rem 1.5rem;position:relative;z-index:1}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--text-muted);text-decoration:none;
+  padding:5px 12px;border-radius:6px;background:var(--surface);border:1px solid var(--border);transition:all 0.15s;margin-bottom:24px}
+.back:hover{color:var(--text);border-color:rgba(255,255,255,0.15)}
+.badge{display:inline-block;padding:4px 14px;background:rgba(185,28,28,0.15);border:1px solid rgba(185,28,28,0.3);
+  border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;letter-spacing:-0.03em;line-height:1.15;
+  background:linear-gradient(135deg,#F8FAFC,#94A3B8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:24px}
+h2{font-size:1rem;font-weight:700;color:var(--text);margin:28px 0 10px;letter-spacing:-0.01em}
+p{font-size:14px;color:var(--text-dim);line-height:1.75;margin-bottom:14px}
+a{color:var(--accent);text-underline-offset:2px}
+.principles{margin:20px 0 28px}
+.principle{padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:10px}
+.principle-title{font-weight:700;color:var(--text);font-size:14px;margin-bottom:4px}
+.principle-desc{font-size:13px;color:var(--text-dim);line-height:1.6}
+.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 28px}
+.help-card{padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.help-card-title{font-weight:700;color:var(--text);font-size:13px;margin-bottom:4px}
+.help-card-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:var(--text-faint);line-height:1.6;padding-top:20px;border-top:1px solid var(--border)}
+.footer a{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
+@media(max-width:600px){.container{padding:1.5rem 1rem}.help-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back">← Back to map</a>
+  <div class="badge mono">About</div>
+  <h1>About This Project</h1>
+
+  <p>The Federal Election Interference Risk Map tracks actions by the federal executive branch that target state election infrastructure, voter data, and election officials ahead of the 2026 midterm elections.</p>
+
+  <p>It was created in February 2026 because the events unfolding — DOJ lawsuits against 24 states for voter data, the FBI raid on Georgia election offices, the dismantling of CISA — are happening fast and across many states simultaneously. It's hard to see the full picture without seeing it all in one place.</p>
+
+  <h2>Guiding Principles</h2>
+  <div class="principles">
+    <div class="principle">
+      <div class="principle-title">Facts over predictions</div>
+      <div class="principle-desc">Every risk level is based on actions that have already occurred and are publicly documented. We don't speculate about what might happen next.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-title">Sources you can verify</div>
+      <div class="principle-desc">Every claim links back to primary reporting — the Brennan Center, DOJ press releases, court filings, and major news organizations. If we can't source it, we don't include it.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-title">Bipartisan framing</div>
+      <div class="principle-desc">Republican officials like Brad Raffensperger (GA) and the bipartisan Wisconsin Elections Commission are fighting these same federal actions. This map documents what the federal government is doing to states, regardless of those states' partisan lean.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-title">Action-oriented</div>
+      <div class="principle-desc">Awareness without action doesn't help. Every state detail includes links to check your voter registration, find your legislators, and support legal defense efforts.</div>
+    </div>
+  </div>
+
+  <h2>How You Can Help</h2>
+  <div class="help-grid">
+    <div class="help-card">
+      <div class="help-card-title">Share it</div>
+      <div class="help-card-desc">The more people who understand what's happening across all 50 states, the harder it is to normalize. Use the share buttons on the main page.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-card-title">Send corrections</div>
+      <div class="help-card-desc">If you find an error or have a primary source we're missing, email <a href="mailto:info@electionriskmap.org">info@electionriskmap.org</a>. Accuracy is everything.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-card-title">Use the data</div>
+      <div class="help-card-desc">Journalists, researchers, and civic organizations are welcome to reference this map. Please link back to the source and verify claims independently.</div>
+    </div>
+    <div class="help-card">
+      <div class="help-card-title">Stay informed</div>
+      <div class="help-card-desc">This map will be updated as events develop. Bookmark it and check back — things are moving fast.</div>
+    </div>
+  </div>
+
+  <h2>Technical Details</h2>
+  <p>This site is a single static HTML page with no tracking, no cookies, no analytics, and no third-party scripts beyond Google Fonts. It loads fast, works offline once cached, and doesn't collect any user data. The source data is embedded directly in the page for transparency and inspectability.</p>
+
+  <div class="footer">
+    <a href="index.html">← Back to map</a> · <a href="methodology.html">Methodology</a>
+    <br>Data as of February 2026. This is an informational resource, not legal advice.
+    <br>Contact: <a href="mailto:info@electionriskmap.org">info@electionriskmap.org</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Federal Election Interference Risk Map</title>
+<meta name="description" content="Interactive map tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://electionriskmap.org">
+<meta property="og:title" content="Federal Election Interference Risk Map — 2026 Midterms">
+<meta property="og:description" content="24 states sued for voter data. FBI raided Georgia election offices. CISA gutted. See where your state stands.">
+<meta property="og:image" content="https://electionriskmap.org/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Federal Election Interference Risk Map — 2026 Midterms">
+<meta name="twitter:description" content="24 states sued for voter data. FBI raided Georgia election offices. CISA gutted. See where your state stands.">
+<meta name="twitter:image" content="https://electionriskmap.org/og-image.png">
+<link rel="canonical" href="https://electionriskmap.org/">
+<link rel="alternate" type="application/rss+xml" title="Election Risk Map Updates" href="https://electionriskmap.org/feed.xml">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Federal Election Interference Risk Map","url":"https://electionriskmap.org","description":"Interactive map tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.","dateModified":"2026-02-10"}
+</script>
+
+<!-- Analytics (privacy-respecting, no cookies) -->
+<script async src="https://plausible.io/js/pa-v1FyNvvVmKydr_ekLQUKe.js"></script>
+<script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070710;--surface:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.06);
+  --text:#E2E8F0;--text-dim:#94A3B8;--text-muted:#475569;--text-faint:#334155;
+  --critical:#B91C1C;--high:#DC2626;--elevated:#EA580C;--moderate:#D97706;
+  --complied:#6B7280;--noaction:#1E293B;--accent:#EF4444;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.mono{font-family:'JetBrains Mono',monospace}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:48px 48px}
+body::after{content:'';position:fixed;top:-300px;right:-300px;width:800px;height:800px;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(185,28,28,0.06) 0%,transparent 65%)}
+.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem;position:relative;z-index:1}
+
+/* Header */
+.header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.header-nav{display:flex;gap:6px;flex-shrink:0;margin-top:4px}
+.nav-link{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;font-size:11px;font-weight:600;
+  color:var(--text-muted);background:var(--surface);border:1px solid var(--border);text-decoration:none;transition:all 0.15s;white-space:nowrap}
+.nav-link:hover{color:var(--text);border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.06)}
+.nav-link svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.badge{display:inline-block;padding:4px 14px;background:rgba(185,28,28,0.15);border:1px solid rgba(185,28,28,0.3);
+  border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;line-height:1.15;
+  background:linear-gradient(135deg,#F8FAFC,#94A3B8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:0.85rem;color:var(--text-muted);max-width:680px;line-height:1.6;margin-top:6px}
+
+/* Accessibility — focus indicators */
+.tile:focus-visible,.share-btn:focus-visible,.nav-link:focus-visible,.legend-item:focus-visible,.search-input:focus-visible,.detail-act-btn:focus-visible,.modal-close:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--accent);color:white;padding:8px 16px;font-size:13px;font-weight:700;
+  z-index:9999;border-radius:0 0 6px 0;transition:top 0.2s}
+.skip-link:focus{top:0}
+
+
+/* Timeline */
+.timeline{margin-top:20px;margin-bottom:4px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden}
+.timeline::before{content:'';position:absolute;left:28px;top:42px;bottom:16px;width:1px;background:rgba(239,68,68,0.15)}
+.timeline-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.timeline-title .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(239,68,68,0.4)}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+.tl-item{display:flex;gap:12px;padding:6px 0;position:relative}
+.tl-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;z-index:1}
+.tl-date{font-size:10px;font-weight:700;color:var(--text-muted);min-width:58px;flex-shrink:0;margin-top:2px}
+.tl-text{font-size:12px;color:var(--text-dim);line-height:1.5}
+.tl-text strong{color:var(--text);font-weight:600}
+.tl-new{font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--accent);background:rgba(239,68,68,0.1);padding:1px 5px;border-radius:3px;margin-left:6px}
+
+/* Main grid */
+.main-grid{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-top:20px}
+@media(max-width:960px){.main-grid{grid-template-columns:1fr}}
+.map-container{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.map-container::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(185,28,28,0.03),transparent 60%);pointer-events:none}
+.tile-grid{display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(8,1fr);gap:3px;aspect-ratio:11/8;max-width:100%}
+.tile{border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s,opacity 0.15s;position:relative;min-height:0}
+.tile:hover{transform:scale(1.12);z-index:10}
+.tile.dimmed{opacity:0.25}
+.tile.active{transform:scale(1.12);z-index:10}
+.tile .abbr{font-size:clamp(9px,1.3vw,13px);font-weight:700;color:white;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
+.tile .sub{font-size:clamp(6px,0.7vw,8px);color:rgba(255,255,255,0.6);margin-top:1px;line-height:1;text-align:center}
+.tile.risk-critical{box-shadow:0 0 12px rgba(185,28,28,0.4)}
+.tile.risk-critical:hover,.tile.risk-critical.active{box-shadow:0 0 20px rgba(185,28,28,0.6)}
+.tile.risk-high:hover,.tile.risk-high.active{box-shadow:0 0 16px rgba(220,38,38,0.5)}
+
+/* Sidebar */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.panel-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px}
+.legend-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;cursor:pointer;padding:4px 6px;border-radius:6px;transition:background 0.15s}
+.legend-item:hover{background:rgba(255,255,255,0.03)}
+.legend-item.active-legend{background:rgba(255,255,255,0.05)}
+.legend-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:2px}
+.legend-label{font-size:12px;color:var(--text-dim);line-height:1.35}
+.legend-count{font-size:10px;color:var(--text-muted);margin-top:1px}
+.detail-panel{transition:border-color 0.3s,background 0.3s;min-height:160px;max-height:70vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent}
+.detail-empty{text-align:center;padding:24px 0;color:var(--text-muted);font-size:13px}
+.detail-name{font-size:20px;font-weight:700;letter-spacing:-0.01em}
+.detail-risk{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:6px 0 10px}
+.detail-text{font-size:13px;color:var(--text-dim);line-height:1.65}
+.detail-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin-right:4px;margin-bottom:4px}
+.detail-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle}
+
+/* Officials section */
+.officials{margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.officials-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px}
+.off-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.off-row:last-child{border-bottom:none}
+.off-label{color:var(--text-muted);font-weight:600;min-width:28px;flex-shrink:0;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;padding-top:1px}
+.off-val{color:var(--text-dim);text-align:right;line-height:1.4}
+.off-party{display:inline-block;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle}
+.off-party.d{background:rgba(59,130,246,0.15);color:#60A5FA;border:1px solid rgba(59,130,246,0.2)}
+.off-party.r{background:rgba(239,68,68,0.15);color:#F87171;border:1px solid rgba(239,68,68,0.2)}
+.off-party.np{background:rgba(156,163,175,0.15);color:#9CA3AF;border:1px solid rgba(156,163,175,0.2)}
+.off-ballot{font-size:9px;color:var(--text-faint);font-style:italic}
+.off-stance{font-size:10px;margin-top:2px;line-height:1.4}
+.off-stance.fighting{color:#22C55E}
+.off-stance.complying{color:#F59E0B}
+.off-stance.mixed{color:#F97316}
+.races-section{margin-top:10px;padding-top:8px;border-top:1px solid var(--border)}
+.races-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:6px}
+.race-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:600;margin:2px;background:rgba(255,255,255,0.05);border:1px solid var(--border)}
+.race-chip .rc-dist{color:var(--text)}
+.race-chip .rc-rating{font-size:9px;font-weight:700;letter-spacing:0.04em}
+.rc-tossup{color:#F59E0B}.rc-lean-d{color:#60A5FA}.rc-lean-r{color:#F87171}.rc-likely-d{color:#3B82F6}.rc-likely-r{color:#DC2626}
+.detail-actions{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.detail-act-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:5px;font-size:10px;font-weight:600;
+  color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid var(--border);text-decoration:none;transition:all 0.15s;cursor:pointer}
+.detail-act-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:var(--text)}
+.detail-act-btn.dl{color:var(--accent);border-color:rgba(185,28,28,0.2)}
+.detail-act-btn.dl:hover{background:rgba(185,28,28,0.1);border-color:rgba(185,28,28,0.3)}
+.detail-act-btn svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+.detail-sources{margin-top:10px;padding-top:8px;border-top:1px solid var(--border)}
+.detail-sources-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:5px}
+.detail-src-link{display:inline-block;font-size:10px;color:var(--text-muted);text-decoration:underline;text-underline-offset:2px;margin-right:10px;margin-bottom:3px;line-height:1.6}
+.detail-src-link:hover{color:var(--text)}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;transition:border-color 0.2s,background 0.2s;position:relative;overflow:hidden}
+.stat-card:hover{border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.05)}
+.stat-card.expanded{border-color:rgba(239,68,68,0.2);background:rgba(239,68,68,0.04)}
+.stat-num{font-size:22px;font-weight:700;letter-spacing:-0.02em}
+.stat-label{font-size:11px;font-weight:600;color:var(--text-dim)}
+.stat-sub{font-size:10px;color:var(--text-muted)}
+.stat-expand-hint{font-size:9px;color:var(--text-faint);margin-top:4px;transition:color 0.2s}
+.stat-card:hover .stat-expand-hint{color:var(--text-muted)}
+.stat-states{display:none;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:11px;color:var(--text-dim);line-height:1.6}
+.stat-card.expanded .stat-states{display:block}
+.stat-state-chip{display:inline-block;padding:1px 6px;background:rgba(255,255,255,0.06);border-radius:3px;font-size:10px;font-weight:600;margin:2px 2px;color:var(--text)}
+
+/* Courts */
+.court-wins{padding:14px 18px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:10px}
+.court-wins-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#22C55E;margin-bottom:10px}
+.court-case{padding:8px 0;border-bottom:1px solid rgba(34,197,94,0.08)}
+.court-case:last-child{border-bottom:none;padding-bottom:0}
+.court-state{font-size:12px;font-weight:700;color:var(--text)}
+.court-detail{font-size:11px;color:var(--text-dim);line-height:1.5;margin-top:2px}
+.court-date{font-size:10px;color:#22C55E;font-weight:600;margin-top:2px}
+.court-link{color:#22C55E;text-decoration:underline;text-underline-offset:2px;font-size:10px}
+.court-updated{font-size:10px;color:var(--text-faint);margin-top:10px;padding-top:8px;border-top:1px solid rgba(34,197,94,0.08);font-style:italic}
+
+/* Actions */
+.actions{margin-top:28px;padding:20px 24px;background:rgba(185,28,28,0.05);border:1px solid rgba(185,28,28,0.12);border-radius:14px}
+.actions-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px}
+.actions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.action-item{font-size:12.5px;color:var(--text-dim);line-height:1.5;padding:6px 0}
+.action-item strong{color:var(--text);font-weight:600}
+.action-arrow{color:var(--accent);margin-right:6px;font-weight:700}
+.action-link{display:inline-block;margin-top:3px;font-size:11px;color:var(--accent);text-decoration:underline;text-underline-offset:2px;opacity:0.8;transition:opacity 0.15s}
+.action-link:hover{opacity:1}
+
+.footer{margin-top:24px;text-align:center;font-size:11px;color:var(--text-faint);line-height:1.6}
+
+/* Email signup */
+.signup{margin-top:24px;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;text-align:center}
+.signup-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.signup-sub{font-size:12px;color:var(--text-dim);margin-bottom:14px}
+.signup-form{display:flex;gap:8px;max-width:440px;margin:0 auto 10px}
+.signup-email{flex:1;padding:9px 14px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color 0.2s}
+.signup-email::placeholder{color:var(--text-faint)}
+.signup-email:focus{border-color:rgba(255,255,255,0.15)}
+.signup-submit{padding:9px 18px;background:var(--accent);border:none;border-radius:8px;font-family:'DM Sans',system-ui,sans-serif;
+  font-size:13px;font-weight:700;color:white;cursor:pointer;transition:background 0.15s;white-space:nowrap}
+.signup-submit:hover{background:#DC2626}
+.signup-check{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;cursor:pointer}
+.signup-check input{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
+.signup-check label{font-size:11px;color:var(--text-muted);cursor:pointer}
+.signup-note{font-size:10px;color:var(--text-faint);margin-top:8px}
+.signup-msg{font-size:12px;font-weight:600;margin-top:8px;display:none}
+.signup-msg.success{display:block;color:#22C55E}
+.signup-msg.error{display:block;color:var(--accent)}
+@media(max-width:600px){.signup-form{flex-direction:column}.signup-submit{width:100%}.signup-email{font-size:16px}}
+.footer a{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
+.tooltip{position:fixed;pointer-events:none;background:rgba(10,10,15,0.95);border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text);z-index:1000;max-width:220px;
+  backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,0.4);opacity:0;transition:opacity 0.12s}
+.tooltip.show{opacity:1}
+.tooltip-name{font-weight:700;margin-bottom:2px}
+.tooltip-risk{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+/* Share buttons */
+.search-wrap{position:relative;margin-bottom:10px}
+.search-input{width:100%;padding:9px 14px 9px 34px;background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color 0.2s}
+.search-input::placeholder{color:var(--text-faint)}
+.search-input:focus{border-color:rgba(255,255,255,0.15)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-faint);pointer-events:none}
+.search-results{position:absolute;top:100%;left:0;right:0;background:rgba(10,10,18,0.97);border:1px solid var(--border);border-radius:8px;
+  margin-top:4px;max-height:240px;overflow-y:auto;z-index:100;display:none;backdrop-filter:blur(12px);box-shadow:0 12px 32px rgba(0,0,0,0.5)}
+.search-results.show{display:block}
+.search-result{padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;transition:background 0.1s;border-bottom:1px solid rgba(255,255,255,0.03)}
+.search-result:last-child{border-bottom:none}
+.search-result:hover,.search-result.active{background:rgba(255,255,255,0.06)}
+.search-result-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.search-result-name{font-weight:600;color:var(--text)}
+.search-result-risk{font-size:10px;color:var(--text-muted);margin-left:auto;text-transform:uppercase;letter-spacing:0.05em}
+.share-bar{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);margin-right:4px}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;
+  color:var(--text-dim);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  text-decoration:none;transition:background 0.15s,border-color 0.15s,color 0.15s;cursor:pointer}
+.share-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:var(--text)}
+.share-btn svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+.share-btn.x:hover{color:#fff;border-color:rgba(255,255,255,0.2)}
+.share-btn.fb:hover{color:#1877F2;border-color:rgba(24,119,242,0.3)}
+.share-btn.li:hover{color:#0A66C2;border-color:rgba(10,102,194,0.3)}
+.share-btn.bs:hover{color:#0085FF;border-color:rgba(0,133,255,0.3)}
+.share-btn.th:hover{color:#fff;border-color:rgba(255,255,255,0.2)}
+.share-btn.copy:hover{color:#22C55E;border-color:rgba(34,197,94,0.3)}
+.share-btn.copied{color:#22C55E;border-color:rgba(34,197,94,0.3)}
+
+/* Mobile modal overlay */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;backdrop-filter:blur(4px)}
+.modal-overlay.show{display:block}
+.mobile-modal{display:none;position:fixed;bottom:0;left:0;right:0;z-index:501;background:var(--bg);border-top:1px solid var(--border);
+  border-radius:16px 16px 0 0;max-height:80vh;overflow-y:auto;padding:20px 20px 32px;
+  box-shadow:0 -8px 40px rgba(0,0,0,0.5);transform:translateY(100%);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1)}
+.mobile-modal.show{display:block;transform:translateY(0)}
+.modal-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 16px}
+.modal-close{position:absolute;top:14px;right:16px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);cursor:pointer;font-size:14px;line-height:1}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both}
+.d1{animation-delay:0.1s}.d2{animation-delay:0.2s}.d3{animation-delay:0.35s}.d4{animation-delay:0.5s}.d5{animation-delay:0.65s}.d6{animation-delay:0.8s}
+@media(max-width:768px){
+  .tile-grid{gap:2px}
+  .tile .abbr{font-size:9px}
+  .tile .sub{display:none}
+  .actions-grid{grid-template-columns:1fr}
+  .share-bar{flex-wrap:wrap}
+  .off-row{flex-direction:column;gap:2px}
+  .off-val{text-align:left}
+  .detail-actions{flex-direction:column}
+  .detail-act-btn{justify-content:center}
+  .detail-panel{display:none !important}
+  .main-grid{grid-template-columns:1fr}
+  .sidebar{order:-1}
+  .header-row{flex-direction:column;gap:10px}
+  .header-nav{order:0}
+}
+@media(max-width:600px){
+  .tile .abbr{font-size:8px}
+  .container{padding:1rem 0.75rem}
+  .main-grid{gap:12px}
+  .search-input{font-size:16px;padding:10px 14px 10px 34px}
+}
+
+/* Print stylesheet */
+@media print{
+  body{background:#fff;color:#000}
+  body::before,body::after{display:none}
+  .container{max-width:100%;padding:0.5cm}
+  .badge,.share-bar,.search-wrap,.modal-overlay,.mobile-modal,.tooltip,.header-nav{display:none}
+  h1{-webkit-text-fill-color:#000;font-size:18pt}
+  .subtitle{color:#333}
+  .timeline{background:#f8f8f8;border:1px solid #ddd;break-inside:avoid}
+  .tl-text,.tl-text strong{color:#000}
+  .tl-date{color:#555}
+  .tile{border:1px solid #ddd;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .tile .abbr{color:#000;text-shadow:none;font-size:9pt}
+  .panel,.stat-card{background:#f8f8f8;border:1px solid #ddd;break-inside:avoid}
+  .stat-states{display:block !important}
+  .court-wins{background:#f0fdf4;border:1px solid #86efac;break-inside:avoid}
+  .actions{background:#fff8f8;border:1px solid #fca5a5;break-inside:avoid}
+  .detail-panel{display:block !important;max-height:none;overflow:visible}
+  .footer{border-top:1px solid #ddd}
+  .footer a{color:#000}
+  a{color:#B91C1C;text-decoration:underline}
+  .action-link{color:#B91C1C}
+  .detail-sources,.officials,.races-section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<a href="#tileGrid" class="skip-link">Skip to map</a>
+<div class="container">
+  <header class="animate">
+    <div class="header-row">
+      <div>
+        <div class="badge mono">2026 Midterm Threat Assessment</div>
+        <h1>Federal Election Interference Risk Map</h1>
+      </div>
+      <nav class="header-nav" aria-label="Site navigation">
+        <a href="methodology.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Methodology</a>
+        <a href="about.html" class="nav-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>About</a>
+      </nav>
+    </div>
+    <p class="subtitle">Tracking DOJ lawsuits, FBI actions, Project 2025 implementation, and competitive House races. Based on Brennan Center, DOJ press releases, NPR, and news reporting through February 2026.</p>
+    <div class="share-bar">
+      <span class="share-label">Share</span>
+      <a class="share-btn x" href="#" onclick="shareX(event)" title="Share on X / Twitter">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X
+      </a>
+      <a class="share-btn fb" href="#" onclick="shareFB(event)" title="Share on Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="share-btn li" href="#" onclick="shareLI(event)" title="Share on LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a class="share-btn bs" href="#" onclick="shareBS(event)" title="Share on Bluesky">
+        <svg viewBox="0 0 24 24"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.59 3.513 6.182 3.2-3.882.567-7.095 2.396-3.743 8.353C6.736 27.597 12 19.5 12 19.5s5.264 8.097 8.937 2.3c3.352-5.957.139-7.786-3.743-8.353 2.592.313 5.397-.573 6.182-3.2.246-.828.624-5.788.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.747 13.087 8.686 12 10.8z"/></svg>
+        Bluesky
+      </a>
+      <a class="share-btn th" href="#" onclick="shareTH(event)" title="Share on Threads">
+        <svg viewBox="0 0 24 24"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.343-.783-.99-1.42-1.876-1.845-.168.96-.467 1.835-.901 2.555-1.012 1.678-2.686 2.572-4.84 2.586h-.025c-1.655-.009-3.032-.622-3.982-1.77-.87-1.054-1.34-2.505-1.356-4.14.056-4.082 2.544-5.902 5.338-5.922 1.27.01 2.347.377 3.2 1.09.81.678 1.37 1.636 1.664 2.837.31-.18.59-.39.836-.63.934-.919 1.02-2.085.086-3.072C15.952 5.578 14.282 5 12.2 4.986c-4.267.03-6.63 2.752-6.663 7.014.033 4.265 2.396 6.988 6.663 7.014 1.492-.01 3.16-.38 4.205-1.422l1.397 1.45c-1.498 1.49-3.6 1.978-5.602 1.958zM12.2 10.27c-1.69.018-3.238 1.063-3.265 3.73.01.922.296 1.71.805 2.262.524.57 1.276.876 2.176.883h.018c1.29-.01 2.252-.502 2.857-1.504.493-.818.716-1.88.713-3.128-.168-.79-.497-1.39-.977-1.782-.504-.41-1.238-.641-2.122-.653-.07-.003-.14-.006-.205-.008z"/></svg>
+        Threads
+      </a>
+      <button class="share-btn copy" onclick="copyLink(this)" title="Copy link">
+        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+        Copy link
+      </button>
+    </div>
+  </header>
+
+  <!-- Timeline -->
+  <div class="timeline animate d1">
+    <div class="timeline-title mono"><span class="pulse"></span> Latest Developments</div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 10</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text">Trump-appointed judge <strong>dismisses Michigan</strong> voter data case — 3rd court to reject DOJ on the merits (0 for 3) <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 10</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text"><strong>Virginia</strong> becomes the 24th state sued by DOJ for voter data</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 3</div>
+      <div class="tl-dot" style="background:var(--critical)"></div>
+      <div class="tl-text">Trump calls on Republicans to <strong>"nationalize the voting"</strong> in at least 15 places — Constitution delegates elections to states <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Jan 28</div>
+      <div class="tl-dot" style="background:var(--critical)"></div>
+      <div class="tl-text"><strong>FBI raids Fulton County, GA</strong> election offices — seizes 2020 ballots and voter rolls. DNI Gabbard on-site, called Trump during raid</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Jan 25</div>
+      <div class="tl-dot" style="background:var(--critical)"></div>
+      <div class="tl-text">AG Bondi demands <strong>Minnesota voter rolls as condition for pulling ICE</strong> — Secretary of State calls it "an apparent ransom" <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Jan 23</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text">Federal judge <strong>dismisses Georgia</strong> voter data lawsuit on jurisdictional grounds — DOJ filed in wrong court, can refile</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Jan 2026</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text">Courts <strong>dismiss California and Oregon</strong> cases on the merits — CA judge calls centralization effort "alarming"</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Dec 2025</div>
+      <div class="tl-dot" style="background:var(--moderate)"></div>
+      <div class="tl-text"><strong>Second wave of lawsuits</strong> — DOJ sues WI, IL, GA, DC, DE, MD, NM, RI, VT, WA, and more for voter data</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Sept 2025</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text"><strong>First wave</strong> — DOJ sues CA, MI, MN, NH, NY, OR, PA for refusing to hand over voter rolls with SSNs</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2025</div>
+      <div class="tl-dot" style="background:var(--moderate)"></div>
+      <div class="tl-text"><strong>CISA gutted</strong> — 1,000+ election security staff fired, transferred, or resigned. FBI banned from countering election disinfo</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="map-container animate d2">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        <input type="text" class="search-input" id="stateSearch" placeholder="Find your state…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search for a state">
+        <div class="search-results" id="searchResults" role="listbox"></div>
+      </div>
+      <div class="tile-grid" id="tileGrid" role="grid" aria-label="State risk level map"></div>
+    </div>
+    <div class="sidebar">
+      <div class="panel animate d3">
+        <div class="panel-title mono">Risk Level</div>
+        <div id="legend"></div>
+      </div>
+      <div class="panel detail-panel animate d3" id="detailPanel">
+        <div class="detail-empty" id="detailEmpty">Hover or tap a state<br>to view threat details</div>
+        <div id="detailContent" style="display:none"></div>
+      </div>
+
+      <div class="stats-grid animate d4">
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">24</div>
+          <div class="stat-label">States Sued</div>
+          <div class="stat-sub">+ D.C. for voter data</div>
+          <div class="stat-expand-hint">tap to see states</div>
+          <div class="stat-states" id="statesSued"></div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">11</div>
+          <div class="stat-label">Complied</div>
+          <div class="stat-sub">with DOJ demands</div>
+          <div class="stat-expand-hint">tap to see states</div>
+          <div class="stat-states" id="statesComplied"></div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">1,000+</div>
+          <div class="stat-label">CISA Staff Lost</div>
+          <div class="stat-sub">election security gutted</div>
+          <div class="stat-expand-hint">tap for details</div>
+          <div class="stat-states">The Cybersecurity and Infrastructure Security Agency — which helped local officials protect voting systems from hacking — has lost over 1,000 employees through firings, layoffs, and transfers since early 2025. Dismantling CISA was a key Project 2025 recommendation.</div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">47</div>
+          <div class="stat-label">States Contacted</div>
+          <div class="stat-sub">by DOJ total</div>
+          <div class="stat-expand-hint">tap for details</div>
+          <div class="stat-states">At least 47 states and Washington, D.C. received DOJ requests for complete voter registration lists, including driver's license numbers and partial Social Security numbers. Only 11 provided the data. The rest refused or sought clarification.</div>
+        </div>
+      </div>
+
+      <div class="court-wins animate d5">
+        <div class="court-wins-title mono">Courts Fighting Back</div>
+        <div class="court-case">
+          <div class="court-state">Michigan <span style="color:#22C55E">— Case Dismissed</span></div>
+          <div class="court-detail">Trump-appointed Judge Jarbou ruled all three federal laws DOJ cited "do not allow the United States to obtain the records at issue." Third dismissal on the merits.</div>
+          <div class="court-date">Feb 10, 2026 · <a class="court-link" href="https://www.votebeat.org/michigan/2026/02/10/trump-justice-department-lawsuit-voter-rolls-data-dismissed-judge-hala-jarbou-jocelyn-benson/" target="_blank">Votebeat</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">California <span style="color:#22C55E">— Case Dismissed</span></div>
+          <div class="court-detail">Judge ruled DOJ's voter data demands paint "an alarming picture regarding the centralization of Americans' information within the Executive Branch."</div>
+          <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/analysis-opinion/trump-administration-has-sued-more-20-states-refusing-turn-over-voter" target="_blank">Brennan Center</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Oregon <span style="color:#22C55E">— Case Dismissed</span></div>
+          <div class="court-detail">Court rejected DOJ's legal theory that federal law entitles it to unredacted voter files with Social Security numbers.</div>
+          <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center Tracker</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Georgia <span style="color:#F59E0B">— Dismissed (Jurisdictional)</span></div>
+          <div class="court-detail">Judge dismissed voter data lawsuit because DOJ filed in the wrong court. Dismissed without prejudice — DOJ can refile in Atlanta. (The separate FBI raid on Fulton County is a different action.)</div>
+          <div class="court-date">Jan 23, 2026 · <a class="court-link" href="https://georgiarecorder.com/2026/01/23/federal-judge-tosses-out-doj-lawsuit-seeking-sensitive-voter-data-in-georgia/" target="_blank">Georgia Recorder</a></div>
+        </div>
+        <div class="court-updated">Last updated: February 10, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions animate d6">
+    <div class="actions-title mono">What You Can Do Now</div>
+    <div class="actions-grid">
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Verify your voter registration</strong> — Check now and again before November. Protect against purges.
+        <br><a class="action-link" href="https://www.vote.org/am-i-registered-to-vote/" target="_blank">Check at vote.org →</a>
+      </div>
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Volunteer as a poll worker or observer</strong> — More eyes on the process deter irregularities.
+        <br><a class="action-link" href="https://www.eac.gov/help-america-vote" target="_blank">Find your local signup →</a>
+      </div>
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Support local election officials</strong> — Attend board meetings, push back publicly on threats and intimidation.
+        <br><a class="action-link" href="https://www.commoncause.org/our-work/voting-and-elections/" target="_blank">Common Cause Election Hub →</a>
+      </div>
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Fund legal defense efforts</strong> — The Brennan Center, ACLU, and state AGs are fighting DOJ lawsuits and winning.
+        <br><a class="action-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center Tracker →</a>
+        &nbsp;&nbsp;<a class="action-link" href="https://www.aclu.org/voting-rights" target="_blank">ACLU Voting Rights →</a>
+      </div>
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Contact your state representatives</strong> — Urge them to resist handing over sensitive voter data.
+        <br><a class="action-link" href="https://openstates.org/find_your_legislator/" target="_blank">Find your legislators →</a>
+      </div>
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Track Project 2025 implementation</strong> — Stay informed on what's being implemented in real time.
+        <br><a class="action-link" href="https://www.project2025.observer/en" target="_blank">Project 2025 Tracker →</a>
+        &nbsp;&nbsp;<a class="action-link" href="https://www.votebeat.org" target="_blank">Votebeat →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="signup animate d6">
+    <div class="signup-title">Stay Informed</div>
+    <div class="signup-sub">Get updates on election risks and calls to action.</div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/experiments4good" method="post" target="_blank" class="signup-form" id="signupForm">
+      <input type="email" name="email" class="signup-email" id="signupEmail" placeholder="you@email.com" required aria-label="Email address">
+      <input type="hidden" name="tag" value="election-risk-map">
+      <input type="hidden" name="tag" id="e4gTag" value="" disabled>
+      <button type="submit" class="signup-submit">Subscribe</button>
+    </form>
+    <div class="signup-check">
+      <input type="checkbox" id="e4gCheck" onchange="document.getElementById('e4gTag').disabled=!this.checked;document.getElementById('e4gTag').value=this.checked?'experiments4good':''">
+      <label for="e4gCheck">Also get updates on other experiments4good projects</label>
+    </div>
+    <div class="signup-note">No spam. Unsubscribe anytime.</div>
+  </div>
+
+  <div class="footer">
+    Sources: <a href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center for Justice</a> · 
+    <a href="https://www.justice.gov/opa" target="_blank">DOJ Press Releases</a> · 
+    <a href="https://www.npr.org" target="_blank">NPR</a> · NBC News · Common Cause · 
+    <a href="https://www.democracydocket.com" target="_blank">Democracy Docket</a> · 
+    <a href="https://www.votebeat.org" target="_blank">Votebeat</a>
+    <br>Data as of February 2026. This is an informational resource, not legal advice.
+    <br>Corrections: <a href="mailto:info@electionriskmap.org">info@electionriskmap.org</a> · <a href="feed.xml">RSS Feed</a>
+  </div>
+</div>
+
+<!-- Mobile modal for state details -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="mobile-modal" id="mobileModal">
+  <div class="modal-handle"></div>
+  <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+  <div id="mobileModalContent"></div>
+</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="tooltip-name" id="tooltipName"></div>
+  <div class="tooltip-risk" id="tooltipRisk"></div>
+</div>
+
+<script>
+// Share functionality
+const SHARE_URL = 'https://electionriskmap.org';
+const SHARE_TEXT = 'The DOJ has sued 24 states for voter data, the FBI raided Georgia election offices, and 1,000+ CISA staff have been fired. See which states are at risk ahead of the 2026 midterms.';
+
+function shareX(e) {
+  e.preventDefault();
+  window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`, '_blank', 'width=550,height=420');
+}
+function shareFB(e) {
+  e.preventDefault();
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`, '_blank', 'width=550,height=420');
+}
+function shareLI(e) {
+  e.preventDefault();
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`, '_blank', 'width=550,height=420');
+}
+function shareBS(e) {
+  e.preventDefault();
+  window.open(`https://bsky.app/intent/compose?text=${encodeURIComponent(SHARE_TEXT + '\n\n' + SHARE_URL)}`, '_blank', 'width=550,height=520');
+}
+function shareTH(e) {
+  e.preventDefault();
+  window.open(`https://www.threads.net/intent/post?text=${encodeURIComponent(SHARE_TEXT + '\n\n' + SHARE_URL)}`, '_blank', 'width=550,height=520');
+}
+function copyLink(btn) {
+  navigator.clipboard.writeText(SHARE_URL).then(() => {
+    btn.classList.add('copied');
+    const textNode = btn.querySelector('svg').nextSibling;
+    textNode.textContent = ' Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      textNode.textContent = ' Copy link';
+    }, 2000);
+  });
+}
+
+// Data
+const GRID={AK:[0,0],ME:[10,0],WI:[5,1],VT:[9,1],NH:[10,1],WA:[0,2],ID:[1,2],MT:[2,2],ND:[3,2],MN:[4,2],IL:[5,2],MI:[6,2],NY:[8,2],MA:[9,2],CT:[10,2],OR:[0,3],NV:[1,3],WY:[2,3],SD:[3,3],IA:[4,3],IN:[5,3],OH:[6,3],PA:[7,3],NJ:[8,3],RI:[9,3],CA:[0,4],UT:[1,4],CO:[2,4],NE:[3,4],MO:[4,4],KY:[5,4],WV:[6,4],VA:[7,4],MD:[8,4],DE:[9,4],AZ:[1,5],NM:[2,5],KS:[3,5],AR:[4,5],TN:[5,5],NC:[6,5],SC:[7,5],DC:[8,5],OK:[3,6],LA:[4,6],MS:[5,6],AL:[6,6],GA:[7,6],HI:[0,7],TX:[3,7],FL:[7,7]};
+const RISK_LEVELS={critical:{color:'#B91C1C',label:'Critical — Direct Federal Action'},high:{color:'#DC2626',label:'High — Sued + Battleground'},elevated:{color:'#EA580C',label:'Elevated — Sued for Voter Data'},moderate:{color:'#D97706',label:'Moderate — Sued (Later Waves)'},complied:{color:'#6B7280',label:'Complied with DOJ'},noaction:{color:'#1E293B',label:'No Major Reported Action'}};
+const STATES={AL:{name:"Alabama",risk:"noaction",details:"No major reported federal election action."},AK:{name:"Alaska",risk:"complied",details:"Provided full voter file to DOJ. Signed confidential memorandum of understanding with the Justice Department."},AZ:{name:"Arizona",risk:"elevated",details:"Sued for voter data (Jan 2026). Key swing state with history of election conspiracy targeting.",tags:["Sued"]},AR:{name:"Arkansas",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},CA:{name:"California",risk:"elevated",details:"Sued for voter data (Sept 2025, first wave). Court DISMISSED the DOJ's case — judge found 'alarming' evidence of centralization effort.",tags:["Sued","Case Dismissed"]},CO:{name:"Colorado",risk:"high",details:"Sued for voter data (Dec 2025). White House-linked consultant contacted county clerks about accessing voting machines. Secretary of State actively resisting.",tags:["Sued","Machine Access Attempt"]},CT:{name:"Connecticut",risk:"elevated",details:"Sued for voter data (Jan 2026).",tags:["Sued"]},DE:{name:"Delaware",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},FL:{name:"Florida",risk:"noaction",details:"No major reported federal election targeting."},GA:{name:"Georgia",risk:"critical",details:"FBI raided Fulton County election offices (Jan 28, 2026), seizing 2020 ballots and voter rolls. DNI Tulsi Gabbard was on-hand and called Trump during raid. Also sued for voter data — case dismissed on jurisdictional grounds (wrong court), but DOJ can refile in Atlanta.",tags:["FBI Raid","Sued","Dismissed (Jurisdictional)"]},HI:{name:"Hawaii",risk:"elevated",details:"Sued for voter data (Dec 2025).",tags:["Sued"]},ID:{name:"Idaho",risk:"noaction",details:"No major reported federal election action."},IL:{name:"Illinois",risk:"elevated",details:"Sued for voter data (Dec 2025). Part of the wave with Wisconsin, Georgia, and DC.",tags:["Sued"]},IN:{name:"Indiana",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},IA:{name:"Iowa",risk:"noaction",details:"No major reported federal election action."},KS:{name:"Kansas",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},KY:{name:"Kentucky",risk:"noaction",details:"No major reported federal election action."},LA:{name:"Louisiana",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},ME:{name:"Maine",risk:"elevated",details:"Sued for voter data. Competitive House district (ME-2).",tags:["Sued"]},MD:{name:"Maryland",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},MA:{name:"Massachusetts",risk:"elevated",details:"Sued for voter data (Dec 2025).",tags:["Sued"]},MI:{name:"Michigan",risk:"high",details:"Sued for voter data (Sept 2025, first wave). Court DISMISSED the DOJ's case (Feb 10, 2026) — Trump-appointed Judge Jarbou ruled all three cited federal laws do not require disclosure. Multiple competitive House districts. Key battleground with active redistricting fights.",tags:["Sued","Case Dismissed","Battleground"]},MN:{name:"Minnesota",risk:"high",details:"Sued for voter data (Sept 2025, first wave). AG Bondi demanded voter rolls as a condition for withdrawing ICE from Minneapolis (Jan 25, 2026) — hours after agents fatally shot a second person. SoS Steve Simon called it 'an apparent ransom.' Arizona SoS compared it to 'organized crime.'",tags:["Sued","Coercion Attempt","Battleground"]},MS:{name:"Mississippi",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},MO:{name:"Missouri",risk:"noaction",details:"U.S. Attorney from Eastern District sought Fulton County search warrant. Active redistricting fight in courts."},MT:{name:"Montana",risk:"noaction",details:"No major reported federal election action."},NE:{name:"Nebraska",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},NV:{name:"Nevada",risk:"elevated",details:"Sued for voter data (Dec 2025). Key swing state with competitive races.",tags:["Sued","Battleground"]},NH:{name:"New Hampshire",risk:"high",details:"Sued for voter data (Sept 2025, first wave). Competitive House races with outsized national importance.",tags:["Sued","Battleground"]},NJ:{name:"New Jersey",risk:"noaction",details:"No major reported federal election action."},NM:{name:"New Mexico",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},NY:{name:"New York",risk:"elevated",details:"Sued for voter data (Sept 2025, first wave). Multiple competitive House districts on Long Island and in Hudson Valley.",tags:["Sued"]},NC:{name:"North Carolina",risk:"noaction",details:"No major reported federal election action. Competitive swing state."},ND:{name:"North Dakota",risk:"noaction",details:"No major reported federal election action."},OH:{name:"Ohio",risk:"noaction",details:"No major reported federal election action."},OK:{name:"Oklahoma",risk:"noaction",details:"No major reported federal election action."},OR:{name:"Oregon",risk:"elevated",details:"Sued for voter data. Court DISMISSED the DOJ's case, rejecting government's legal theory.",tags:["Sued","Case Dismissed"]},PA:{name:"Pennsylvania",risk:"high",details:"Sued for voter data (Sept 2025, first wave). 4 highly competitive House races — most of any state. Former Sec. of State named as prosecution target in Project 2025 blueprint.",tags:["Sued","Battleground","P2025 Target"]},RI:{name:"Rhode Island",risk:"moderate",details:"Sued for voter data (Dec 2025). Sec. of State offered public list but refused to provide confidential personal information.",tags:["Sued"]},SC:{name:"South Carolina",risk:"noaction",details:"No major reported federal election action."},SD:{name:"South Dakota",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},TN:{name:"Tennessee",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},TX:{name:"Texas",risk:"complied",details:"Provided full voter file to DOJ. Signed confidential memorandum of understanding with the Justice Department."},UT:{name:"Utah",risk:"noaction",details:"Court-ordered redistricting map. No major DOJ voter data action reported."},VT:{name:"Vermont",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},VA:{name:"Virginia",risk:"elevated",details:"Sued for voter data (Jan 2026) — the 24th state sued. Active redistricting constitutional amendment fight.",tags:["Sued"]},WA:{name:"Washington",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave). Multiple competitive House districts.",tags:["Sued"]},WV:{name:"West Virginia",risk:"noaction",details:"No major reported federal election action."},WI:{name:"Wisconsin",risk:"high",details:"Sued for voter data (Dec 2025). Bipartisan Elections Commission voted against DOJ — both R and D commissioners said compliance would violate state law.",tags:["Sued","Bipartisan Resistance","Battleground"]},WY:{name:"Wyoming",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},DC:{name:"Washington D.C.",risk:"moderate",details:"Sued for voter data (Dec 2025). Interim U.S. Attorney Ed Martin — who spoke at Capitol on eve of Jan 6 — created 'election crimes' special unit.",tags:["Sued","Election Crimes Unit"]}};
+const SHORT_DESC={critical:"FBI RAID",high:"SUED+",elevated:"SUED",moderate:"SUED",complied:"GAVE DATA",noaction:""};
+
+// Per-state source links — primary reporting for each state's events
+const SOURCES={
+GA:[{t:"FBI Raids Fulton County",u:"https://www.cbsnews.com/news/fbi-raids-fulton-county-election-offices-georgia/"},{t:"Brennan Center Tracker",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"},{t:"GA Case Dismissed",u:"https://www.courthousenews.com/federal-judge-tosses-doj-voter-data-lawsuit-against-georgia/"}],
+CA:[{t:"CA Case Dismissed",u:"https://www.usatoday.com/story/news/politics/2026/01/15/federal-courts-deny-trump-voter-data-california-oregon/77773011007/"},{t:"Brennan Center",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+OR:[{t:"OR Case Dismissed",u:"https://www.usatoday.com/story/news/politics/2026/01/15/federal-courts-deny-trump-voter-data-california-oregon/77773011007/"}],
+CO:[{t:"DOJ Sues Colorado",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"},{t:"Machine Access Attempt",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+MI:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook House Ratings",u:"https://www.cookpolitical.com/ratings/house-race-ratings"}],
+MN:[{t:"ICE Coercion Attempt",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Brennan Center",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+PA:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook: 4 Competitive Races",u:"https://www.cookpolitical.com/ratings/house-race-ratings"},{t:"P2025 Blueprint",u:"https://www.project2025.observer/en"}],
+WI:[{t:"Bipartisan Resistance",u:"https://www.votebeat.org"},{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+NH:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"}],
+NV:[{t:"DOJ Lawsuit",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"}],
+NY:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook House Ratings Shift",u:"https://spectrumlocalnews.com/nys/central-ny/politics/2026/01/16/cook-political-report-shifts-n-y--house-2026-ratings"}],
+AZ:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+VA:[{t:"24th State Sued",u:"https://www.usatoday.com/story/news/politics/2026/01/20/trump-administration-sues-another-state-sensitive-voter-data/77861445007/"}],
+CT:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+DE:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
+MD:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
+MA:[{t:"DOJ Lawsuit",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"}],
+HI:[{t:"DOJ Lawsuit",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"}],
+IL:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+ME:[{t:"DOJ Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"}],
+NM:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
+RI:[{t:"SoS Offered Public List",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
+VT:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
+WA:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
+DC:[{t:"Election Crimes Unit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+AK:[{t:"Signed DOJ MOU",u:"https://www.usatoday.com/story/news/politics/elections/2025/08/20/states-voter-rolls-doj-trump/74862840007/"}],
+TX:[{t:"Signed DOJ MOU",u:"https://www.usatoday.com/story/news/politics/elections/2025/08/20/states-voter-rolls-doj-trump/74862840007/"}],
+};
+
+// State officials data — SoS, AG, election status
+// Sources: NASS roster, Ballotpedia, Teri Tome (updated 1/24/26), Wikipedia
+const OFFICIALS={
+AL:{sos:"Wes Allen",sp:"r",ag:"Steve Marshall",ap:"r",s26:true,a26:true,note:"AG term-limited"},
+AK:{sos:"Lt. Gov. Nancy Dahlstrom",sp:"r",ag:"Treg Taylor",ap:"r",s26:false,a26:false,note:"No SoS office — Lt. Gov. oversees elections"},
+AZ:{sos:"Adrian Fontes",sp:"d",ag:"Kris Mayes",ap:"d",s26:true,a26:true,stance:"fighting",note:"Both officials fighting DOJ suit. AG won 2022 by 280 votes"},
+AR:{sos:"John Thurston",sp:"r",ag:"Tim Griffin",ap:"r",s26:true,a26:true,note:"SoS term-limited. Gave full voter file to DOJ"},
+CA:{sos:"Shirley Weber",sp:"d",ag:"Rob Bonta",ap:"d",s26:true,a26:true,stance:"fighting",note:"Court dismissed DOJ suit. AG actively defending"},
+CO:{sos:"Jena Griswold",sp:"d",ag:"Phil Weiser",ap:"d",s26:true,a26:true,stance:"fighting",note:"Both term-limited. SoS running for AG. Actively resisting DOJ"},
+CT:{sos:"Stephanie Thomas",sp:"d",ag:"William Tong",ap:"d",s26:true,a26:true,stance:"fighting",note:"AG called suit 'deeply disappointing,' will 'vigorously defend'"},
+DE:{sos:"Charuni Patibanda-Sanchez",sp:"d",ag:"Kathy Jennings",ap:"d",s26:false,a26:true,note:"SoS appointed by Gov. Meyer (D)"},
+FL:{sos:"Cord Byrd",sp:"r",ag:"James Uthmeier",ap:"r",s26:false,a26:true,note:"SoS appointed by Gov. DeSantis. AG faces first election"},
+GA:{sos:"Brad Raffensperger",sp:"r",ag:"Chris Carr",ap:"r",s26:true,a26:true,stance:"fighting",note:"SoS (R) refused DOJ data — bipartisan resistance. Running for governor"},
+HI:{sos:"Lt. Gov. Sylvia Luke",sp:"d",ag:"Anne Lopez",ap:"np",s26:false,a26:false,note:"No SoS office. AG is nonpartisan, appointed by Dem governor"},
+ID:{sos:"Phil McGrane",sp:"r",ag:"Raúl Labrador",ap:"r",s26:true,a26:true},
+IL:{sos:"Alexi Giannoulias",sp:"d",ag:"Kwame Raoul",ap:"d",s26:true,a26:true,stance:"fighting"},
+IN:{sos:"Diego Morales",sp:"r",ag:"Todd Rokita",ap:"r",s26:true,a26:false,note:"Gave full voter file to DOJ"},
+IA:{sos:"Paul Pate",sp:"r",ag:"Brenna Bird",ap:"r",s26:true,a26:true},
+KS:{sos:"Scott Schwab",sp:"r",ag:"Kris Kobach",ap:"r",s26:true,a26:true,note:"Gave full voter file to DOJ"},
+KY:{sos:"Michael Adams",sp:"r",ag:"Russell Coleman",ap:"r",s26:false,a26:false,note:"SoS term-limited, up 2027"},
+LA:{sos:"Nancy Landry",sp:"r",ag:"Liz Murrill",ap:"r",s26:false,a26:false,note:"Gave full voter file to DOJ. Up 2027"},
+ME:{sos:"Shenna Bellows",sp:"d",ag:"Aaron Frey",ap:"d",s26:false,a26:false,stance:"fighting",note:"SoS appointed by Legislature. Running for governor 2026"},
+MD:{sos:"Susan Lee",sp:"d",ag:"Anthony Brown",ap:"d",s26:false,a26:true,stance:"fighting",note:"SoS appointed by Gov. Moore (D)"},
+MA:{sos:"William Galvin",sp:"d",ag:"Andrea Campbell",ap:"d",s26:true,a26:true,stance:"fighting"},
+MI:{sos:"Jocelyn Benson",sp:"d",ag:"Dana Nessel",ap:"d",s26:true,a26:true,stance:"fighting",note:"Both term-limited. Major battleground state"},
+MN:{sos:"Steve Simon",sp:"d",ag:"Keith Ellison",ap:"d",s26:true,a26:true,stance:"fighting",note:"AG pushed back on DOJ leveraging voter data for ICE operations"},
+MS:{sos:"Michael Watson Jr.",sp:"r",ag:"Lynn Fitch",ap:"r",s26:false,a26:false,note:"Gave voter file but refused to sign DOJ confidentiality MOU"},
+MO:{sos:"Denny Hoskins",sp:"r",ag:"Andrew Bailey",ap:"r",s26:false,a26:false,note:"U.S. Attorney from Eastern MO sought Fulton County search warrant"},
+MT:{sos:"Christi Jacobsen",sp:"r",ag:"Austin Knudsen",ap:"r",s26:false,a26:false},
+NE:{sos:"Bob Evnen",sp:"r",ag:"Mike Hilgers",ap:"r",s26:true,a26:true,note:"Gave full voter file to DOJ"},
+NV:{sos:"Cisco Aguilar",sp:"d",ag:"Aaron Ford",ap:"d",s26:true,a26:true,stance:"fighting",note:"Key swing state. AG term-limited, running for governor"},
+NH:{sos:"David Scanlan",sp:"r",ag:"John Formella",ap:"r",s26:false,a26:false,stance:"fighting",note:"SoS appointed by Legislature. Despite R officials, state is fighting DOJ suit"},
+NJ:{sos:"Dale Caldwell",sp:"d",ag:"Matthew Platkin",ap:"d",s26:false,a26:false,note:"SoS appointed by Gov. Sherrill (D)"},
+NM:{sos:"Maggie Toulouse Oliver",sp:"d",ag:"Raúl Torrez",ap:"d",s26:true,a26:true,stance:"fighting"},
+NY:{sos:"Walter T. Mosley",sp:"d",ag:"Letitia James",ap:"d",s26:false,a26:true,stance:"fighting",note:"SoS appointed by Gov. Hochul (D)"},
+NC:{sos:"Elaine Marshall",sp:"d",ag:"Jeff Jackson",ap:"d",s26:false,a26:false,note:"Newly elected AG (2024). Competitive swing state"},
+ND:{sos:"Michael Howe",sp:"r",ag:"Drew Wrigley",ap:"r",s26:true,a26:true},
+OH:{sos:"Frank LaRose",sp:"r",ag:"Dave Yost",ap:"r",s26:true,a26:true,note:"Both term-limited. Active redistricting fights"},
+OK:{sos:"Benjamin Lepak",sp:"r",ag:"Gentner Drummond",ap:"r",s26:false,a26:true,note:"SoS appointed by Gov. Stitt (R)"},
+OR:{sos:"Tobias Read",sp:"d",ag:"Dan Rayfield",ap:"d",s26:false,a26:false,stance:"fighting",note:"Court dismissed DOJ suit. Newly elected AG (2024)"},
+PA:{sos:"Al Schmidt",sp:"r",ag:"Dave Sunday",ap:"r",s26:false,a26:false,stance:"mixed",note:"SoS (R) appointed by Dem Gov. Shapiro for bipartisanship. New AG (R) elected 2024"},
+RI:{sos:"Gregg Amore",sp:"d",ag:"Peter Neronha",ap:"d",s26:true,a26:true,stance:"fighting",note:"SoS offered public list, refused sensitive data. AG term-limited"},
+SC:{sos:"Mark Hammond",sp:"r",ag:"Alan Wilson",ap:"r",s26:true,a26:true,note:"AG running for governor"},
+SD:{sos:"Monae Johnson",sp:"r",ag:"Marty Jackley",ap:"r",s26:true,a26:true,note:"Gave voter file, refused DOJ confidentiality MOU. AG running for House"},
+TN:{sos:"Tre Hargett",sp:"r",ag:"Jonathan Skrmetti",ap:"r",s26:false,a26:false,note:"SoS appointed by Legislature. Gave voter file, refused DOJ MOU"},
+TX:{sos:"Jane Nelson",sp:"r",ag:"Ken Paxton",ap:"r",s26:false,a26:true,note:"SoS appointed by Gov. Abbott. Signed DOJ confidentiality MOU"},
+UT:{sos:"Lt. Gov. Deidre Henderson",sp:"r",ag:"Derek Brown",ap:"r",s26:false,a26:false,note:"No SoS office — Lt. Gov. oversees elections"},
+VT:{sos:"Sarah Copeland Hanzas",sp:"d",ag:"Charity Clark",ap:"d",s26:true,a26:true,stance:"fighting",note:"Both serve 2-year terms — both on ballot 2026"},
+VA:{sos:"Candi Mundon King",sp:"d",ag:"Jay Jones",ap:"d",s26:false,a26:false,stance:"fighting",note:"SoS appointed by Gov. Spanberger (D). AG newly elected 2025"},
+WA:{sos:"Steve Hobbs",sp:"d",ag:"Nick Brown",ap:"d",s26:false,a26:false,stance:"fighting",note:"Newly elected AG (2024)"},
+WV:{sos:"Kris Warner",sp:"r",ag:"John B. McCuskey",ap:"r",s26:false,a26:false},
+WI:{sos:"Douglas La Follette",sp:"d",ag:"Josh Kaul",ap:"d",s26:true,a26:true,stance:"fighting",note:"Bipartisan Elections Commission rejected DOJ — both R and D commissioners cited state law"},
+WY:{sos:"Chuck Gray",sp:"r",ag:"Bridget Hill",ap:"r",s26:true,a26:false,note:"SoS described as 'election denier.' Gave full voter file to DOJ"},
+DC:{sos:"—",sp:"",ag:"Brian Schwalb",ap:"d",s26:false,a26:true,stance:"fighting",note:"No traditional SoS. Interim U.S. Attorney Ed Martin created 'election crimes' unit"}
+};
+
+// Competitive House races per state — Cook Political Report ratings (Jan 15, 2026)
+const RACES={
+AZ:[{d:"AZ-01",i:"Schweikert (R)",r:"Tossup"},{d:"AZ-06",i:"Ciscomani (R)",r:"Tossup"}],
+CA:[{d:"CA-13",i:"Gray (D)",r:"Lean D"},{d:"CA-45",i:"Tran (D)",r:"Tossup"},{d:"CA-22",i:"Valadao (R)",r:"Lean R"}],
+CO:[{d:"CO-08",i:"Evans (R)",r:"Tossup"}],
+IA:[{d:"IA-01",i:"Miller-Meeks (R)",r:"Tossup"},{d:"IA-03",i:"Nunn (R)",r:"Tossup"}],
+ME:[{d:"ME-02",i:"Golden (D)",r:"Tossup"}],
+MI:[{d:"MI-07",i:"Barrett (R)",r:"Tossup"},{d:"MI-08",i:"McDonald Rivet (D)",r:"Lean D"}],
+NE:[{d:"NE-02",i:"Bacon (R)",r:"Tossup"}],
+NJ:[{d:"NJ-07",i:"Kean Jr. (R)",r:"Lean R"}],
+NM:[{d:"NM-02",i:"Vasquez (D)",r:"Lean D"}],
+NY:[{d:"NY-04",i:"Gillen (D)",r:"Lean D"},{d:"NY-17",i:"Lawler (R)",r:"Tossup"},{d:"NY-19",i:"Molinaro (R)",r:"Lean R"}],
+NC:[{d:"NC-01",i:"Davis (D)",r:"Tossup"}],
+OH:[{d:"OH-09",i:"Kaptur (D)",r:"Tossup"},{d:"OH-13",i:"Sykes (D)",r:"Lean D"}],
+PA:[{d:"PA-01",i:"Fitzpatrick (R)",r:"Lean R"},{d:"PA-07",i:"Mackenzie (R)",r:"Tossup"},{d:"PA-08",i:"Bresnahan (R)",r:"Lean D"},{d:"PA-10",i:"Perry (R)",r:"Tossup"}],
+TX:[{d:"TX-34",i:"Gonzalez (D)",r:"Tossup"},{d:"TX-28",i:"Cuellar (D)",r:"Lean D"}],
+WA:[{d:"WA-03",i:"Perez (D)",r:"Tossup"}]
+};
+
+// Build tiles
+const grid=document.getElementById('tileGrid');
+Object.entries(GRID).forEach(([abbr,[col,row]])=>{const data=STATES[abbr];if(!data)return;const risk=RISK_LEVELS[data.risk];const tile=document.createElement('div');tile.className=`tile risk-${data.risk}`;tile.dataset.state=abbr;tile.style.gridColumn=col+1;tile.style.gridRow=row+1;tile.style.background=risk.color;tile.setAttribute('tabindex','0');tile.setAttribute('role','gridcell');tile.setAttribute('aria-label',`${data.name} — ${risk.label}`);const label=SHORT_DESC[data.risk]||'';tile.innerHTML=`<div class="abbr">${abbr}</div>${label?`<div class="sub">${label}</div>`:''}`;grid.appendChild(tile)});
+
+// Build legend
+const legendEl=document.getElementById('legend');
+Object.entries(RISK_LEVELS).forEach(([key,val])=>{const count=Object.values(STATES).filter(s=>s.risk===key).length;const div=document.createElement('div');div.className='legend-item';div.dataset.risk=key;div.innerHTML=`<div class="legend-swatch" style="background:${val.color};box-shadow:0 0 8px ${val.color}40"></div><div><div class="legend-label">${val.label}</div><div class="legend-count">${count} state${count!==1?'s':''}</div></div>`;div.addEventListener('click',()=>filterByRisk(key));legendEl.appendChild(div)});
+
+// Populate stat lists
+const suedStates=Object.entries(STATES).filter(([a,d])=>['critical','high','elevated','moderate'].includes(d.risk)).map(([a])=>a).sort();
+const compliedStates=Object.entries(STATES).filter(([a,d])=>d.risk==='complied').map(([a])=>a).sort();
+document.getElementById('statesSued').innerHTML=suedStates.map(a=>`<span class="stat-state-chip" style="border-left:2px solid ${RISK_LEVELS[STATES[a].risk].color}">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">CA, OR & GA cases dismissed by courts</span>';
+document.getElementById('statesComplied').innerHTML=compliedStates.map(a=>`<span class="stat-state-chip">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">AK & TX signed confidential MOUs</span>';
+
+function toggleStat(el){const was=el.classList.contains('expanded');document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('expanded'));if(!was)el.classList.add('expanded')}
+
+// Interactivity
+const tooltip=document.getElementById('tooltip'),tooltipName=document.getElementById('tooltipName'),tooltipRisk=document.getElementById('tooltipRisk'),detailPanel=document.getElementById('detailPanel'),detailEmpty=document.getElementById('detailEmpty'),detailContent=document.getElementById('detailContent');
+let activeState=null,activeRiskFilter=null;
+
+function showDetail(abbr){const data=STATES[abbr];const risk=RISK_LEVELS[data.risk];const off=OFFICIALS[abbr];const races=RACES[abbr];detailEmpty.style.display='none';detailContent.style.display='block';
+let tagsHtml='';if(data.tags){tagsHtml='<div style="margin-top:10px">'+data.tags.map(t=>`<span class="detail-tag" style="background:${risk.color}22;color:${risk.color};border:1px solid ${risk.color}33">${t}</span>`).join('')+'</div>'}
+// Officials section
+let offHtml='';
+if(off){
+  const pBadge=(p)=>p==='d'?'<span class="off-party d">D</span>':p==='r'?'<span class="off-party r">R</span>':p==='np'?'<span class="off-party np">NP</span>':'';
+  offHtml='<div class="officials"><div class="officials-title">State Officials</div>';
+  if(off.sos&&off.sos!=='—'){
+    offHtml+=`<div class="off-row"><div class="off-label">SoS</div><div class="off-val">${off.sos}${pBadge(off.sp)}${off.s26?' <span class="off-ballot">· On ballot 2026</span>':''}</div></div>`;
+  }
+  offHtml+=`<div class="off-row"><div class="off-label">AG</div><div class="off-val">${off.ag}${pBadge(off.ap)}${off.a26?' <span class="off-ballot">· On ballot 2026</span>':''}</div></div>`;
+  if(off.stance){
+    const stanceText=off.stance==='fighting'?'Fighting DOJ lawsuit':off.stance==='complying'?'Complied with DOJ request':off.stance==='mixed'?'Mixed — divided stance':'';
+    const stanceCls=off.stance;
+    if(stanceText)offHtml+=`<div class="off-stance ${stanceCls}">↳ ${stanceText}</div>`;
+  }
+  if(off.note)offHtml+=`<div style="font-size:10px;color:var(--text-faint);margin-top:4px;line-height:1.5">⚑ ${off.note}</div>`;
+  offHtml+='</div>';
+}
+// Competitive races
+let racesHtml='';
+if(races&&races.length>0){
+  racesHtml='<div class="races-section"><div class="races-title">Competitive 2026 House Races</div>';
+  racesHtml+=races.map(r=>{
+    const cls=r.r==='Tossup'?'rc-tossup':r.r==='Lean D'?'rc-lean-d':r.r==='Lean R'?'rc-lean-r':r.r==='Likely D'?'rc-likely-d':'rc-likely-r';
+    return `<span class="race-chip"><span class="rc-dist">${r.d}</span><span class="rc-rating ${cls}">${r.r}</span></span>`;
+  }).join('');
+  racesHtml+='<div style="font-size:9px;color:var(--text-faint);margin-top:4px">Source: Cook Political Report, Jan 2026</div></div>';
+}
+// Quick action links
+let actHtml=`<div class="detail-actions"><a class="detail-act-btn" href="https://www.vote.org/am-i-registered-to-vote/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Check registration</a><a class="detail-act-btn" href="https://openstates.org/find_your_legislator/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>Find legislators</a><a class="detail-act-btn dl" href="states/${abbr}.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Download PDF</a></div>`;
+// Source links
+let srcHtml='';
+const srcs=SOURCES[abbr];
+if(srcs&&srcs.length>0){
+  srcHtml='<div class="detail-sources"><div class="detail-sources-title">Sources</div>';
+  srcHtml+=srcs.map(s=>`<a class="detail-src-link" href="${s.u}" target="_blank" rel="noopener">${s.t} →</a>`).join('');
+  srcHtml+='</div>';
+}
+
+const fullHtml=`<div style="display:flex;align-items:center;margin-bottom:6px"><span class="detail-dot" style="background:${risk.color};box-shadow:0 0 12px ${risk.color}60"></span><span class="detail-name">${data.name}</span></div><div class="detail-risk" style="color:${risk.color}">${risk.label}</div><div class="detail-text">${data.details}</div>${tagsHtml}${offHtml}${racesHtml}${actHtml}${srcHtml}`;
+detailContent.innerHTML=fullHtml;detailPanel.style.borderColor=risk.color+'30';detailPanel.style.background=risk.color+'08';
+
+// Mobile: show in modal instead of sidebar panel
+if(window.innerWidth<=768){
+  document.getElementById('mobileModalContent').innerHTML=fullHtml;
+  document.getElementById('modalOverlay').classList.add('show');
+  document.getElementById('mobileModal').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+}
+function clearDetail(){if(!activeState){detailEmpty.style.display='block';detailContent.style.display='none';detailPanel.style.borderColor='';detailPanel.style.background='';closeMobileModal&&typeof closeMobileModal==='function'&&closeMobileModal()}}
+function updateTileDimming(){document.querySelectorAll('.tile').forEach(t=>{const abbr=t.dataset.state;const data=STATES[abbr];if(activeState){t.classList.toggle('dimmed',abbr!==activeState);t.classList.toggle('active',abbr===activeState)}else if(activeRiskFilter){t.classList.toggle('dimmed',data.risk!==activeRiskFilter);t.classList.remove('active')}else{t.classList.remove('dimmed','active')}})}
+function setActiveState(abbr){activeState=abbr;activeRiskFilter=null;document.querySelectorAll('.legend-item').forEach(l=>l.classList.remove('active-legend'));updateTileDimming();if(abbr)showDetail(abbr)}
+function filterByRisk(risk){if(activeRiskFilter===risk){activeRiskFilter=null;activeState=null;document.querySelectorAll('.legend-item').forEach(l=>l.classList.remove('active-legend'));updateTileDimming();clearDetail();return}activeRiskFilter=risk;activeState=null;document.querySelectorAll('.legend-item').forEach(l=>l.classList.toggle('active-legend',l.dataset.risk===risk));updateTileDimming();clearDetail()}
+
+document.querySelectorAll('.tile').forEach(tile=>{tile.addEventListener('mouseenter',e=>{const abbr=tile.dataset.state;const data=STATES[abbr];const risk=RISK_LEVELS[data.risk];tooltipName.textContent=data.name;tooltipRisk.textContent=risk.label;tooltipRisk.style.color=risk.color;tooltip.classList.add('show');if(!activeState)showDetail(abbr)});tile.addEventListener('mousemove',e=>{let x=e.clientX+14,y=e.clientY-10;if(x+220>window.innerWidth)x=e.clientX-220-14;if(y+60>window.innerHeight)y=e.clientY-60;tooltip.style.left=x+'px';tooltip.style.top=y+'px'});tile.addEventListener('mouseleave',()=>{tooltip.classList.remove('show');if(!activeState)clearDetail()});tile.addEventListener('click',e=>{e.stopPropagation();const abbr=tile.dataset.state;if(activeState===abbr){setActiveState(null);clearDetail()}else{setActiveState(abbr)}});tile.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();const abbr=tile.dataset.state;if(activeState===abbr){setActiveState(null);clearDetail()}else{setActiveState(abbr)}}});tile.addEventListener('touchstart',e=>{e.preventDefault();const abbr=tile.dataset.state;if(activeState===abbr){setActiveState(null);clearDetail()}else{setActiveState(abbr)}},{passive:false})});
+
+document.addEventListener('click',e=>{if(!e.target.closest('.tile')&&!e.target.closest('.legend-item')&&!e.target.closest('.panel')&&!e.target.closest('.stat-card')&&!e.target.closest('.search-wrap')&&!e.target.closest('.mobile-modal')){setActiveState(null);activeRiskFilter=null;document.querySelectorAll('.legend-item').forEach(l=>l.classList.remove('active-legend'));updateTileDimming();clearDetail()}});
+
+// Mobile modal close
+function closeMobileModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.getElementById('mobileModal').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.getElementById('modalClose').addEventListener('click',closeMobileModal);
+document.getElementById('modalOverlay').addEventListener('click',closeMobileModal);
+
+// Search functionality
+const searchInput=document.getElementById('stateSearch');
+const searchResults=document.getElementById('searchResults');
+const stateList=Object.entries(STATES).map(([abbr,data])=>({abbr,name:data.name,risk:data.risk}));
+let searchHighlight=-1;
+
+searchInput.addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  searchHighlight=-1;
+  if(!q){searchResults.classList.remove('show');searchInput.setAttribute('aria-expanded','false');return}
+  const matches=stateList.filter(s=>s.name.toLowerCase().includes(q)||s.abbr.toLowerCase()===q).slice(0,8);
+  if(matches.length===0){searchResults.classList.remove('show');searchInput.setAttribute('aria-expanded','false');return}
+  searchResults.innerHTML=matches.map((s,i)=>{
+    const risk=RISK_LEVELS[s.risk];
+    return `<div class="search-result" role="option" data-abbr="${s.abbr}" data-idx="${i}"><span class="search-result-dot" style="background:${risk.color}"></span><span class="search-result-name">${s.name}</span><span class="search-result-risk" style="color:${risk.color}">${s.abbr}</span></div>`;
+  }).join('');
+  searchResults.classList.add('show');searchInput.setAttribute('aria-expanded','true');
+  searchResults.querySelectorAll('.search-result').forEach(r=>{
+    r.addEventListener('click',()=>{selectSearchResult(r.dataset.abbr)});
+    r.addEventListener('mouseenter',()=>{searchHighlight=parseInt(r.dataset.idx);updateSearchHighlight()});
+  });
+});
+
+searchInput.addEventListener('keydown',function(e){
+  const items=searchResults.querySelectorAll('.search-result');
+  if(!items.length)return;
+  if(e.key==='ArrowDown'){e.preventDefault();searchHighlight=Math.min(searchHighlight+1,items.length-1);updateSearchHighlight()}
+  else if(e.key==='ArrowUp'){e.preventDefault();searchHighlight=Math.max(searchHighlight-1,0);updateSearchHighlight()}
+  else if(e.key==='Enter'&&searchHighlight>=0){e.preventDefault();selectSearchResult(items[searchHighlight].dataset.abbr)}
+  else if(e.key==='Escape'){searchResults.classList.remove('show');searchInput.blur()}
+});
+
+function updateSearchHighlight(){
+  searchResults.querySelectorAll('.search-result').forEach((r,i)=>r.classList.toggle('active',i===searchHighlight));
+}
+
+function selectSearchResult(abbr){
+  searchResults.classList.remove('show');
+  searchInput.value='';
+  searchInput.setAttribute('aria-expanded','false');
+  setActiveState(abbr);
+  const tile=document.querySelector(`.tile[data-state="${abbr}"]`);
+  if(tile)tile.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// Close search when clicking outside
+document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))searchResults.classList.remove('show')});
+
+// Auto-detect visitor's state via IP geolocation
+(async function(){
+  try{
+    const resp=await fetch('https://get.geojs.io/v1/ip/geo.json');
+    const geo=await resp.json();
+    if(geo.region&&geo.country_code==='US'){
+      // Map state names to abbreviations
+      const nameToAbbr={};
+      Object.entries(STATES).forEach(([abbr,data])=>{nameToAbbr[data.name.toLowerCase()]=abbr});
+      const detected=nameToAbbr[geo.region.toLowerCase()];
+      if(detected&&!activeState){
+        showDetail(detected);
+        // Subtle highlight without locking
+        const tile=document.querySelector(`.tile[data-state="${detected}"]`);
+        if(tile){tile.style.outline='2px solid rgba(255,255,255,0.3)';tile.style.outlineOffset='1px'}
+      }
+    }
+  }catch(e){/* silent fail — geolocation is a nice-to-have */}
+})();
+</script>
+</body>
+</html>

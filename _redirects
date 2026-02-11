@@ -1,0 +1,5 @@
+# Redirect alternate domains to primary
+https://electionrisk.org/* https://electionriskmap.org/:splat 301!
+https://www.electionrisk.org/* https://electionriskmap.org/:splat 301!
+https://electionrisks.org/* https://electionriskmap.org/:splat 301!
+https://www.electionrisks.org/* https://electionriskmap.org/:splat 301!

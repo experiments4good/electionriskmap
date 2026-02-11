@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Federal Election Interference Risk Map</title>
+  <link>https://electionriskmap.org</link>
+  <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
+  <language>en-us</language>
+  <lastBuildDate>Tue, 10 Feb 2026 22:00:00 -0500</lastBuildDate>
+  <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
+  
+  <item>
+    <title>Trump-appointed judge dismisses Michigan voter data lawsuit</title>
+    <description>U.S. District Judge Hala Jarbou, a Trump appointee, dismissed the DOJ's lawsuit seeking Michigan's voter rolls. She ruled that none of the three federal laws cited — the Civil Rights Act of 1960, NVRA, and HAVA — require states to hand over the data. This is the third dismissal on the merits, after California and Oregon. The DOJ is now 0-for-3 in court.</description>
+    <link>https://electionriskmap.org/#MI</link>
+    <pubDate>Tue, 10 Feb 2026 18:00:00 -0500</pubDate>
+    <guid isPermaLink="false">mi-dismissed-2026-02-10</guid>
+  </item>
+  
+  <item>
+    <title>Trump calls on Republicans to "nationalize the voting"</title>
+    <description>President Trump told conservative podcaster Dan Bongino that Republicans should "take over the voting in at least 15 places" and "nationalize the voting." The next day he doubled down, saying "I don't know why the federal government doesn't do them anyway." The Constitution explicitly delegates election administration to the states. Election experts called it an alarming escalation.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 03 Feb 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">nationalize-2026-02-03</guid>
+  </item>
+  
+  <item>
+    <title>AG Bondi demands Minnesota voter rolls as condition for pulling ICE</title>
+    <description>Attorney General Pam Bondi sent a letter to Minnesota Governor Tim Walz demanding voter rolls and welfare data as conditions for withdrawing ICE from Minneapolis — hours after federal agents fatally shot a second person in the city. Minnesota Secretary of State Steve Simon called it "an apparent ransom to pay for our state's peace and security." Arizona's Secretary of State compared it to "organized crime."</description>
+    <link>https://electionriskmap.org/#MN</link>
+    <pubDate>Sat, 25 Jan 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">bondi-mn-ransom-2026-01-25</guid>
+  </item>
+  
+  <item>
+    <title>Virginia becomes 24th state sued by DOJ for voter data</title>
+    <description>The Department of Justice has sued Virginia for voter registration data, making it the 24th state to face legal action over refusal to hand over sensitive voter information including Social Security numbers.</description>
+    <link>https://electionriskmap.org/#VA</link>
+    <pubDate>Mon, 10 Feb 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">va-sued-2026-02-10</guid>
+  </item>
+  
+  <item>
+    <title>FBI raids Fulton County, Georgia election offices</title>
+    <description>The FBI raided Fulton County election offices on January 28, seizing 2020 ballots and voter rolls. DNI Tulsi Gabbard was on-site and reportedly called President Trump during the raid. This represents the first direct federal law enforcement action against state election infrastructure.</description>
+    <link>https://electionriskmap.org/#GA</link>
+    <pubDate>Tue, 28 Jan 2026 14:00:00 -0500</pubDate>
+    <guid isPermaLink="false">ga-fbi-raid-2026-01-28</guid>
+  </item>
+  
+  <item>
+    <title>Federal judge dismisses Georgia voter data lawsuit on jurisdictional grounds</title>
+    <description>A federal judge dismissed the DOJ's voter data lawsuit against Georgia because the government filed in the wrong court (Macon instead of Atlanta). The case was dismissed without prejudice, meaning DOJ can refile. Unlike the California and Oregon dismissals, this was not a ruling on the merits of DOJ's legal theory.</description>
+    <link>https://electionriskmap.org/#GA</link>
+    <pubDate>Thu, 23 Jan 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">ga-dismissed-2026-01-23</guid>
+  </item>
+  
+  <item>
+    <title>Courts dismiss California and Oregon voter data cases</title>
+    <description>Federal courts dismissed the DOJ's voter data lawsuits against both California and Oregon. The California judge found "an alarming picture regarding the centralization of Americans' information within the Executive Branch."</description>
+    <link>https://electionriskmap.org/#CA</link>
+    <pubDate>Wed, 15 Jan 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">ca-or-dismissed-2026-01</guid>
+  </item>
+  
+  <item>
+    <title>DOJ files second wave of voter data lawsuits</title>
+    <description>The Department of Justice sued Wisconsin, Illinois, Georgia, Washington D.C., Delaware, Maryland, New Mexico, Rhode Island, Vermont, Washington state, and others in a second wave of lawsuits demanding voter registration data including sensitive personal information.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Fri, 19 Dec 2025 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">second-wave-2025-12</guid>
+  </item>
+  
+  <item>
+    <title>DOJ sues first wave of states for voter data</title>
+    <description>The Department of Justice sued California, Michigan, Minnesota, New Hampshire, New York, Oregon, and Pennsylvania for refusing to hand over complete voter registration files including driver's license numbers and partial Social Security numbers.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Fri, 12 Sep 2025 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">first-wave-2025-09</guid>
+  </item>
+  
+  <item>
+    <title>CISA gutted — 1,000+ election security staff lost</title>
+    <description>The Cybersecurity and Infrastructure Security Agency has lost over 1,000 employees through firings, layoffs, and transfers. CISA had helped local election officials protect voting systems from hacking. Dismantling CISA was a key Project 2025 recommendation.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 01 Sep 2025 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">cisa-gutted-2025</guid>
+  </item>
+</channel>
+</rss>

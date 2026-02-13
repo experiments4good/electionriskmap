@@ -13,6 +13,7 @@ import os
 import sys
 import json
 import re
+import http.client
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -51,9 +52,9 @@ def parse_edits_comment(comment: str) -> dict:
     """
     Parse a comment in this format:
 
-    approved with edits — [optional one-liner]
+    approved with edits
 
-    ## Corrections applied to site (already live)
+    ## Corrections
     - correction 1
     - correction 2
 
@@ -182,11 +183,18 @@ Be precise. Match the existing HTML/XML style exactly. Do not invent facts.
 
 CRITICAL RULES:
 - Timeline entries go newest-first
-- Each new entry needs a "New" tag: <span class="timeline-tag new">New</span>
-- Match the exact HTML structure of existing timeline entries
+- Each new entry MUST use this exact HTML structure:
+  <div class="tl-item">
+    <div class="tl-date">Feb 6</div>
+    <div class="tl-dot" style="background:var(--elevated)"></div>
+    <div class="tl-text"><strong>Key phrase</strong> rest of text <span class="tl-new">New</span></div>
+  </div>
+- The "New" tag MUST be: <span class="tl-new">New</span>
+- Dot colors: var(--critical) for alarming, var(--elevated) for concerning, var(--moderate) for moderate, #22C55E for good news
 - feed.xml items go newest-first (after the channel metadata)
 - Email should be concise, factual, and include a call to action
 - Email body is markdown (Buttondown renders it)
+- Use only ASCII in email subject lines (no em-dashes, arrows, or special characters)
 """
 
 
@@ -208,7 +216,7 @@ def build_clean_prompt(issue_body, timeline_html, feed_xml):
 
 Generate a JSON response with this exact structure:
 {{
-  "new_timeline_entries_html": "HTML string of new <div class='tl-item'> entries to INSERT at the TOP of the timeline. Match existing style exactly. Include <span class='timeline-tag new'>New</span> in each.",
+  "new_timeline_entries_html": "HTML string of new <div class='tl-item'> entries. MUST use tl-item/tl-date/tl-dot/tl-text classes. Include <span class='tl-new'>New</span> in each tl-text.",
   "stat_updates": {{
     "states_sued": null,
     "states_complied": null,
@@ -218,7 +226,7 @@ Generate a JSON response with this exact structure:
   "new_feed_items_xml": "XML string of new <item> elements for feed.xml.",
   "feed_last_build_date": "RFC 822 date string",
   "monitor_timeline_additions": "Plain text lines to add to CURRENT_TIMELINE in monitor.py. Format: '- Mon DD, YYYY: Brief description'",
-  "email_subject": "Email subject line",
+  "email_subject": "Email subject line - ASCII only, no special characters",
   "email_body": "Email body in markdown. Under 300 words. Include what happened, why it matters, court score, what readers can do, link to map.",
   "last_updated_date": "Month DD, YYYY"
 }}
@@ -249,7 +257,7 @@ Apply the corrections below before generating updates.
 
 Generate the CORRECTED updates as JSON (same structure as always):
 {{
-  "new_timeline_entries_html": "HTML with corrections applied. Match existing style. Include <span class='timeline-tag new'>New</span>.",
+  "new_timeline_entries_html": "HTML with corrections applied. MUST use tl-item/tl-date/tl-dot/tl-text classes. Include <span class='tl-new'>New</span>.",
   "stat_updates": {{
     "states_sued": null,
     "states_complied": null,
@@ -271,33 +279,44 @@ Set stat fields to null if unchanged. Respond ONLY with JSON."""
 # ---------------------------------------------------------------------------
 def extract_timeline_section(html: str) -> str:
     """Extract timeline entries from index.html (first 10 for context)."""
-    entries = re.findall(r'<div class="tl-item">.*?</div>\s*</div>', html, re.DOTALL)
+    entries = re.findall(r'<div class="tl-item">.*?</div>\s*</div>\s*</div>', html, re.DOTALL)
     if entries:
         return "\n".join(entries[:10])
-    # Broader fallback
-    match = re.search(r'(<div class="timeline[^"]*"[^>]*>)(.*?)(</div>\s*</div>)', html, re.DOTALL)
+    # Fallback: broader match
+    match = re.search(r'(<div class="timeline[^"]*"[^>]*>)(.*?)(</div>\s*</section>)', html, re.DOTALL)
     if match:
         return match.group(0)[:3000]
     return "(Could not extract timeline section)"
 
 
 def insert_timeline_entries(html: str, new_entries: str) -> str:
-    """Insert new entries at the top of the timeline-items container."""
-    for marker in ['<div class="timeline-items">', 'class="timeline-items"']:
-        idx = html.find(marker)
-        if idx != -1:
-            # Find the end of this opening tag
-            end_of_tag = html.find(">", idx + len(marker) - 1) + 1
-            if marker.startswith("<"):
-                end_of_tag = idx + len(marker)
-            return html[:end_of_tag] + "\n" + new_entries + "\n" + html[end_of_tag:]
-    print("WARNING: Could not find timeline-items container", file=sys.stderr)
+    """Insert new entries right after the timeline-title div."""
+    # Find the timeline-title closing tag — new entries go right after it
+    marker = '<div class="timeline-title mono">'
+    idx = html.find(marker)
+    if idx != -1:
+        # Find the closing </div> of the timeline-title
+        close_idx = html.find("</div>", idx)
+        if close_idx != -1:
+            insert_pos = close_idx + len("</div>")
+            return html[:insert_pos] + "\n" + new_entries + "\n" + html[insert_pos:]
+
+    # Fallback: find first tl-item and insert before it
+    first_item = html.find('<div class="tl-item">')
+    if first_item != -1:
+        return html[:first_item] + new_entries + "\n" + html[first_item:]
+
+    print("WARNING: Could not find timeline insertion point", file=sys.stderr)
     return html
 
 
 def remove_old_new_tags(html: str) -> str:
     """Remove existing 'New' tags so only the fresh entries have them."""
-    return re.sub(r'\s*<span class="timeline-tag new">New</span>', '', html)
+    # Match the actual class used in the site
+    html = re.sub(r'\s*<span class="tl-new">New</span>', '', html)
+    # Also catch any old-style tags just in case
+    html = re.sub(r'\s*<span class="timeline-tag new">New</span>', '', html)
+    return html
 
 
 def update_stats(html: str, stats: dict) -> str:
@@ -364,40 +383,49 @@ def update_monitor_timeline(monitor_py: str, new_lines: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Buttondown
+# Buttondown — uses http.client to avoid urllib's latin-1 header encoding bug
 # ---------------------------------------------------------------------------
 def send_buttondown_email(subject: str, body: str) -> bool:
-    """Send email via Buttondown API. Auto-sends immediately."""
+    """Send email via Buttondown API. Uses http.client for proper UTF-8 support."""
     if not BUTTONDOWN_API_KEY:
-        print("WARNING: No BUTTONDOWN_API_KEY — skipping email", file=sys.stderr)
+        print("WARNING: No BUTTONDOWN_API_KEY -- skipping email", file=sys.stderr)
         return False
     if not subject or not body:
-        print("WARNING: Empty subject or body — skipping email", file=sys.stderr)
+        print("WARNING: Empty subject or body -- skipping email", file=sys.stderr)
         return False
 
-    payload = {
-        "subject": subject,
-        "body": body,
-        "status": "about_to_send",
-    }
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(
-        "https://api.buttondown.com/v1/emails",
-        data=data,
-        headers={
-            "Authorization": f"Token {BUTTONDOWN_API_KEY}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            result = json.loads(resp.read().decode("utf-8"))
-            print(f"✅ Buttondown email sent: {result.get('id', '?')}")
+        payload = {
+            "subject": subject,
+            "body": body,
+            "status": "about_to_send",
+        }
+        json_data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+
+        conn = http.client.HTTPSConnection("api.buttondown.com", timeout=30)
+        conn.request(
+            "POST",
+            "/v1/emails",
+            body=json_data,
+            headers={
+                "Authorization": f"Token {BUTTONDOWN_API_KEY}",
+                "Content-Type": "application/json; charset=utf-8",
+                "Content-Length": str(len(json_data)),
+            },
+        )
+        resp = conn.getresponse()
+        resp_body = resp.read().decode("utf-8")
+        conn.close()
+
+        if resp.status in (200, 201):
+            result = json.loads(resp_body)
+            print(f"Buttondown email sent: {result.get('id', '?')}")
             return True
-    except urllib.error.HTTPError as e:
-        body_text = e.read().decode("utf-8") if e.fp else ""
-        print(f"Buttondown API error {e.code}: {body_text}", file=sys.stderr)
+        else:
+            print(f"Buttondown API error {resp.status}: {resp_body}", file=sys.stderr)
+            return False
+    except Exception as e:
+        print(f"Buttondown error: {e}", file=sys.stderr)
         return False
 
 
@@ -461,10 +489,10 @@ def main():
         sys.exit(1)
 
     mode = detect_mode(COMMENT_BODY)
-    print(f"🔧 Mode: {'approved with edits' if mode == 'with_edits' else 'approved (clean)'}")
+    print(f"Mode: {'approved with edits' if mode == 'with_edits' else 'approved (clean)'}")
 
     # Read current files
-    print("📂 Reading current site files...")
+    print("Reading current site files...")
     try:
         with open("index.html", "r") as f:
             html = f.read()
@@ -480,19 +508,18 @@ def main():
 
     # --- MODE: APPROVED WITH EDITS ---
     if mode == "with_edits":
-        print("📋 Parsing corrections and email from comment...")
+        print("Parsing corrections and email from comment...")
         edits = parse_edits_comment(COMMENT_BODY)
 
         if not edits["email_subject"] or not edits["email_body"]:
-            print("⚠️  Could not find email subject/body in comment.", file=sys.stderr)
+            print("WARNING: Could not find email subject/body in comment.", file=sys.stderr)
             print("Expected format:", file=sys.stderr)
             print("  **Subject:** Your subject here", file=sys.stderr)
             print("  **Body:**", file=sys.stderr)
             print("  Your email text here", file=sys.stderr)
-            # Don't exit — still apply site updates, just skip email
 
         # Call Claude with corrections to generate site updates (no email)
-        print("🤖 Calling Claude to generate corrected site updates...")
+        print("Calling Claude to generate corrected site updates...")
         user_prompt = build_edits_prompt(
             ISSUE_BODY, edits["corrections"], timeline_html, feed_xml
         )
@@ -505,7 +532,7 @@ def main():
 
     # --- MODE: APPROVED (CLEAN) ---
     else:
-        print("🤖 Calling Claude to generate updates and email...")
+        print("Calling Claude to generate updates and email...")
         user_prompt = build_clean_prompt(ISSUE_BODY, timeline_html, feed_xml)
         response = call_claude(SYSTEM_PROMPT, user_prompt)
         updates = parse_json_response(extract_text(response))
@@ -514,7 +541,7 @@ def main():
         email_body = updates.get("email_body", "")
 
     # --- APPLY SITE UPDATES ---
-    print("📝 Applying updates to index.html...")
+    print("Applying updates to index.html...")
     html = remove_old_new_tags(html)
     if updates.get("new_timeline_entries_html"):
         html = insert_timeline_entries(html, updates["new_timeline_entries_html"])
@@ -523,7 +550,7 @@ def main():
     if updates.get("last_updated_date"):
         html = update_last_updated(html, updates["last_updated_date"])
 
-    print("📝 Applying updates to feed.xml...")
+    print("Applying updates to feed.xml...")
     if updates.get("new_feed_items_xml"):
         feed_xml = insert_feed_items(
             feed_xml,
@@ -531,12 +558,12 @@ def main():
             updates.get("feed_last_build_date", ""),
         )
 
-    print("📝 Updating monitor.py...")
+    print("Updating monitor.py...")
     if updates.get("monitor_timeline_additions"):
         monitor_py = update_monitor_timeline(monitor_py, updates["monitor_timeline_additions"])
 
     # Write files
-    print("💾 Writing updated files...")
+    print("Writing updated files...")
     with open("index.html", "w") as f:
         f.write(html)
     with open("feed.xml", "w") as f:
@@ -544,9 +571,13 @@ def main():
     with open("scripts/monitor.py", "w") as f:
         f.write(monitor_py)
 
-    # --- SEND EMAIL ---
-    print("📧 Sending email via Buttondown...")
-    email_sent = send_buttondown_email(email_subject, email_body)
+    # --- SEND EMAIL (non-fatal — site updates already written) ---
+    print("Sending email via Buttondown...")
+    try:
+        email_sent = send_buttondown_email(email_subject, email_body)
+    except Exception as e:
+        print(f"Email failed (non-fatal): {e}", file=sys.stderr)
+        email_sent = False
 
     # --- CLOSE ISSUE ---
     changes = []
@@ -563,25 +594,25 @@ def main():
     if mode == "with_edits":
         changes.append("Applied human corrections (approved with edits)")
 
-    summary = f"""✅ **Update applied{'  with corrections' if mode == 'with_edits' else ''}.**
+    summary = f"""Update applied{'  with corrections' if mode == 'with_edits' else ''}.
 
-**Mode:** `{'approved with edits' if mode == 'with_edits' else 'approved'}`
+Mode: {'approved with edits' if mode == 'with_edits' else 'approved'}
 
-**Changes:**
+Changes:
 {chr(10).join(f'- {c}' for c in changes)}
 
-**Email subject:** {email_subject or '(none)'}
+Email subject: {email_subject or '(none)'}
 
-**Last updated:** {updates.get('last_updated_date', 'N/A')}
+Last updated: {updates.get('last_updated_date', 'N/A')}
 
-**To deploy:** `git pull` in your site folder, then drag to Netlify.
+To deploy: git pull in your site folder, then drag to Netlify.
 
 ---
-*Applied by election-map-bot.*"""
+Applied by election-map-bot."""
 
-    print("💬 Commenting and closing issue...")
+    print("Commenting and closing issue...")
     comment_and_close_issue(summary)
-    print("✅ Done!")
+    print("Done!")
 
 
 if __name__ == "__main__":

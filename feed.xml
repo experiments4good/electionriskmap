@@ -5,9 +5,25 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 10 Feb 2026 22:00:00 -0500</lastBuildDate>
+  <lastBuildDate>Thu, 12 Feb 2026 11:00:00 -0500</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
+  <item>
+    <title>House passes SAVE America Act 218-213, first GOP senator opposes</title>
+    <description>The House voted 218-213 on Feb 11 to pass the SAVE America Act, an expanded version of the SAVE Act that requires proof of citizenship to register to vote, photo ID to cast a ballot, and monthly voter roll purges using DHS databases. All Republicans present voted yes; Rep. Henry Cuellar (D-TX) was the sole Democratic yes vote. Sen. Lisa Murkowski (R-AK) became the first Republican senator to oppose, warning it federalizes elections — the same argument the GOP used against Democrats in 2021. The bill faces a 60-vote threshold in the Senate, where Majority Leader Thune says there are "not even close" to votes to eliminate the filibuster.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Tue, 11 Feb 2026 18:00:00 -0500</pubDate>
+    <guid isPermaLink="false">save-america-act-passed-2026-02-11</guid>
+  </item>
+
+  <item>
+    <title>Nebraska court dismisses lawsuit blocking voter data transfer to DOJ</title>
+    <description>A Lancaster County judge dismissed Common Cause Nebraska's lawsuit attempting to block the transfer of voter data to the DOJ. The judge ruled on standing grounds, not the merits. Common Cause is appealing to the Nebraska Court of Appeals, but Secretary of State Evnen plans to proceed with the data transfer on Feb 12, 2026.</description>
+    <link>https://electionriskmap.org/#NE</link>
+    <pubDate>Fri, 07 Feb 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">ne-court-ruling-2026-02-07</guid>
+  </item>
+
   <item>
     <title>Trump-appointed judge dismisses Michigan voter data lawsuit</title>
     <description>U.S. District Judge Hala Jarbou, a Trump appointee, dismissed the DOJ's lawsuit seeking Michigan's voter rolls. She ruled that none of the three federal laws cited — the Civil Rights Act of 1960, NVRA, and HAVA — require states to hand over the data. This is the third dismissal on the merits, after California and Oregon. The DOJ is now 0-for-3 in court.</description>

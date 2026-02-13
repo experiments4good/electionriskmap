@@ -1,0 +1,49 @@
+name: Apply Approved Update
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: write
+
+jobs:
+  apply:
+    # Runs when someone comments "approved" (with or without "with edits") on a needs-review issue
+    if: |
+      (
+        contains(github.event.comment.body, 'approved with edits') ||
+        contains(github.event.comment.body, 'approved')
+      ) &&
+      contains(join(github.event.issue.labels.*.name, ','), 'needs-review')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply update and send email
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: python scripts/apply_update.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "election-map-bot"
+          git config user.email "bot@electionriskmap.org"
+          git add index.html feed.xml scripts/monitor.py
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Update site from issue #${{ github.event.issue.number }}"
+          git push

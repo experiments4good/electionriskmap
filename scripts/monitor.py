@@ -45,7 +45,8 @@ def get_current_timeline() -> str:
     with open(index_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    lines = ["Already on the site (do NOT re-report these):\n"]
+    lines = ["Already on the site (do NOT re-report these):
+Feb 6: FBI invites all 50 state election officials to mysterious February 25 call on 'midterm preparations' — Nevada Secretary of State calls it 'beyond crazy'\n"]
 
     # Extract timeline entries
     import re

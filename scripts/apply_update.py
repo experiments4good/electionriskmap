@@ -25,13 +25,37 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 BUTTONDOWN_API_KEY = os.environ.get("BUTTONDOWN_API_KEY", "")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "")
-ISSUE_NUMBER = os.environ.get("ISSUE_NUMBER", "")
-ISSUE_TITLE = os.environ.get("ISSUE_TITLE", "")
-ISSUE_BODY = os.environ.get("ISSUE_BODY", "")
-COMMENT_BODY = os.environ.get("COMMENT_BODY", "")
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
 MAX_TOKENS = 8192
 SITE_URL = "https://electionriskmap.org"
+
+
+def load_github_event():
+    """Load issue/comment data from GitHub event JSON (preserves markdown perfectly)."""
+    event_path = os.environ.get("GITHUB_EVENT_PATH", "")
+    if event_path and os.path.exists(event_path):
+        with open(event_path, "r") as f:
+            event = json.load(f)
+        return {
+            "issue_number": str(event.get("issue", {}).get("number", "")),
+            "issue_title": event.get("issue", {}).get("title", ""),
+            "issue_body": event.get("issue", {}).get("body", ""),
+            "comment_body": event.get("comment", {}).get("body", ""),
+        }
+    # Fallback to env vars (for local testing)
+    return {
+        "issue_number": os.environ.get("ISSUE_NUMBER", ""),
+        "issue_title": os.environ.get("ISSUE_TITLE", ""),
+        "issue_body": os.environ.get("ISSUE_BODY", ""),
+        "comment_body": os.environ.get("COMMENT_BODY", ""),
+    }
+
+
+EVENT = load_github_event()
+ISSUE_NUMBER = EVENT["issue_number"]
+ISSUE_TITLE = EVENT["issue_title"]
+ISSUE_BODY = EVENT["issue_body"]
+COMMENT_BODY = EVENT["comment_body"]
 
 
 # ---------------------------------------------------------------------------
@@ -78,19 +102,20 @@ def parse_edits_comment(comment: str) -> dict:
     if corrections_match:
         result["corrections"] = corrections_match.group(1).strip()
 
-    # Extract email subject
+    # Extract email subject — handle **Subject:** or Subject: or *Subject:*
     subject_match = re.search(
-        r'\*\*Subject:\*\*\s*(.+?)(?:\n|$)',
+        r'(?:\*\*)?Subject:?\*?\*?\s*(.+?)(?:\n|$)',
         comment,
+        re.IGNORECASE,
     )
     if subject_match:
         result["email_subject"] = subject_match.group(1).strip()
 
-    # Extract email body — everything after **Body:** until the end or next ## section
+    # Extract email body — everything after **Body:** or Body: until the end or next section
     body_match = re.search(
-        r'\*\*Body:\*\*\s*\n(.*?)(?=\n---|\Z)',
+        r'(?:\*\*)?Body:?\*?\*?\s*\n(.*?)(?=\n---|\Z)',
         comment,
-        re.DOTALL,
+        re.DOTALL | re.IGNORECASE,
     )
     if body_match:
         result["email_body"] = body_match.group(1).strip()
@@ -182,7 +207,8 @@ Your job is to generate structured JSON output with the exact updates to apply.
 Be precise. Match the existing HTML/XML style exactly. Do not invent facts.
 
 CRITICAL RULES:
-- Timeline entries go newest-first
+- Timeline entries are ordered newest-first by EVENT DATE (not by when they were added)
+- New entries must be inserted at the correct chronological position, NOT always at the top
 - Each new entry MUST use this exact HTML structure:
   <div class="tl-item">
     <div class="tl-date">Feb 6</div>
@@ -290,24 +316,83 @@ def extract_timeline_section(html: str) -> str:
 
 
 def insert_timeline_entries(html: str, new_entries: str) -> str:
-    """Insert new entries right after the timeline-title div."""
-    # Find the timeline-title closing tag — new entries go right after it
-    marker = '<div class="timeline-title mono">'
-    idx = html.find(marker)
-    if idx != -1:
-        # Find the closing </div> of the timeline-title
-        close_idx = html.find("</div>", idx)
-        if close_idx != -1:
-            insert_pos = close_idx + len("</div>")
-            return html[:insert_pos] + "\n" + new_entries + "\n" + html[insert_pos:]
+    """Insert new entries in chronological position (newest first by event date)."""
+    import re
+    from datetime import datetime
 
-    # Fallback: find first tl-item and insert before it
-    first_item = html.find('<div class="tl-item">')
-    if first_item != -1:
-        return html[:first_item] + new_entries + "\n" + html[first_item:]
+    def parse_tl_date(date_str):
+        """Parse a timeline date string into a sortable value."""
+        date_str = date_str.strip()
+        # Try "Feb 6" style (current year)
+        for fmt in ["%b %d", "%B %d"]:
+            try:
+                d = datetime.strptime(date_str, fmt).replace(year=2026)
+                return d
+            except ValueError:
+                pass
+        # Try "Jan 2026" style
+        for fmt in ["%b %Y", "%B %Y"]:
+            try:
+                return datetime.strptime(date_str, fmt)
+            except ValueError:
+                pass
+        # Try "Dec 2025" etc
+        for fmt in ["%b %Y", "%B %Y"]:
+            try:
+                return datetime.strptime(date_str, fmt)
+            except ValueError:
+                pass
+        # Fallback: just a year
+        try:
+            return datetime(int(date_str), 1, 1)
+        except (ValueError, TypeError):
+            return datetime(2020, 1, 1)  # unknown dates go to bottom
 
-    print("WARNING: Could not find timeline insertion point", file=sys.stderr)
-    return html
+    # Extract date from the new entry
+    new_date_match = re.search(r'<div class="tl-date">(.*?)</div>', new_entries)
+    if not new_date_match:
+        # Can't determine date, insert at top as fallback
+        marker = '<div class="timeline-title mono">'
+        idx = html.find(marker)
+        if idx != -1:
+            close_idx = html.find("</div>", idx)
+            if close_idx != -1:
+                insert_pos = close_idx + len("</div>")
+                return html[:insert_pos] + "\n" + new_entries + "\n" + html[insert_pos:]
+        return html
+
+    new_date = parse_tl_date(new_date_match.group(1))
+
+    # Find all existing tl-item positions and their dates
+    existing_items = list(re.finditer(r'<div class="tl-item">', html))
+    if not existing_items:
+        # No existing items, insert after timeline-title
+        marker = '<div class="timeline-title mono">'
+        idx = html.find(marker)
+        if idx != -1:
+            close_idx = html.find("</div>", idx)
+            if close_idx != -1:
+                insert_pos = close_idx + len("</div>")
+                return html[:insert_pos] + "\n" + new_entries + "\n" + html[insert_pos:]
+        return html
+
+    # Find the right position: insert before the first entry with an older date
+    for item_match in existing_items:
+        item_start = item_match.start()
+        date_match = re.search(r'<div class="tl-date">(.*?)</div>', html[item_start:item_start+200])
+        if date_match:
+            existing_date = parse_tl_date(date_match.group(1))
+            if new_date >= existing_date:
+                # Insert before this item
+                return html[:item_start] + new_entries + "\n    " + html[item_start:]
+
+    # New entry is oldest — insert at the end (before the closing div of the timeline)
+    last_item = existing_items[-1]
+    # Find the end of the last tl-item block
+    search_from = last_item.start()
+    # Find closing </div></div></div> pattern for the last tl-item
+    end_of_last = html.find("</div>", html.find("</div>", html.find("</div>", search_from) + 1) + 1) + len("</div>")
+    return html[:end_of_last] + "\n    " + new_entries + "\n" + html[end_of_last:]
 
 
 def remove_old_new_tags(html: str) -> str:
@@ -490,6 +575,8 @@ def main():
 
     mode = detect_mode(COMMENT_BODY)
     print(f"Mode: {'approved with edits' if mode == 'with_edits' else 'approved (clean)'}")
+    print(f"Comment length: {len(COMMENT_BODY)} chars")
+    print(f"Comment preview: {COMMENT_BODY[:150]}...")
 
     # Read current files
     print("Reading current site files...")
@@ -510,6 +597,11 @@ def main():
     if mode == "with_edits":
         print("Parsing corrections and email from comment...")
         edits = parse_edits_comment(COMMENT_BODY)
+
+        # Debug: show what was parsed
+        print(f"  Corrections found: {'yes' if edits['corrections'] else 'no'} ({len(edits['corrections'])} chars)")
+        print(f"  Email subject found: {'yes' if edits['email_subject'] else 'no'}")
+        print(f"  Email body found: {'yes' if edits['email_body'] else 'no'} ({len(edits['email_body'])} chars)")
 
         if not edits["email_subject"] or not edits["email_body"]:
             print("WARNING: Could not find email subject/body in comment.", file=sys.stderr)

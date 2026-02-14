@@ -457,14 +457,9 @@ def insert_feed_items(feed_xml: str, new_items: str, last_build_date: str) -> st
 
 
 def update_monitor_timeline(monitor_py: str, new_lines: str) -> str:
-    """Add entries to CURRENT_TIMELINE in monitor.py."""
-    marker = "Already on the site (do NOT re-report these):"
-    idx = monitor_py.find(marker)
-    if idx == -1:
-        print("WARNING: Could not find CURRENT_TIMELINE in monitor.py", file=sys.stderr)
-        return monitor_py
-    insert_pos = idx + len(marker)
-    return monitor_py[:insert_pos] + "\n" + new_lines + monitor_py[insert_pos:]
+    """No-op: monitor.py reads the timeline from index.html dynamically.
+    Modifying monitor.py's source code was causing syntax errors."""
+    return monitor_py
 
 
 # ---------------------------------------------------------------------------

@@ -39,7 +39,7 @@ jobs:
         run: |
           git config user.name "election-map-bot"
           git config user.email "bot@electionriskmap.org"
-          git add index.html feed.xml scripts/monitor.py
+          git add index.html feed.xml scripts/monitor.py scripts/apply_update.py
           git diff --cached --quiet && echo "No changes to commit" && exit 0
           git commit -m "Update site from issue #${{ github.event.issue.number }}"
           git push

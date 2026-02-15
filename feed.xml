@@ -5,6 +5,31 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Senate Republicans reject eliminating filibuster for SAVE Act</title>
+    <description>Senate Majority Leader John Thune firmly rejected proposals to eliminate the filibuster to pass the SAVE America Act, stating Republicans lack "anywhere close to the votes" for the nuclear option despite Trump pressure. Sen. Mike Lee pushed for a "talking filibuster" approach, but Thune expressed concerns about tying up the Senate floor for weeks.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 10 Feb 2026 18:00:00 -0500</pubDate>
+    <guid isPermaLink="false">senate-filibuster-rejected-2026-02-10</guid>
+  </item>
+
+  <item>
+    <title>West Virginia Secretary of State rejects DOJ voter data demands</title>
+    <description>West Virginia Secretary of State Kris Warner announced his office will not release personally identifying information of registered voters to the DOJ, stating that state law prohibits sharing unredacted voter information. Warner cited the recent Michigan court ruling dismissing DOJ's legal authority and said he would only provide publicly available, redacted voter lists.</description>
+    <link>https://electionriskmap.org/#WV</link>
+    <pubDate>Wed, 12 Feb 2026 12:00:00 -0500</pubDate>
+    <guid isPermaLink="false">wv-rejects-doj-2026-02-12</guid>
+  </item>
+
+  <item>
+    <title>Nebraska hands over voter data to DOJ after court loss</title>
+    <description>Nebraska Secretary of State Bob Evnen sent voter registration data including names, dates of birth, partial Social Security numbers, and addresses to the DOJ on February 12, 2026, after the Nebraska Supreme Court rejected a legal effort to block the transfer. Common Cause's lawsuit to prevent the data release was dismissed.</description>
+    <link>https://electionriskmap.org/#NE</link>
+    <pubDate>Wed, 12 Feb 2026 14:00:00 -0500</pubDate>
+    <guid isPermaLink="false">ne-complies-doj-2026-02-12</guid>
+  </item>
+
+
+  <item>
     <title>FBI invites all 50 state election officials to mysterious February 25 call</title>
     <description>The FBI sent emails to election officials in all 50 states inviting them to a February 25 conference call to discuss 'preparations' for 2026 midterms. The email, signed by 'FBI Election Executive' Kellie Hardiman, provides no specific purpose and includes DOJ, DHS, USPIS, and EAC. Nevada Secretary of State called it 'beyond crazy' and asked 'Is this real?' Multiple officials said they had never seen the FBI organize such outreach before.</description>
     <link>https://electionriskmap.org</link>
@@ -14,7 +39,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Thu, 13 Feb 2026 14:00:00 -0500</lastBuildDate>
+  <lastBuildDate>Sat, 15 Feb 2026 13:47:00 -0500</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

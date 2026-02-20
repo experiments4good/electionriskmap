@@ -17,6 +17,7 @@ Requires env vars:
 import os
 import sys
 import json
+import time
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -45,7 +46,8 @@ def get_current_timeline() -> str:
     with open(index_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    lines = ["Already on the site (do NOT re-report these):\n"]
+    lines = ["Already on the site (do NOT re-report these):
+Feb 6: FBI invites all 50 state election officials to mysterious February 25 call on 'midterm preparations' — Nevada Secretary of State calls it 'beyond crazy'\n"]
 
     # Extract timeline entries
     import re
@@ -133,8 +135,8 @@ Be conservative. Only include developments you are confident actually happened.
 """
 
 
-def call_claude(prompt: str) -> dict:
-    """Call Claude API with web search enabled."""
+def call_claude(prompt: str, max_retries: int = 3) -> dict:
+    """Call Claude API with web search enabled. Retries on 529/5xx errors."""
     payload = {
         "model": CLAUDE_MODEL,
         "max_tokens": MAX_TOKENS,
@@ -143,24 +145,31 @@ def call_claude(prompt: str) -> dict:
     }
 
     data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=data,
-        headers={
-            "Content-Type": "application/json",
-            "x-api-key": ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01",
-        },
-        method="POST",
-    )
 
-    try:
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body = e.read().decode("utf-8") if e.fp else ""
-        print(f"Claude API error {e.code}: {body}", file=sys.stderr)
-        sys.exit(1)
+    for attempt in range(max_retries + 1):
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=data,
+            headers={
+                "Content-Type": "application/json",
+                "x-api-key": ANTHROPIC_API_KEY,
+                "anthropic-version": "2023-06-01",
+            },
+            method="POST",
+        )
+
+        try:
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            body = e.read().decode("utf-8") if e.fp else ""
+            if e.code in (529, 500, 502, 503) and attempt < max_retries:
+                wait = (2 ** attempt) * 30  # 30s, 60s, 120s
+                print(f"Claude API {e.code} (attempt {attempt + 1}/{max_retries + 1}), retrying in {wait}s...", file=sys.stderr)
+                time.sleep(wait)
+                continue
+            print(f"Claude API error {e.code}: {body}", file=sys.stderr)
+            sys.exit(1)
 
 
 def extract_text(response: dict) -> str:

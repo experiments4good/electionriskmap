@@ -174,6 +174,9 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 .intervention-deadline.critical{color:#F87171}
 .intervention-action{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--text-muted);text-decoration:underline;text-underline-offset:2px;margin-top:4px;transition:color 0.15s}
 .intervention-action:hover{color:var(--text)}
+.intervention-links{display:flex;gap:12px;align-items:center;margin-top:6px;}
+.intervention-weact{display:inline-block;padding:4px 10px;background:#e85d4a;color:#fff !important;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none !important;letter-spacing:.04em;transition:background .15s;}
+.intervention-weact:hover{background:#c94a38;}
 
 /* Stats */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -813,14 +816,14 @@ TX:[{t:"Signed DOJ MOU",u:"https://www.usatoday.com/story/news/politics/election
 const INTERVENTIONS={
 FL:{
   threats:[
-    {bill:"HB 991",summary:"Proof of citizenship required for all 13M+ registered Florida voters — mirrors SAVE Act. Also removes student IDs as valid voter ID.",status:"Passed House 88-31 · In Senate",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/991"},
-    {bill:"HB 1471 / SB 1632",summary:"State officials can designate nonprofits as 'domestic terrorist organizations' — no criminal conviction required. Bars state funding, criminalizes membership, expels public university students from designated orgs.",status:"HB passed full House (Mar 3) · SB heading to full Senate vote",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/1471"}
+    {bill:"HB 991",summary:"Proof of citizenship required for all 13M+ registered Florida voters — mirrors SAVE Act. Also removes student IDs as valid voter ID.",status:"Passed House 83-31 · Referred to Senate Rules Committee",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/991",weact:"https://weactnow.com/actions/570018"},
+    {bill:"HB 1471 / SB 1632",summary:"State officials can designate nonprofits as 'domestic terrorist organizations' — no criminal conviction required. Bars state funding, criminalizes membership, expels public university students from designated orgs.",status:"Passed both chambers · HB 1471 passed Senate as amended (25-11, Mar 5) · Returned to House",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/1471",weact:"https://weactnow.com/actions/570019"}
   ],
   protections:[]
 },
 GA:{
   threats:[
-    {bill:"SB 568",summary:"Eliminates countywide early voting — Fulton loses 43 sites, DeKalb loses 19. Assigns all voters to a single designated precinct. Mandates hand-marked paper ballots for November 2026 general only. Same sponsor is calling for Fulton County state takeover.",status:"Passed Senate Ethics Committee 8-4 (Mar 3) · In Senate Rules Committee",deadline:"2026-03-13",action:"https://www.legis.ga.gov/legislation/64982"}
+    {bill:"SB 568",summary:"Eliminates countywide early voting — Fulton loses 43 sites, DeKalb loses 19. Assigns all voters to a single designated precinct. Mandates hand-marked paper ballots for November 2026 general only. Same sponsor is calling for Fulton County state takeover.",status:"Passed Senate Ethics Committee 8-4 (Mar 3) · In Senate Rules Committee",deadline:"2026-03-13",action:"https://www.legis.ga.gov/legislation/64982",weact:"https://weactnow.com/actions/570020"}
   ],
   protections:[]
 },
@@ -1018,7 +1021,8 @@ if(intv&&(intv.threats.length>0||intv.protections.length>0)){
       deadlineHtml=`<div class="intervention-deadline ${cls}">⏱ ${label}</div>`;
     }
     const actionHtml=bill.action?`<a class="intervention-action" href="${bill.action}" target="_blank" rel="noopener">Track bill →</a>`:'';
-    interventionsHtml+=`<div class="intervention-item ${bill.type}"><div class="intervention-bill">${bill.bill}<span class="intervention-type ${bill.type}">${bill.type==='threat'?'Threat':'Protection'}</span></div><div class="intervention-summary">${bill.summary}</div><div class="intervention-status">${bill.status}</div>${deadlineHtml}${actionHtml}</div>`;
+    const weactHtml=bill.weact?`<a class="intervention-weact" href="${bill.weact}" target="_blank" rel="noopener">Take action →</a>`:'';
+    interventionsHtml+=`<div class="intervention-item ${bill.type}"><div class="intervention-bill">${bill.bill}<span class="intervention-type ${bill.type}">${bill.type==='threat'?'Threat':'Protection'}</span></div><div class="intervention-summary">${bill.summary}</div><div class="intervention-status">${bill.status}</div>${deadlineHtml}<div class="intervention-links">${weactHtml}${actionHtml}</div></div>`;
   });
   interventionsHtml+='</div>';
 }

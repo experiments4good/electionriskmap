@@ -9,12 +9,12 @@
       "type": "threat",
       "test": 1,
       "summary": "Proof of citizenship required for all 13M+ registered Florida voters \u2014 mirrors SAVE Act. Also removes student IDs as valid voter ID.",
-      "status": "Passed House 88-31 \u00b7 In Senate",
+      "status": "Passed House 83-31 \u00b7 Referred to Senate Rules Committee",
       "deadline": "2026-03-13",
       "action": "https://www.flsenate.gov/Session/Bill/2026/991",
       "legislature_url": "https://www.flsenate.gov/Session/Bill/2026/991",
-      "last_changed": "2026-02-25",
-      "last_checked": "2026-03-05",
+      "last_changed": "2026-03-06",
+      "last_checked": "2026-03-06",
       "active": true
     },
     {

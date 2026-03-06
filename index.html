@@ -810,68 +810,115 @@ TX:[{t:"Signed DOJ MOU",u:"https://www.usatoday.com/story/news/politics/election
 // Test 2: major structural threat/protection to fair 2026 elections
 // Last verified: March 5, 2026
 // INTERVENTIONS-START
-const INTERVENTIONS={
-FL:{
-  threats:[
-    {bill:"HB 991",summary:"Proof of citizenship required for all 13M+ registered Florida voters — mirrors SAVE Act. Also removes student IDs as valid voter ID.",status:"Passed House 88-31 · In Senate",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/991"},
-    {bill:"HB 1471 / SB 1632",summary:"State officials can designate nonprofits as 'domestic terrorist organizations' — no criminal conviction required. Bars state funding, criminalizes membership, expels public university students from designated orgs.",status:"HB passed full House (Mar 3) · SB heading to full Senate vote",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/1471"}
+const INTERVENTIONS = {
+  "AZ": [
+        {
+          bill: "SCR 1001",
+          type: "threat",
+          summary: "Kills the Active Early Voter List used by 80%+ of Arizona voters. Requires mail ballot re-request before every election. Also embeds language in the AZ constitution enabling future elimination of mail voting entirely.",
+          status: "Passed Senate 17-13 · Engrossed in House · Goes directly to Nov 2026 ballot if legislature approves",
+          deadline: null,
+          action: "https://legiscan.com/AZ/text/SCR1001/id/3284427"
+        }
   ],
-  protections:[]
-},
-GA:{
-  threats:[
-    {bill:"SB 568",summary:"Eliminates countywide early voting — Fulton loses 43 sites, DeKalb loses 19. Assigns all voters to a single designated precinct. Mandates hand-marked paper ballots for November 2026 general only. Same sponsor is calling for Fulton County state takeover.",status:"Passed Senate Ethics Committee 8-4 (Mar 3) · In Senate Rules Committee",deadline:"2026-03-13",action:"https://www.legis.ga.gov/legislation/64982"}
+  "FL": [
+        {
+          bill: "HB 991",
+          type: "threat",
+          summary: "Proof of citizenship required for all 13M+ registered Florida voters — mirrors SAVE Act. Also removes student IDs as valid voter ID.",
+          status: "Passed House 83-31 · Referred to Senate Rules Committee",
+          deadline: "2026-03-13",
+          action: "https://www.flsenate.gov/Session/Bill/2026/991"
+        },
+        {
+          bill: "HB 1471 / SB 1632",
+          type: "threat",
+          summary: "State officials can designate nonprofits as 'domestic terrorist organizations' — no criminal conviction required. Bars state funding, criminalizes membership, expels public university students from designated orgs.",
+          status: "HB passed full House (Mar 3) · SB heading to full Senate vote",
+          deadline: "2026-03-13",
+          action: "https://www.flsenate.gov/Session/Bill/2026/1471"
+        }
   ],
-  protections:[]
-},
-VA:{
-  threats:[],
-  protections:[
-    {bill:"HB 965 / SB 322 — National Popular Vote",summary:"Virginia joins the National Popular Vote Interstate Compact — awards VA's electoral votes to the national popular vote winner when enough states join.",status:"Passed both chambers · Sent to Gov. Spanberger (Feb 25)",action:"https://lis.virginia.gov/cgi-bin/legp604.exe?261+sum+HB965"}
+  "GA": [
+        {
+          bill: "SB 568",
+          type: "threat",
+          summary: "Eliminates countywide early voting — Fulton loses 43 sites, DeKalb loses 19. Assigns all voters to a single designated precinct. Mandates hand-marked paper ballots for November 2026 general only. Same sponsor is calling for Fulton County state takeover.",
+          status: "Passed Senate Ethics Committee 8-4 (Mar 3) · In Senate Rules Committee",
+          deadline: "2026-03-13",
+          action: "https://www.legis.ga.gov/legislation/64982"
+        }
+  ],
+  "IA": [
+        {
+          bill: "SF 2203",
+          type: "threat",
+          summary: "Mandates citizenship verification through the federal SAVE database for all voter registrations — mirrors the SAVE Act model at the state level.",
+          status: "Passed Senate · In House",
+          deadline: null,
+          action: "https://www.legis.iowa.gov/legislation/BillBook?ga=91&ba=SF2203"
+        }
+  ],
+  "NE": [
+        {
+          bill: "LR24CA",
+          type: "threat",
+          summary: "Puts winner-take-all electoral college allocation on the November 2026 ballot — would eliminate the Omaha 'blue dot' district vote that has split Nebraska's electoral votes in 2008, 2020, and 2024.",
+          status: "Carryover from 2025 · Prioritized by Gov. Pillen · Floor vote pending",
+          deadline: "2026-04-17",
+          action: "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=54634"
+        }
+  ],
+  "NH": [
+        {
+          bill: "HB 323",
+          type: "threat",
+          summary: "Removes student IDs as valid voter identification — disproportionately affects college-town voters.",
+          status: "Passed House · In Senate",
+          deadline: null,
+          action: "https://www.gencourt.state.nh.us/bill_status/billinfo.aspx?id=1571"
+        }
+  ],
+  "NM": [
+        {
+          bill: "SB 264",
+          type: "protection",
+          summary: "Deploying federal troops or military personnel at New Mexico polling places is a fourth-degree felony. Also bars any attempt to alter voter qualifications beyond state law.",
+          status: "Passed legislature · Sent to governor",
+          deadline: null,
+          action: "https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26"
+        }
+  ],
+  "NY": [
+        {
+          bill: "SB 8500A — NY Civil Rights Act",
+          type: "protection",
+          summary: "Creates a state-law right to sue federal officers (ICE, CBP, any federal agent) for constitutional violations in New York state courts. Directly fills the gap left by decades of Supreme Court rulings limiting Bivens claims.",
+          status: "In Senate Codes Committee · Gov. Hochul endorsing · Moving via state budget (spring)",
+          deadline: null,
+          action: "https://www.nysenate.gov/legislation/bills/2025/S8500/amendment/A"
+        }
+  ],
+  "UT": [
+        {
+          bill: "HB 209",
+          type: "threat",
+          summary: "Proof of citizenship required for state elections only — creates two-tier voting system. Federal elections exempt. Kansas used same bifurcated approach: 31,000 voters blocked.",
+          status: "Passed legislature · On Gov. Cox's desk · ACLU filed veto letter (Mar 5)",
+          deadline: null,
+          action: "https://le.utah.gov/~2026/bills/static/HB0209.html"
+        }
+  ],
+  "VA": [
+        {
+          bill: "HB 965 / SB 322",
+          type: "protection",
+          summary: "Virginia joins the National Popular Vote Interstate Compact — awards VA's electoral votes to the national popular vote winner when enough states join.",
+          status: "Passed both chambers · Sent to Gov. Spanberger (Feb 25)",
+          deadline: null,
+          action: "https://lis.virginia.gov/cgi-bin/legp604.exe?261+sum+HB965"
+        }
   ]
-},
-UT:{
-  threats:[
-    {bill:"HB 209",summary:"Proof of citizenship required for state elections only — creates two-tier voting system. Federal elections exempt. Kansas used same bifurcated approach: 31,000 voters blocked.",status:"Passed legislature · On Gov. Cox's desk · ACLU filed veto letter (Mar 5)",action:"https://le.utah.gov/~2026/bills/static/HB0209.html"}
-  ],
-  protections:[]
-},
-NH:{
-  threats:[
-    {bill:"HB 323",summary:"Removes student IDs as valid voter identification — disproportionately affects college-town voters.",status:"Passed House · In Senate",action:"https://www.gencourt.state.nh.us/bill_status/billinfo.aspx?id=1571"}
-  ],
-  protections:[]
-},
-IA:{
-  threats:[
-    {bill:"SF 2203",summary:"Mandates citizenship verification through the federal SAVE database for all voter registrations — mirrors the SAVE Act model at the state level.",status:"Passed Senate · In House",action:"https://www.legis.iowa.gov/legislation/BillBook?ga=91&ba=SF2203"}
-  ],
-  protections:[]
-},
-NM:{
-  threats:[],
-  protections:[
-    {bill:"SB 264",summary:"Deploying federal troops or military personnel at New Mexico polling places is a fourth-degree felony. Also bars any attempt to alter voter qualifications beyond state law.",status:"Passed legislature · Sent to governor",action:"https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26"}
-  ]
-},
-AZ:{
-  threats:[
-    {bill:"SCR 1001",summary:"Kills the Active Early Voter List used by 80%+ of Arizona voters. Requires mail ballot re-request before every election. Also embeds language in the AZ constitution enabling future elimination of mail voting entirely.",status:"Passed Senate 17-13 · Engrossed in House · Goes directly to Nov 2026 ballot if legislature approves",action:"https://legiscan.com/AZ/text/SCR1001/id/3284427"}
-  ],
-  protections:[]
-},
-NY:{
-  threats:[],
-  protections:[
-    {bill:"SB 8500A — NY Civil Rights Act",summary:"Creates a state-law right to sue federal officers (ICE, CBP, any federal agent) for constitutional violations in New York state courts. Directly fills the gap left by decades of Supreme Court rulings limiting Bivens claims.",status:"In Senate Codes Committee · Gov. Hochul endorsing · Moving via state budget (spring)",action:"https://www.nysenate.gov/legislation/bills/2025/S8500/amendment/A"}
-  ]
-},
-NE:{
-  threats:[
-    {bill:"LR24CA",summary:"Puts winner-take-all electoral college allocation on the November 2026 ballot — would eliminate the Omaha 'blue dot' district vote that has split Nebraska's electoral votes in 2008, 2020, and 2024.",status:"Carryover from 2025 · Prioritized by Gov. Pillen · Floor vote pending",deadline:"2026-04-17",action:"https://legiscan.com/NE/bill/LR24CA/2025"}
-  ],
-  protections:[]
-}
 };
 // INTERVENTIONS-END
 

@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://electionriskmap.org">
 <meta property="og:title" content="Federal Election Interference Risk Map — 2026 Midterms">
-<meta property="og:description" content="24 states sued for voter data. FBI raided Georgia election offices. CISA gutted. See where your state stands.">
+<meta property="og:description" content="29 states sued for voter data. DOJ appealing 3 court losses. FBI raided Georgia election offices. Draft emergency EO to seize elections. See where your state stands.">
 <meta property="og:image" content="https://electionriskmap.org/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,14 +19,14 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Federal Election Interference Risk Map — 2026 Midterms">
-<meta name="twitter:description" content="24 states sued for voter data. FBI raided Georgia election offices. CISA gutted. See where your state stands.">
+<meta name="twitter:description" content="29 states sued for voter data. DOJ appealing 3 court losses. FBI raided Georgia election offices. Draft emergency EO to seize elections. See where your state stands.">
 <meta name="twitter:image" content="https://electionriskmap.org/og-image.png">
 <link rel="canonical" href="https://electionriskmap.org/">
 <link rel="alternate" type="application/rss+xml" title="Election Risk Map Updates" href="https://electionriskmap.org/feed.xml">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Federal Election Interference Risk Map","url":"https://electionriskmap.org","description":"Interactive map tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.","dateModified":"2026-02-10"}
+{"@context":"https://schema.org","@type":"WebSite","name":"Federal Election Interference Risk Map","url":"https://electionriskmap.org","description":"Interactive map tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.","dateModified":"2026-03-05"}
 </script>
 
 <!-- Analytics (privacy-respecting, no cookies) -->
@@ -156,6 +156,24 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 .detail-sources-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:5px}
 .detail-src-link{display:inline-block;font-size:10px;color:var(--text-muted);text-decoration:underline;text-underline-offset:2px;margin-right:10px;margin-bottom:3px;line-height:1.6}
 .detail-src-link:hover{color:var(--text)}
+
+/* State Interventions Layer */
+.interventions-section{margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.interventions-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px}
+.intervention-item{padding:7px 10px;border-radius:6px;margin-bottom:6px;border-left:2px solid transparent}
+.intervention-item.threat{background:rgba(185,28,28,0.07);border-left-color:rgba(239,68,68,0.4)}
+.intervention-item.protection{background:rgba(34,197,94,0.06);border-left-color:rgba(34,197,94,0.35)}
+.intervention-bill{font-size:11px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px}
+.intervention-type{font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:1px 6px;border-radius:3px;flex-shrink:0}
+.intervention-type.threat{color:#F87171;background:rgba(185,28,28,0.18)}
+.intervention-type.protection{color:#4ADE80;background:rgba(34,197,94,0.15)}
+.intervention-summary{font-size:11px;color:var(--text-dim);line-height:1.45;margin-top:2px}
+.intervention-status{font-size:10px;color:var(--text-muted);margin-top:3px;line-height:1.4}
+.intervention-deadline{font-size:10px;font-weight:700;margin-top:3px}
+.intervention-deadline.urgent{color:#FB923C}
+.intervention-deadline.critical{color:#F87171}
+.intervention-action{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--text-muted);text-decoration:underline;text-underline-offset:2px;margin-top:4px;transition:color 0.15s}
+.intervention-action:hover{color:var(--text)}
 
 /* Stats */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -363,14 +381,79 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
   <div class="timeline animate d1">
     <div class="timeline-title mono"><span class="pulse"></span> Latest Developments</div>
     <div class="tl-item">
-      <div class="tl-date">Feb 13</div>
+      <div class="tl-date">Mar 3</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text"><strong>18 former DOJ attorneys file amicus brief in Illinois</strong> — bipartisan group argues Trump administration lacks legal authority to demand voter data. Have filed similar briefs across most ongoing lawsuits <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Mar 3</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text"><strong>Minnesota court hears motion to dismiss</strong> DOJ voter data lawsuit — judge weighing state's legal challenge as DOJ strategy faces mounting court setbacks <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 25</div>
+      <div class="tl-dot" style="background:var(--high)"></div>
+      <div class="tl-text"><strong>DOJ appeals 3 dismissed cases</strong> — Oregon and California to 9th Circuit, Michigan to 6th Circuit. Lost in trial courts, now escalating to federal appeals courts <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 26</div>
       <div class="tl-dot" style="background:var(--critical)"></div>
-      <div class="tl-text">Trump threatens <strong>executive order mandating voter ID</strong> for 2026 midterms "whether approved by Congress or not." Federal judge already permanently blocked similar order in January as unconstitutional <span class="tl-new">New</span></div>
+      <div class="tl-text"><strong>Draft emergency EO circulating</strong> to declare national emergency and seize control of elections — would ban mail-in ballots and voting machines based on debunked China conspiracy theory. Legal experts call it "blatantly unconstitutional" <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 26</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text"><strong>DOJ sues 5 more states</strong> for voter data — Utah, Oklahoma, Kentucky, West Virginia, and New Jersey. Total now <strong>29 states + D.C.</strong> Three are Republican-governed; Kentucky's Republican SoS also refused <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 25</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text"><strong>Thune kills SAVE Act talking filibuster</strong> — at least 4 GOP senators refuse to support, including co-sponsors Tillis and Curtis. Bill will face 60-vote threshold, unlikely to pass <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 25</div>
+      <div class="tl-dot" style="background:var(--moderate)"></div>
+      <div class="tl-text"><strong>FBI call with 50 state election officials</strong> — DHS confirms ICE will NOT be at polling places for 2026. But federal agencies refuse to affirm states' constitutional authority over elections. Election conspiracy theorist Heather Honey (now DHS deputy) urged states to use SAVE database. Oregon SoS called meeting "bluster" with "not a lot of facts" <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 25</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text">Fulton County asks Trump-appointed judge to <strong>force FBI agent to testify</strong> about misleading affidavit used to justify election raid. County alleges FBI omitted findings that debunked its own claims <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 24</div>
+      <div class="tl-dot" style="background:var(--critical)"></div>
+      <div class="tl-text"><strong>Trump demands SAVE Act at State of the Union</strong> — calls out Thune by name ("We have to stop it, John"), falsely claims "cheating is rampant," demands ban on mail-in ballots. Exaggerates bill's provisions beyond what it contains <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 23</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text">Federal panel <strong>upholds Utah court-ordered redistricting map</strong> — GOP challenge denied. Map giving Democrats shot at House seat stands for 2026 <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 20</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text"><strong>CREW wins FOIA</strong> — reveals DOJ had no evidence of noncitizen voting when it began suing states for voter data. Undercuts stated justification for entire campaign <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 17</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text"><strong>New Mexico passes SB 264</strong> — criminalizes deploying federal troops at polling places (fourth-degree felony). Also bans altering voter qualifications beyond state law. Sent to governor <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 16</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text"><strong>Missouri Republican SoS Hoskins refuses DOJ</strong> voter data demands — joins bipartisan resistance from WV, NH, PA. Fourth Republican official to refuse <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 13</div>
+      <div class="tl-dot" style="background:var(--elevated)"></div>
+      <div class="tl-text"><strong>Ohio voter purge lawsuit filed</strong> — LWV and CAIR challenge SB 293 requiring monthly citizenship checks using flawed databases. Law allows cancellations without notice, even during NVRA quiet period <span class="tl-new">New</span></div>
     </div>
     <div class="tl-item">
       <div class="tl-date">Feb 13</div>
       <div class="tl-dot" style="background:var(--moderate)"></div>
-      <div class="tl-text">Sen. <strong>Susan Collins (R-ME) supports SAVE Act</strong> but opposes eliminating filibuster — Republicans claim 50+ votes but still short of 60. Collins backed revised version dropping per-vote citizenship proof requirement</div>
+      <div class="tl-text">Sen. <strong>Susan Collins (R-ME) supports SAVE Act</strong> but opposes eliminating filibuster — Republicans claim 50+ votes but still short of 60. Collins backed revised version dropping per-vote citizenship proof requirement <span class="tl-new">New</span></div>
     </div>
     <div class="tl-item">
       <div class="tl-date">Feb 12</div>
@@ -423,6 +506,11 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
       <div class="tl-text"><strong>FBI raids Fulton County, GA</strong> election offices — seizes 2020 ballots and voter rolls. DNI Gabbard on-site, called Trump during raid</div>
     </div>
     <div class="tl-item">
+      <div class="tl-date">Jan 30</div>
+      <div class="tl-dot" style="background:#22C55E"></div>
+      <div class="tl-text">Judge Kollar-Kotelly <strong>permanently blocks two more provisions</strong> of Trump election EO — agencies cannot assess citizenship before offering voter registration; military/overseas voters cannot be required to show proof of citizenship <span class="tl-new">New</span></div>
+    </div>
+    <div class="tl-item">
       <div class="tl-date">Jan 25</div>
       <div class="tl-dot" style="background:var(--critical)"></div>
       <div class="tl-text">AG Bondi demands <strong>Minnesota voter rolls as condition for pulling ICE</strong> — Secretary of State calls it "an apparent ransom"</div>
@@ -441,16 +529,6 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
       <div class="tl-date">Dec 2025</div>
       <div class="tl-dot" style="background:var(--moderate)"></div>
       <div class="tl-text"><strong>Second wave of lawsuits</strong> — DOJ sues WI, IL, GA, DC, DE, MD, NM, RI, VT, WA, and more for voter data</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-date">Dec 11</div>
-      <div class="tl-dot" style="background:var(--critical)"></div>
-      <div class="tl-text"><strong>Pentagon lawyer won't rule out troops at polling places</strong> — At Senate hearing, DoD counsel Charles Young III says Title 32 Guard may not be covered by federal ban. Cites COVID poll workers as precedent. Sen. Slotkin: "the playbook of authoritarianism" <span class="tl-new">New</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-date">Dec 2025</div>
-      <div class="tl-dot" style="background:var(--elevated)"></div>
-      <div class="tl-text"><strong>DOJ confidential voter removal agreement revealed</strong> — Memorandum of understanding requires states to remove DOJ-flagged voters within 45 days. CO and WI rejected it. AK and TX signed <span class="tl-new">New</span></div>
     </div>
     <div class="tl-item">
       <div class="tl-date">Sept 2025</div>
@@ -485,7 +563,7 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 
       <div class="stats-grid animate d4">
         <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">24</div>
+          <div class="stat-num">29</div>
           <div class="stat-label">States Sued</div>
           <div class="stat-sub">+ D.C. for voter data</div>
           <div class="stat-expand-hint">tap to see states</div>
@@ -510,25 +588,60 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
           <div class="stat-label">States Contacted</div>
           <div class="stat-sub">by DOJ total</div>
           <div class="stat-expand-hint">tap for details</div>
-          <div class="stat-states">At least 47 states and Washington, D.C. received DOJ requests for complete voter registration lists, including driver's license numbers and partial Social Security numbers. Only 11 have provided the data so far. The rest refused or sought clarification. The DOJ also circulated confidential memoranda of understanding requiring states to remove DOJ-flagged voters within 45 days — AK and TX signed, CO and WI rejected them. Meanwhile, National Guard troops are already deployed in DC, Chicago, Memphis, and LA — and the Pentagon's own lawyer refused to rule out stationing them at polling places for 2026.</div>
+          <div class="stat-states">At least 47 states and Washington, D.C. received DOJ requests for complete voter registration lists, including driver's license numbers and partial Social Security numbers. Only 11 have provided the data so far. The rest refused or sought clarification.</div>
         </div>
       </div>
 
       <div class="court-wins animate d5">
         <div class="court-wins-title mono">Courts Fighting Back</div>
         <div class="court-case">
-          <div class="court-state">Michigan <span style="color:#22C55E">— Case Dismissed</span></div>
-          <div class="court-detail">Trump-appointed Judge Jarbou ruled all three federal laws DOJ cited "do not allow the United States to obtain the records at issue." Third dismissal on the merits.</div>
+          <div class="court-state">Illinois <span style="color:#22C55E">— Former DOJ Attorneys Oppose Lawsuit</span></div>
+          <div class="court-detail">18 former Justice Department attorneys from both parties filed amicus brief arguing DOJ lacks legal authority to demand voter data. Have filed similar briefs in most ongoing lawsuits nationwide.</div>
+          <div class="court-date">Mar 3, 2026 · <a class="court-link" href="https://news.wttw.com/2026/03/03/former-justice-department-lawyers-oppose-trump-admin-lawsuit-over-illinois-voter-data" target="_blank">WTTW</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Minnesota <span style="color:#F59E0B">— Motion to Dismiss Hearing</span></div>
+          <div class="court-detail">Federal judge heard oral arguments on state's motion to dismiss DOJ voter data lawsuit. Decision pending. DOJ's legal strategy has faced dismissals in California, Michigan, and Oregon.</div>
+          <div class="court-date">Mar 3, 2026 · <a class="court-link" href="https://www.mprnews.org/" target="_blank">MPR News</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Federal Appeals <span style="color:#F59E0B">— DOJ Escalating 3 Dismissed Cases</span></div>
+          <div class="court-detail">DOJ appealed dismissals in Oregon and California to the 9th Circuit, and Michigan to the 6th Circuit. After losing 3 for 3 in trial courts, DOJ is escalating rather than accepting the rulings.</div>
+          <div class="court-date">Feb 25, 2026 · <a class="court-link" href="https://www.democracydocket.com/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Utah <span style="color:#22C55E">— Redistricting Map Upheld</span></div>
+          <div class="court-detail">Three-judge federal panel denied GOP challenge to court-ordered congressional map. Utah Supreme Court also rejected separate challenge. Map giving Democrats shot at House seat stands for 2026.</div>
+          <div class="court-date">Feb 23, 2026 · <a class="court-link" href="https://www.nbcnews.com/" target="_blank">NBC News</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Fulton County, GA <span style="color:#F59E0B">— Suing FBI for Ballot Return</span></div>
+          <div class="court-detail">County suing to recover 700+ boxes of 2020 records seized by FBI. Alleges affidavit relied on debunked claims and biased witnesses. Trump-appointed judge ordered FBI agent to testify about potentially misleading warrant.</div>
+          <div class="court-date">Feb 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/fulton-county-raid-fbi-agent-search-warrant-affidavit-hearing/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Ohio <span style="color:#F59E0B">— Voter Purge Lawsuit Filed</span></div>
+          <div class="court-detail">LWV and CAIR challenge SB 293 requiring monthly citizenship checks via flawed databases. Law allows cancellations without notice, even during NVRA 90-day quiet period before elections.</div>
+          <div class="court-date">Feb 13, 2026 · <a class="court-link" href="https://campaignlegal.org/" target="_blank">Campaign Legal Center</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Federal <span style="color:#22C55E">— Trump Election EO Blocked Again</span></div>
+          <div class="court-detail">Judge Kollar-Kotelly permanently blocked two more provisions: agencies cannot assess citizenship before offering voter registration forms, and military/overseas voters cannot be required to show proof of citizenship. 110-page ruling calls it unconstitutional.</div>
+          <div class="court-date">Jan 30, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/judge-permanently-blocks-core-parts-trump-elections-executive-order/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Michigan <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
+          <div class="court-detail">Trump-appointed Judge Jarbou ruled all three federal laws DOJ cited "do not allow the United States to obtain the records at issue." Third dismissal on the merits. DOJ appealed to 6th Circuit (Feb 25).</div>
           <div class="court-date">Feb 10, 2026 · <a class="court-link" href="https://www.votebeat.org/michigan/2026/02/10/trump-justice-department-lawsuit-voter-rolls-data-dismissed-judge-hala-jarbou-jocelyn-benson/" target="_blank">Votebeat</a></div>
         </div>
         <div class="court-case">
-          <div class="court-state">California <span style="color:#22C55E">— Case Dismissed</span></div>
-          <div class="court-detail">Judge ruled DOJ's voter data demands paint "an alarming picture regarding the centralization of Americans' information within the Executive Branch."</div>
+          <div class="court-state">California <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
+          <div class="court-detail">Judge ruled DOJ's voter data demands paint "an alarming picture regarding the centralization of Americans' information within the Executive Branch." DOJ appealed to 9th Circuit (Feb 25).</div>
           <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/analysis-opinion/trump-administration-has-sued-more-20-states-refusing-turn-over-voter" target="_blank">Brennan Center</a></div>
         </div>
         <div class="court-case">
-          <div class="court-state">Oregon <span style="color:#22C55E">— Case Dismissed</span></div>
-          <div class="court-detail">Court rejected DOJ's legal theory that federal law entitles it to unredacted voter files with Social Security numbers.</div>
+          <div class="court-state">Oregon <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
+          <div class="court-detail">Court rejected DOJ's legal theory that federal law entitles it to unredacted voter files with Social Security numbers. DOJ appealed to 9th Circuit (Feb 25).</div>
           <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center Tracker</a></div>
         </div>
         <div class="court-case">
@@ -536,7 +649,12 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
           <div class="court-detail">Judge dismissed voter data lawsuit because DOJ filed in the wrong court. Dismissed without prejudice — DOJ can refile in Atlanta. (The separate FBI raid on Fulton County is a different action.)</div>
           <div class="court-date">Jan 23, 2026 · <a class="court-link" href="https://georgiarecorder.com/2026/01/23/federal-judge-tosses-out-doj-lawsuit-seeking-sensitive-voter-data-in-georgia/" target="_blank">Georgia Recorder</a></div>
         </div>
-        <div class="court-updated">Last updated: February 19, 2026</div>
+        <div class="court-case" style="border-left-color:var(--elevated)">
+          <div class="court-state">Supreme Court <span style="color:#F59E0B">— Watson v. RNC (Pending)</span></div>
+          <div class="court-detail">SCOTUS hearing challenge to mail ballot postmark deadlines. Oral arguments March 23. Ruling expected by summer could invalidate grace periods in 14+ states right before 2026 midterms.</div>
+          <div class="court-date">Oral args Mar 23, 2026 · <a class="court-link" href="https://votingrightslab.org/2025/11/12/supreme-court-case-could-rewrite-rules-for-mail-and-military-voting/" target="_blank">Voting Rights Lab</a></div>
+        </div>
+        <div class="court-updated">Last updated: March 5, 2026</div>
       </div>
     </div>
   </div>
@@ -544,19 +662,13 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
   <div class="actions animate d6">
     <div class="actions-title mono">What You Can Do Now</div>
     <div class="actions-grid">
-      <div class="action-item" style="border-left:3px solid var(--critical);padding-left:14px;background:rgba(185,28,28,0.06)">
-        <span class="action-arrow">→</span><strong>Go Together — Organize a Voting Pod</strong> — The Pentagon won't rule out troops at polling places. ICE won't promise to stay away. Don't go alone. Form a pod of 3–5 people: go to the polls together, record everything, be a wall between voters and anyone who shouldn't be there. If ICE has probable cause in public, they can escalate — your pod is the buffer.
-        <br><a class="action-link" href="https://866ourvote.org" target="_blank">Election Protection Hotline: 866-OUR-VOTE →</a>
-        &nbsp;&nbsp;<a class="action-link" href="https://www.commondreams.org/tag/voter-intimidation" target="_blank">Know Your Rights at the Polls →</a>
-      </div>
-      <div class="action-item">
-        <span class="action-arrow">→</span><strong>Become an Election Defender</strong> — Volunteer as a nonpartisan poll monitor. More trained eyes on the process deter intimidation — whether from armed civilians, ICE agents, or uniformed troops.
-        <br><a class="action-link" href="https://www.eac.gov/help-america-vote" target="_blank">Find your local signup →</a>
-        &nbsp;&nbsp;<a class="action-link" href="https://866ourvote.org/volunteer/" target="_blank">Election Protection Volunteers →</a>
-      </div>
       <div class="action-item">
         <span class="action-arrow">→</span><strong>Verify your voter registration</strong> — Check now and again before November. Protect against purges.
         <br><a class="action-link" href="https://www.vote.org/am-i-registered-to-vote/" target="_blank">Check at vote.org →</a>
+      </div>
+      <div class="action-item">
+        <span class="action-arrow">→</span><strong>Volunteer as a poll worker or observer</strong> — More eyes on the process deter irregularities.
+        <br><a class="action-link" href="https://www.eac.gov/help-america-vote" target="_blank">Find your local signup →</a>
       </div>
       <div class="action-item">
         <span class="action-arrow">→</span><strong>Support local election officials</strong> — Attend board meetings, push back publicly on threats and intimidation.
@@ -600,9 +712,8 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
     <a href="https://www.justice.gov/opa" target="_blank">DOJ Press Releases</a> · 
     <a href="https://www.npr.org" target="_blank">NPR</a> · NBC News · Common Cause · 
     <a href="https://www.democracydocket.com" target="_blank">Democracy Docket</a> · 
-    <a href="https://www.votebeat.org" target="_blank">Votebeat</a> ·
-    <a href="https://www.armed-services.senate.gov/" target="_blank">Senate Armed Services Committee</a> · AP News
-    <br>Data as of February 2026. This is an informational resource, not legal advice.
+    <a href="https://www.votebeat.org" target="_blank">Votebeat</a>
+    <br>Data as of March 5, 2026. This is an informational resource, not legal advice.
     <br>Corrections: <a href="/cdn-cgi/l/email-protection#9cf5f2faf3dcf9f0f9ffe8f5f3f2eef5eff7f1fdecb2f3eefb"><span class="__cf_email__" data-cfemail="7a13141c153a1f161f190e13151408130911171b0a5415081d">[email&#160;protected]</span></a> · <a href="feed.xml">RSS Feed</a>
   </div>
 </div>
@@ -623,7 +734,7 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Share functionality
 const SHARE_URL = 'https://electionriskmap.org';
-const SHARE_TEXT = 'The DOJ has sued 24 states for voter data, the FBI raided Georgia election offices, and 1,000+ CISA staff have been fired. See which states are at risk ahead of the 2026 midterms.';
+const SHARE_TEXT = '29 states sued for voter data. DOJ appealing 3 court losses. Draft EO to ban mail-in voting. Republican officials refusing. Track every state at';
 
 function shareX(e) {
   e.preventDefault();
@@ -660,30 +771,30 @@ function copyLink(btn) {
 // Data
 const GRID={AK:[0,0],ME:[10,0],WI:[5,1],VT:[9,1],NH:[10,1],WA:[0,2],ID:[1,2],MT:[2,2],ND:[3,2],MN:[4,2],IL:[5,2],MI:[6,2],NY:[8,2],MA:[9,2],CT:[10,2],OR:[0,3],NV:[1,3],WY:[2,3],SD:[3,3],IA:[4,3],IN:[5,3],OH:[6,3],PA:[7,3],NJ:[8,3],RI:[9,3],CA:[0,4],UT:[1,4],CO:[2,4],NE:[3,4],MO:[4,4],KY:[5,4],WV:[6,4],VA:[7,4],MD:[8,4],DE:[9,4],AZ:[1,5],NM:[2,5],KS:[3,5],AR:[4,5],TN:[5,5],NC:[6,5],SC:[7,5],DC:[8,5],OK:[3,6],LA:[4,6],MS:[5,6],AL:[6,6],GA:[7,6],HI:[0,7],TX:[3,7],FL:[7,7]};
 const RISK_LEVELS={critical:{color:'#B91C1C',label:'Critical — Direct Federal Action'},high:{color:'#DC2626',label:'High — Sued + Battleground'},elevated:{color:'#EA580C',label:'Elevated — Sued for Voter Data'},moderate:{color:'#D97706',label:'Moderate — Sued (Later Waves)'},complied:{color:'#6B7280',label:'Complied with DOJ'},noaction:{color:'#1E293B',label:'No Major Reported Action'}};
-const STATES={AL:{name:"Alabama",risk:"noaction",details:"No major reported federal election action."},AK:{name:"Alaska",risk:"complied",details:"Provided full voter file to DOJ. Signed confidential memorandum of understanding with the Justice Department."},AZ:{name:"Arizona",risk:"elevated",details:"Sued for voter data (Jan 2026). Key swing state with history of election conspiracy targeting.",tags:["Sued"]},AR:{name:"Arkansas",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},CA:{name:"California",risk:"elevated",details:"Sued for voter data (Sept 2025, first wave). Court DISMISSED the DOJ's case — judge found 'alarming' evidence of centralization effort.",tags:["Sued","Case Dismissed"]},CO:{name:"Colorado",risk:"high",details:"Sued for voter data (Dec 2025). White House-linked consultant contacted county clerks about accessing voting machines. Secretary of State actively resisting.",tags:["Sued","Machine Access Attempt"]},CT:{name:"Connecticut",risk:"elevated",details:"Sued for voter data (Jan 2026).",tags:["Sued"]},DE:{name:"Delaware",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},FL:{name:"Florida",risk:"noaction",details:"No major reported federal election targeting."},GA:{name:"Georgia",risk:"critical",details:"FBI raided Fulton County election offices (Jan 28, 2026), seizing 2020 ballots and voter rolls. DNI Tulsi Gabbard was on-hand and called Trump during raid. Also sued for voter data — case dismissed on jurisdictional grounds (wrong court), but DOJ can refile in Atlanta.",tags:["FBI Raid","Sued","Dismissed (Jurisdictional)"]},HI:{name:"Hawaii",risk:"elevated",details:"Sued for voter data (Dec 2025).",tags:["Sued"]},ID:{name:"Idaho",risk:"noaction",details:"No major reported federal election action."},IL:{name:"Illinois",risk:"elevated",details:"Sued for voter data (Dec 2025). Part of the wave with Wisconsin, Georgia, and DC.",tags:["Sued"]},IN:{name:"Indiana",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},IA:{name:"Iowa",risk:"noaction",details:"No major reported federal election action."},KS:{name:"Kansas",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},KY:{name:"Kentucky",risk:"noaction",details:"No major reported federal election action."},LA:{name:"Louisiana",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},ME:{name:"Maine",risk:"elevated",details:"Sued for voter data. Competitive House district (ME-2).",tags:["Sued"]},MD:{name:"Maryland",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},MA:{name:"Massachusetts",risk:"elevated",details:"Sued for voter data (Dec 2025).",tags:["Sued"]},MI:{name:"Michigan",risk:"high",details:"Sued for voter data (Sept 2025, first wave). Court DISMISSED the DOJ's case (Feb 10, 2026) — Trump-appointed Judge Jarbou ruled all three cited federal laws do not require disclosure. Multiple competitive House districts. Key battleground with active redistricting fights.",tags:["Sued","Case Dismissed","Battleground"]},MN:{name:"Minnesota",risk:"high",details:"Sued for voter data (Sept 2025, first wave). AG Bondi demanded voter rolls as a condition for withdrawing ICE from Minneapolis (Jan 25, 2026) — hours after agents fatally shot a second person. SoS Steve Simon called it 'an apparent ransom.' Arizona SoS compared it to 'organized crime.'",tags:["Sued","Coercion Attempt","Battleground"]},MS:{name:"Mississippi",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},MO:{name:"Missouri",risk:"noaction",details:"U.S. Attorney from Eastern District sought Fulton County search warrant. Active redistricting fight in courts."},MT:{name:"Montana",risk:"noaction",details:"No major reported federal election action."},NE:{name:"Nebraska",risk:"complied",details:"Handed voter data to DOJ on Feb 12, 2026, after state Supreme Court denied emergency injunction. Court will hear full case March 31 — but data already transferred. SoS Evnen pledged state will not remove voters solely on DOJ recommendations. Common Cause lawsuit still pending.",tags:["Complied","Court Ruling","Appeal Pending"]},NV:{name:"Nevada",risk:"elevated",details:"Sued for voter data (Dec 2025). Key swing state with competitive races.",tags:["Sued","Battleground"]},NH:{name:"New Hampshire",risk:"high",details:"Sued for voter data (Sept 2025, first wave). Competitive House races with outsized national importance.",tags:["Sued","Battleground"]},NJ:{name:"New Jersey",risk:"noaction",details:"No major reported federal election action."},NM:{name:"New Mexico",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},NY:{name:"New York",risk:"elevated",details:"Sued for voter data (Sept 2025, first wave). Multiple competitive House districts on Long Island and in Hudson Valley.",tags:["Sued"]},NC:{name:"North Carolina",risk:"noaction",details:"No major reported federal election action. Competitive swing state."},ND:{name:"North Dakota",risk:"noaction",details:"No major reported federal election action."},OH:{name:"Ohio",risk:"noaction",details:"No major reported federal election action."},OK:{name:"Oklahoma",risk:"noaction",details:"No major reported federal election action."},OR:{name:"Oregon",risk:"elevated",details:"Sued for voter data. Court DISMISSED the DOJ's case, rejecting government's legal theory.",tags:["Sued","Case Dismissed"]},PA:{name:"Pennsylvania",risk:"high",details:"Sued for voter data (Sept 2025, first wave). 4 highly competitive House races — most of any state. Former Sec. of State named as prosecution target in Project 2025 blueprint.",tags:["Sued","Battleground","P2025 Target"]},RI:{name:"Rhode Island",risk:"moderate",details:"Sued for voter data (Dec 2025). Sec. of State offered public list but refused to provide confidential personal information.",tags:["Sued"]},SC:{name:"South Carolina",risk:"noaction",details:"No major reported federal election action."},SD:{name:"South Dakota",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},TN:{name:"Tennessee",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},TX:{name:"Texas",risk:"complied",details:"Provided full voter file to DOJ. Signed confidential memorandum of understanding with the Justice Department."},UT:{name:"Utah",risk:"noaction",details:"Court-ordered redistricting map. No major DOJ voter data action reported."},VT:{name:"Vermont",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},VA:{name:"Virginia",risk:"elevated",details:"Sued for voter data (Jan 2026) — the 24th state sued. Active redistricting constitutional amendment fight.",tags:["Sued"]},WA:{name:"Washington",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave). Multiple competitive House districts.",tags:["Sued"]},WV:{name:"West Virginia",risk:"noaction",details:"Republican SoS Kris Warner rejected DOJ voter data demands (Feb 12, 2026), citing state law. Received request twice (Sept 2025 and Feb 4, 2026) and refused both times. Warner: 'Just not gonna happen.' Joins bipartisan resistance with NH, PA, MO.",tags:["Refused DOJ"]},WI:{name:"Wisconsin",risk:"high",details:"Sued for voter data (Dec 2025). Bipartisan Elections Commission voted against DOJ — both R and D commissioners said compliance would violate state law.",tags:["Sued","Bipartisan Resistance","Battleground"]},WY:{name:"Wyoming",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},DC:{name:"Washington D.C.",risk:"moderate",details:"Sued for voter data (Dec 2025). Interim U.S. Attorney Ed Martin — who spoke at Capitol on eve of Jan 6 — created 'election crimes' special unit.",tags:["Sued","Election Crimes Unit"]}};
+const STATES={AL:{name:"Alabama",risk:"noaction",details:"No major reported federal election action."},AK:{name:"Alaska",risk:"complied",details:"Provided full voter file to DOJ. Signed confidential memorandum of understanding with the Justice Department."},AZ:{name:"Arizona",risk:"elevated",details:"Sued for voter data (Jan 2026). SoS Adrian Fontes responded to DOJ demands by posting 'Pound sand' on social media. Key swing state with history of election conspiracy targeting.",tags:["Sued"]},AR:{name:"Arkansas",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},CA:{name:"California",risk:"elevated",details:"Sued for voter data (Sept 2025, first wave). Court DISMISSED the DOJ's case — judge found 'alarming' evidence of centralization effort. DOJ appealed to 9th Circuit Court of Appeals (Feb 25).",tags:["Sued","Case Dismissed","Appeal Pending"]},CO:{name:"Colorado",risk:"high",details:"Sued for voter data (Dec 2025). White House-linked consultant contacted county clerks about accessing voting machines. Secretary of State actively resisting.",tags:["Sued","Machine Access Attempt"]},CT:{name:"Connecticut",risk:"elevated",details:"Sued for voter data (Jan 2026).",tags:["Sued"]},DE:{name:"Delaware",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},FL:{name:"Florida",risk:"noaction",details:"No major reported federal election targeting."},GA:{name:"Georgia",risk:"critical",details:"FBI raided Fulton County election offices (Jan 28, 2026), seizing 700+ boxes of 2020 ballots and voter rolls. DNI Tulsi Gabbard was on-hand and called Trump during raid. Affidavit relied on debunked claims — NPR found FBI omitted state findings clearing the county. Fulton County suing to recover records; Trump-appointed judge ordered FBI agent to testify. State Election Board considering takeover of Fulton elections. Also sued for voter data — case dismissed (wrong court), DOJ can refile.",tags:["FBI Raid","Sued","Dismissed (Jurisdictional)"]},HI:{name:"Hawaii",risk:"elevated",details:"Sued for voter data (Dec 2025).",tags:["Sued"]},ID:{name:"Idaho",risk:"noaction",details:"No major reported federal election action."},IL:{name:"Illinois",risk:"elevated",details:"Sued for voter data (Dec 2025). 18 former DOJ attorneys from both parties filed amicus brief (Mar 3, 2026) arguing Trump administration lacks legal authority to demand voter data. Similar briefs filed in most ongoing cases.",tags:["Sued","Amicus Opposition"]},IN:{name:"Indiana",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},IA:{name:"Iowa",risk:"noaction",details:"No major reported federal election action."},KS:{name:"Kansas",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},KY:{name:"Kentucky",risk:"moderate",details:"Sued for voter data (Feb 26, 2026). Republican SoS Adams: 'Kentucky law protects voters' personal information, and I will not voluntarily commit a data breach.' One of first red states targeted.",tags:["Sued"]},LA:{name:"Louisiana",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},ME:{name:"Maine",risk:"elevated",details:"Sued for voter data. Competitive House district (ME-2).",tags:["Sued"]},MD:{name:"Maryland",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},MA:{name:"Massachusetts",risk:"elevated",details:"Sued for voter data (Dec 2025).",tags:["Sued"]},MI:{name:"Michigan",risk:"high",details:"Sued for voter data (Sept 2025, first wave). Court DISMISSED the DOJ's case (Feb 10, 2026) — Trump-appointed Judge Jarbou ruled all three cited federal laws do not require disclosure. DOJ appealed to 6th Circuit Court of Appeals (Feb 25). Multiple competitive House districts. Key battleground with active redistricting fights.",tags:["Sued","Case Dismissed","Appeal Pending","Battleground"]},MN:{name:"Minnesota",risk:"high",details:"Sued for voter data (Sept 2025, first wave). AG Bondi demanded voter rolls as a condition for withdrawing ICE from Minneapolis (Jan 25, 2026) — hours after agents fatally shot a second person. SoS Steve Simon called it 'an apparent ransom.' Federal judge heard arguments on state's motion to dismiss (Mar 3, 2026).",tags:["Sued","Coercion Attempt","Battleground","Hearing Held"]},MS:{name:"Mississippi",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},MO:{name:"Missouri",risk:"moderate",details:"Republican SoS Denny Hoskins refused DOJ voter data demands (Feb 16, 2026). U.S. Attorney from Eastern District sought Fulton County search warrant. Active redistricting fight in courts.",tags:["Refused DOJ"]},MT:{name:"Montana",risk:"noaction",details:"No major reported federal election action."},NE:{name:"Nebraska",risk:"complied",details:"Handed voter data to DOJ on Feb 12, 2026, after state Supreme Court denied emergency injunction. Court will hear full case March 31 — but data already transferred. SoS Evnen pledged state will not remove voters solely on DOJ recommendations. Common Cause lawsuit still pending.",tags:["Complied","Court Ruling","Appeal Pending"]},NV:{name:"Nevada",risk:"elevated",details:"Sued for voter data (Dec 2025). Key swing state with competitive races.",tags:["Sued","Battleground"]},NH:{name:"New Hampshire",risk:"high",details:"Sued for voter data (Sept 2025, first wave). Competitive House races with outsized national importance.",tags:["Sued","Battleground"]},NJ:{name:"New Jersey",risk:"moderate",details:"Sued for voter data (Feb 26, 2026). Competitive House district (NJ-07).",tags:["Sued"]},NM:{name:"New Mexico",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave). Legislature passed SB 264 (Feb 17) criminalizing deployment of federal troops at polling places and altering voter qualifications beyond state law — sent to governor for signature.",tags:["Sued","Protective Legislation"]},NY:{name:"New York",risk:"elevated",details:"Sued for voter data (Sept 2025, first wave). Multiple competitive House districts on Long Island and in Hudson Valley.",tags:["Sued"]},NC:{name:"North Carolina",risk:"noaction",details:"No major reported federal election action. Competitive swing state."},ND:{name:"North Dakota",risk:"noaction",details:"No major reported federal election action."},OH:{name:"Ohio",risk:"elevated",details:"LWV and CAIR filed federal lawsuit (Feb 13) challenging SB 293 voter purge law requiring monthly citizenship checks via flawed databases. Law allows cancellations without notice, even during NVRA 90-day quiet period. Also eliminated mail ballot grace period. Two competitive House districts.",tags:["Voter Purge Law","Lawsuit Filed"]},OK:{name:"Oklahoma",risk:"moderate",details:"Sued for voter data (Feb 26, 2026). One of first Republican-led states targeted by DOJ.",tags:["Sued"]},OR:{name:"Oregon",risk:"elevated",details:"Sued for voter data. Court DISMISSED the DOJ's case, rejecting government's legal theory. DOJ appealed to 9th Circuit Court of Appeals (Feb 25). Oregon SoS called FBI election call 'bluster' with 'not a lot of facts.'",tags:["Sued","Case Dismissed","Appeal Pending"]},PA:{name:"Pennsylvania",risk:"high",details:"Sued for voter data (Sept 2025, first wave). 4 highly competitive House races — most of any state. Former Sec. of State named as prosecution target in Project 2025 blueprint.",tags:["Sued","Battleground","P2025 Target"]},RI:{name:"Rhode Island",risk:"moderate",details:"Sued for voter data (Dec 2025). Sec. of State offered public list but refused to provide confidential personal information.",tags:["Sued"]},SC:{name:"South Carolina",risk:"noaction",details:"No major reported federal election action."},SD:{name:"South Dakota",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},TN:{name:"Tennessee",risk:"complied",details:"Provided full voter file to DOJ. Refused to sign confidential memorandum of understanding."},TX:{name:"Texas",risk:"complied",details:"Provided full voter file to DOJ. Signed confidential memorandum of understanding with the Justice Department."},UT:{name:"Utah",risk:"elevated",details:"Sued for voter data (Feb 26, 2026) — Lt. Gov. Henderson: 'Neither state nor federal law entitles DOJ to collect private information on law-abiding American citizens.' Court-ordered redistricting map upheld by federal panel and state Supreme Court — gives Democrats shot at House seat in 2026.",tags:["Sued","Redistricting Win"]},VT:{name:"Vermont",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave).",tags:["Sued"]},VA:{name:"Virginia",risk:"elevated",details:"Sued for voter data (Jan 2026). Active redistricting constitutional amendment fight.",tags:["Sued"]},WA:{name:"Washington",risk:"moderate",details:"Sued for voter data (Dec 2025, second wave). Multiple competitive House districts.",tags:["Sued"]},WV:{name:"West Virginia",risk:"moderate",details:"Sued for voter data (Feb 26, 2026) after Republican SoS Kris Warner rejected DOJ demands twice (Sept 2025 and Feb 4, 2026). Warner: 'Just not gonna happen.' Cites state law. One of first red states targeted — DOJ sued despite prior refusal.",tags:["Sued","Refused DOJ"]},WI:{name:"Wisconsin",risk:"high",details:"Sued for voter data (Dec 2025). Bipartisan Elections Commission voted against DOJ — both R and D commissioners said compliance would violate state law.",tags:["Sued","Bipartisan Resistance","Battleground"]},WY:{name:"Wyoming",risk:"complied",details:"Provided full voter file to DOJ including sensitive personal data."},DC:{name:"Washington D.C.",risk:"moderate",details:"Sued for voter data (Dec 2025). Interim U.S. Attorney Ed Martin — who spoke at Capitol on eve of Jan 6 — created 'election crimes' special unit.",tags:["Sued","Election Crimes Unit"]}};
 const SHORT_DESC={critical:"FBI RAID",high:"SUED+",elevated:"SUED",moderate:"SUED",complied:"GAVE DATA",noaction:""};
 
 // Per-state source links — primary reporting for each state's events
 const SOURCES={
 GA:[{t:"FBI Raids Fulton County",u:"https://www.cbsnews.com/news/fbi-raids-fulton-county-election-offices-georgia/"},{t:"Brennan Center Tracker",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"},{t:"GA Case Dismissed",u:"https://www.courthousenews.com/federal-judge-tosses-doj-voter-data-lawsuit-against-georgia/"}],
-CA:[{t:"CA Case Dismissed",u:"https://www.usatoday.com/story/news/politics/2026/01/15/federal-courts-deny-trump-voter-data-california-oregon/77773011007/"},{t:"Brennan Center",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
-OR:[{t:"OR Case Dismissed",u:"https://www.usatoday.com/story/news/politics/2026/01/15/federal-courts-deny-trump-voter-data-california-oregon/77773011007/"}],
+CA:[{t:"CA Case Dismissed",u:"https://www.usatoday.com/story/news/politics/2026/01/15/federal-courts-deny-trump-voter-data-california-oregon/77773011007/"},{t:"Brennan Center",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"},{t:"DOJ Appeals to 9th Circuit",u:"https://www.democracydocket.com/"}],
+OR:[{t:"OR Case Dismissed",u:"https://www.usatoday.com/story/news/politics/2026/01/15/federal-courts-deny-trump-voter-data-california-oregon/77773011007/"},{t:"DOJ Appeals to 9th Circuit",u:"https://www.democracydocket.com/"}],
 CO:[{t:"DOJ Sues Colorado",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"},{t:"Machine Access Attempt",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
-MI:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook House Ratings",u:"https://www.cookpolitical.com/ratings/house-race-ratings"}],
+MI:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook House Ratings",u:"https://www.cookpolitical.com/ratings/house-race-ratings"},{t:"DOJ Appeals to 6th Circuit",u:"https://www.democracydocket.com/"}],
 MN:[{t:"ICE Coercion Attempt",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Brennan Center",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
 PA:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook: 4 Competitive Races",u:"https://www.cookpolitical.com/ratings/house-race-ratings"},{t:"P2025 Blueprint",u:"https://www.project2025.observer/en"}],
 WI:[{t:"Bipartisan Resistance",u:"https://www.votebeat.org"},{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
 NH:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"}],
 NV:[{t:"DOJ Lawsuit",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"}],
 NY:[{t:"First-Wave Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"},{t:"Cook House Ratings Shift",u:"https://spectrumlocalnews.com/nys/central-ny/politics/2026/01/16/cook-political-report-shifts-n-y--house-2026-ratings"}],
-AZ:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+AZ:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"},{t:"Fontes: 'Pound Sand'",u:"https://www.votebeat.org/arizona/2026/01/14/doj-sues-arizona-voter-data/"}],
 VA:[{t:"24th State Sued",u:"https://www.usatoday.com/story/news/politics/2026/01/20/trump-administration-sues-another-state-sensitive-voter-data/77861445007/"}],
 CT:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
 DE:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
 MD:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
 MA:[{t:"DOJ Lawsuit",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"}],
 HI:[{t:"DOJ Lawsuit",u:"https://www.cnn.com/2025/12/19/politics/doj-sues-four-more-states-voter-data"}],
-IL:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"}],
+IL:[{t:"DOJ Lawsuit",u:"https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information"},{t:"18 Former DOJ Attorneys Oppose",u:"https://news.wttw.com/2026/03/03/former-justice-department-lawyers-oppose-trump-admin-lawsuit-over-illinois-voter-data"}],
 ME:[{t:"DOJ Lawsuit",u:"https://www.npr.org/2025/09/12/nx-s1-5112741/doj-sues-states-voter-data"}],
 NM:[{t:"Second-Wave Lawsuit",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
 RI:[{t:"SoS Offered Public List",u:"https://www.foxnews.com/politics/justice-department-sues-6-states-refusing-share-voter-data"}],
@@ -693,6 +804,76 @@ DC:[{t:"Election Crimes Unit",u:"https://www.brennancenter.org/our-work/research
 AK:[{t:"Signed DOJ MOU",u:"https://www.usatoday.com/story/news/politics/elections/2025/08/20/states-voter-rolls-doj-trump/74862840007/"}],
 TX:[{t:"Signed DOJ MOU",u:"https://www.usatoday.com/story/news/politics/elections/2025/08/20/states-voter-rolls-doj-trump/74862840007/"}],
 };
+
+// State Interventions — bills that amplify or resist the federal election interference story
+// Test 1: connected to federal pattern (DPOC/SAVE, voter purges, ICE-at-polls, no-secret-police, state VRAs)
+// Test 2: major structural threat/protection to fair 2026 elections
+// Last verified: March 5, 2026
+// INTERVENTIONS-START
+const INTERVENTIONS={
+FL:{
+  threats:[
+    {bill:"HB 991",summary:"Proof of citizenship required for all 13M+ registered Florida voters — mirrors SAVE Act. Also removes student IDs as valid voter ID.",status:"Passed House 88-31 · In Senate",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/991"},
+    {bill:"HB 1471 / SB 1632",summary:"State officials can designate nonprofits as 'domestic terrorist organizations' — no criminal conviction required. Bars state funding, criminalizes membership, expels public university students from designated orgs.",status:"HB passed full House (Mar 3) · SB heading to full Senate vote",deadline:"2026-03-13",action:"https://www.flsenate.gov/Session/Bill/2026/1471"}
+  ],
+  protections:[]
+},
+GA:{
+  threats:[
+    {bill:"SB 568",summary:"Eliminates countywide early voting — Fulton loses 43 sites, DeKalb loses 19. Assigns all voters to a single designated precinct. Mandates hand-marked paper ballots for November 2026 general only. Same sponsor is calling for Fulton County state takeover.",status:"Passed Senate Ethics Committee 8-4 (Mar 3) · In Senate Rules Committee",deadline:"2026-03-13",action:"https://www.legis.ga.gov/legislation/64982"}
+  ],
+  protections:[]
+},
+VA:{
+  threats:[],
+  protections:[
+    {bill:"HB 965 / SB 322 — National Popular Vote",summary:"Virginia joins the National Popular Vote Interstate Compact — awards VA's electoral votes to the national popular vote winner when enough states join.",status:"Passed both chambers · Sent to Gov. Spanberger (Feb 25)",action:"https://lis.virginia.gov/cgi-bin/legp604.exe?261+sum+HB965"}
+  ]
+},
+UT:{
+  threats:[
+    {bill:"HB 209",summary:"Proof of citizenship required for state elections only — creates two-tier voting system. Federal elections exempt. Kansas used same bifurcated approach: 31,000 voters blocked.",status:"Passed legislature · On Gov. Cox's desk · ACLU filed veto letter (Mar 5)",action:"https://le.utah.gov/~2026/bills/static/HB0209.html"}
+  ],
+  protections:[]
+},
+NH:{
+  threats:[
+    {bill:"HB 323",summary:"Removes student IDs as valid voter identification — disproportionately affects college-town voters.",status:"Passed House · In Senate",action:"https://www.gencourt.state.nh.us/bill_status/billinfo.aspx?id=1571"}
+  ],
+  protections:[]
+},
+IA:{
+  threats:[
+    {bill:"SF 2203",summary:"Mandates citizenship verification through the federal SAVE database for all voter registrations — mirrors the SAVE Act model at the state level.",status:"Passed Senate · In House",action:"https://www.legis.iowa.gov/legislation/BillBook?ga=91&ba=SF2203"}
+  ],
+  protections:[]
+},
+NM:{
+  threats:[],
+  protections:[
+    {bill:"SB 264",summary:"Deploying federal troops or military personnel at New Mexico polling places is a fourth-degree felony. Also bars any attempt to alter voter qualifications beyond state law.",status:"Passed legislature · Sent to governor",action:"https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26"}
+  ]
+},
+AZ:{
+  threats:[
+    {bill:"SCR 1001",summary:"Kills the Active Early Voter List used by 80%+ of Arizona voters. Requires mail ballot re-request before every election. Also embeds language in the AZ constitution enabling future elimination of mail voting entirely.",status:"Passed Senate 17-13 · Engrossed in House · Goes directly to Nov 2026 ballot if legislature approves",action:"https://legiscan.com/AZ/text/SCR1001/id/3284427"}
+  ],
+  protections:[]
+},
+NY:{
+  threats:[],
+  protections:[
+    {bill:"SB 8500A — NY Civil Rights Act",summary:"Creates a state-law right to sue federal officers (ICE, CBP, any federal agent) for constitutional violations in New York state courts. Directly fills the gap left by decades of Supreme Court rulings limiting Bivens claims.",status:"In Senate Codes Committee · Gov. Hochul endorsing · Moving via state budget (spring)",action:"https://www.nysenate.gov/legislation/bills/2025/S8500/amendment/A"}
+  ]
+},
+NE:{
+  threats:[
+    {bill:"LR24CA",summary:"Puts winner-take-all electoral college allocation on the November 2026 ballot — would eliminate the Omaha 'blue dot' district vote that has split Nebraska's electoral votes in 2008, 2020, and 2024.",status:"Carryover from 2025 · Prioritized by Gov. Pillen · Floor vote pending",deadline:"2026-04-17",action:"https://legiscan.com/NE/bill/LR24CA/2025"}
+  ],
+  protections:[]
+}
+};
+// INTERVENTIONS-END
 
 // State officials data — SoS, AG, election status
 // Sources: NASS roster, Ballotpedia, Teri Tome (updated 1/24/26), Wikipedia
@@ -713,7 +894,7 @@ IL:{sos:"Alexi Giannoulias",sp:"d",ag:"Kwame Raoul",ap:"d",s26:true,a26:true,sta
 IN:{sos:"Diego Morales",sp:"r",ag:"Todd Rokita",ap:"r",s26:true,a26:false,note:"Gave full voter file to DOJ"},
 IA:{sos:"Paul Pate",sp:"r",ag:"Brenna Bird",ap:"r",s26:true,a26:true},
 KS:{sos:"Scott Schwab",sp:"r",ag:"Kris Kobach",ap:"r",s26:true,a26:true,note:"Gave full voter file to DOJ"},
-KY:{sos:"Michael Adams",sp:"r",ag:"Russell Coleman",ap:"r",s26:false,a26:false,note:"SoS term-limited, up 2027"},
+KY:{sos:"Michael Adams",sp:"r",ag:"Russell Coleman",ap:"r",s26:false,a26:false,stance:"fighting",note:"SoS term-limited, up 2027. Adams rejected DOJ: 'I will not voluntarily commit a data breach'"},
 LA:{sos:"Nancy Landry",sp:"r",ag:"Liz Murrill",ap:"r",s26:false,a26:false,note:"Gave full voter file to DOJ. Up 2027"},
 ME:{sos:"Shenna Bellows",sp:"d",ag:"Aaron Frey",ap:"d",s26:false,a26:false,stance:"fighting",note:"SoS appointed by Legislature. Running for governor 2026"},
 MD:{sos:"Susan Lee",sp:"d",ag:"Anthony Brown",ap:"d",s26:false,a26:true,stance:"fighting",note:"SoS appointed by Gov. Moore (D)"},
@@ -721,18 +902,18 @@ MA:{sos:"William Galvin",sp:"d",ag:"Andrea Campbell",ap:"d",s26:true,a26:true,st
 MI:{sos:"Jocelyn Benson",sp:"d",ag:"Dana Nessel",ap:"d",s26:true,a26:true,stance:"fighting",note:"Both term-limited. Major battleground state"},
 MN:{sos:"Steve Simon",sp:"d",ag:"Keith Ellison",ap:"d",s26:true,a26:true,stance:"fighting",note:"AG pushed back on DOJ leveraging voter data for ICE operations"},
 MS:{sos:"Michael Watson Jr.",sp:"r",ag:"Lynn Fitch",ap:"r",s26:false,a26:false,note:"Gave voter file but refused to sign DOJ confidentiality MOU"},
-MO:{sos:"Denny Hoskins",sp:"r",ag:"Andrew Bailey",ap:"r",s26:false,a26:false,note:"U.S. Attorney from Eastern MO sought Fulton County search warrant"},
+MO:{sos:"Denny Hoskins",sp:"r",ag:"Andrew Bailey",ap:"r",s26:false,a26:false,stance:"fighting",note:"Republican SoS refused DOJ voter data demands Feb 16. U.S. Attorney from Eastern MO sought Fulton County search warrant"},
 MT:{sos:"Christi Jacobsen",sp:"r",ag:"Austin Knudsen",ap:"r",s26:false,a26:false},
 NE:{sos:"Bob Evnen",sp:"r",ag:"Mike Hilgers",ap:"r",s26:true,a26:true,note:"Handed voter data to DOJ Feb 12. Supreme Court hearing March 31."},
 NV:{sos:"Cisco Aguilar",sp:"d",ag:"Aaron Ford",ap:"d",s26:true,a26:true,stance:"fighting",note:"Key swing state. AG term-limited, running for governor"},
 NH:{sos:"David Scanlan",sp:"r",ag:"John Formella",ap:"r",s26:false,a26:false,stance:"fighting",note:"SoS appointed by Legislature. Despite R officials, state is fighting DOJ suit"},
-NJ:{sos:"Dale Caldwell",sp:"d",ag:"Matthew Platkin",ap:"d",s26:false,a26:false,note:"SoS appointed by Gov. Sherrill (D)"},
-NM:{sos:"Maggie Toulouse Oliver",sp:"d",ag:"Raúl Torrez",ap:"d",s26:true,a26:true,stance:"fighting"},
+NJ:{sos:"Dale Caldwell",sp:"d",ag:"Matthew Platkin",ap:"d",s26:false,a26:false,note:"SoS appointed by Gov. Sherrill (D). Sued for voter data Feb 2026"},
+NM:{sos:"Maggie Toulouse Oliver",sp:"d",ag:"Raúl Torrez",ap:"d",s26:true,a26:true,stance:"fighting",note:"Legislature passed SB 264 criminalizing federal troops at polls"},
 NY:{sos:"Walter T. Mosley",sp:"d",ag:"Letitia James",ap:"d",s26:false,a26:true,stance:"fighting",note:"SoS appointed by Gov. Hochul (D)"},
 NC:{sos:"Elaine Marshall",sp:"d",ag:"Jeff Jackson",ap:"d",s26:false,a26:false,note:"Newly elected AG (2024). Competitive swing state"},
 ND:{sos:"Michael Howe",sp:"r",ag:"Drew Wrigley",ap:"r",s26:true,a26:true},
-OH:{sos:"Frank LaRose",sp:"r",ag:"Dave Yost",ap:"r",s26:true,a26:true,note:"Both term-limited. Active redistricting fights"},
-OK:{sos:"Benjamin Lepak",sp:"r",ag:"Gentner Drummond",ap:"r",s26:false,a26:true,note:"SoS appointed by Gov. Stitt (R)"},
+OH:{sos:"Frank LaRose",sp:"r",ag:"Dave Yost",ap:"r",s26:true,a26:true,note:"Both term-limited. SB 293 voter purge law challenged in court. LaRose declined corrective action"},
+OK:{sos:"Benjamin Lepak",sp:"r",ag:"Gentner Drummond",ap:"r",s26:false,a26:true,note:"SoS appointed by Gov. Stitt (R). Sued for voter data Feb 2026"},
 OR:{sos:"Tobias Read",sp:"d",ag:"Dan Rayfield",ap:"d",s26:false,a26:false,stance:"fighting",note:"Court dismissed DOJ suit. Newly elected AG (2024)"},
 PA:{sos:"Al Schmidt",sp:"r",ag:"Dave Sunday",ap:"r",s26:false,a26:false,stance:"mixed",note:"SoS (R) appointed by Dem Gov. Shapiro for bipartisanship. New AG (R) elected 2024"},
 RI:{sos:"Gregg Amore",sp:"d",ag:"Peter Neronha",ap:"d",s26:true,a26:true,stance:"fighting",note:"SoS offered public list, refused sensitive data. AG term-limited"},
@@ -740,11 +921,11 @@ SC:{sos:"Mark Hammond",sp:"r",ag:"Alan Wilson",ap:"r",s26:true,a26:true,note:"AG
 SD:{sos:"Monae Johnson",sp:"r",ag:"Marty Jackley",ap:"r",s26:true,a26:true,note:"Gave voter file, refused DOJ confidentiality MOU. AG running for House"},
 TN:{sos:"Tre Hargett",sp:"r",ag:"Jonathan Skrmetti",ap:"r",s26:false,a26:false,note:"SoS appointed by Legislature. Gave voter file, refused DOJ MOU"},
 TX:{sos:"Jane Nelson",sp:"r",ag:"Ken Paxton",ap:"r",s26:false,a26:true,note:"SoS appointed by Gov. Abbott. Signed DOJ confidentiality MOU"},
-UT:{sos:"Lt. Gov. Deidre Henderson",sp:"r",ag:"Derek Brown",ap:"r",s26:false,a26:false,note:"No SoS office — Lt. Gov. oversees elections"},
+UT:{sos:"Lt. Gov. Deidre Henderson",sp:"r",ag:"Derek Brown",ap:"r",s26:false,a26:false,stance:"fighting",note:"No SoS office — Lt. Gov. oversees elections. Henderson rejected DOJ: 'Neither state nor federal law entitles DOJ to collect private information'"},
 VT:{sos:"Sarah Copeland Hanzas",sp:"d",ag:"Charity Clark",ap:"d",s26:true,a26:true,stance:"fighting",note:"Both serve 2-year terms — both on ballot 2026"},
 VA:{sos:"Candi Mundon King",sp:"d",ag:"Jay Jones",ap:"d",s26:false,a26:false,stance:"fighting",note:"SoS appointed by Gov. Spanberger (D). AG newly elected 2025"},
 WA:{sos:"Steve Hobbs",sp:"d",ag:"Nick Brown",ap:"d",s26:false,a26:false,stance:"fighting",note:"Newly elected AG (2024)"},
-WV:{sos:"Kris Warner",sp:"r",ag:"John B. McCuskey",ap:"r",s26:false,a26:false},
+WV:{sos:"Kris Warner",sp:"r",ag:"John B. McCuskey",ap:"r",s26:false,a26:false,stance:"fighting",note:"Refused DOJ twice. Now sued. Warner: 'Just not gonna happen'"},
 WI:{sos:"Douglas La Follette",sp:"d",ag:"Josh Kaul",ap:"d",s26:true,a26:true,stance:"fighting",note:"Bipartisan Elections Commission rejected DOJ — both R and D commissioners cited state law"},
 WY:{sos:"Chuck Gray",sp:"r",ag:"Bridget Hill",ap:"r",s26:true,a26:false,note:"SoS described as 'election denier.' Gave full voter file to DOJ"},
 DC:{sos:"—",sp:"",ag:"Brian Schwalb",ap:"d",s26:false,a26:true,stance:"fighting",note:"No traditional SoS. Interim U.S. Attorney Ed Martin created 'election crimes' unit"}
@@ -778,10 +959,10 @@ const legendEl=document.getElementById('legend');
 Object.entries(RISK_LEVELS).forEach(([key,val])=>{const count=Object.values(STATES).filter(s=>s.risk===key).length;const div=document.createElement('div');div.className='legend-item';div.dataset.risk=key;div.innerHTML=`<div class="legend-swatch" style="background:${val.color};box-shadow:0 0 8px ${val.color}40"></div><div><div class="legend-label">${val.label}</div><div class="legend-count">${count} state${count!==1?'s':''}</div></div>`;div.addEventListener('click',()=>filterByRisk(key));legendEl.appendChild(div)});
 
 // Populate stat lists
-const suedStates=Object.entries(STATES).filter(([a,d])=>['critical','high','elevated','moderate'].includes(d.risk)).map(([a])=>a).sort();
+const suedStates=Object.entries(STATES).filter(([a,d])=>d.tags&&d.tags.includes('Sued')).map(([a])=>a).sort();
 const compliedStates=Object.entries(STATES).filter(([a,d])=>d.risk==='complied').map(([a])=>a).sort();
-document.getElementById('statesSued').innerHTML=suedStates.map(a=>`<span class="stat-state-chip" style="border-left:2px solid ${RISK_LEVELS[STATES[a].risk].color}">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">CA, OR & GA cases dismissed by courts</span>';
-document.getElementById('statesComplied').innerHTML=compliedStates.map(a=>`<span class="stat-state-chip">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">AK & TX signed confidential MOUs allowing DOJ to order voter removals within 45 days</span>';
+document.getElementById('statesSued').innerHTML=suedStates.map(a=>`<span class="stat-state-chip" style="border-left:2px solid ${RISK_LEVELS[STATES[a].risk].color}">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">CA, OR, MI & GA cases dismissed by courts</span>';
+document.getElementById('statesComplied').innerHTML=compliedStates.map(a=>`<span class="stat-state-chip">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">AK & TX signed confidential MOUs</span>';
 
 function toggleStat(el){const was=el.classList.contains('expanded');document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('expanded'));if(!was)el.classList.add('expanded')}
 
@@ -820,6 +1001,28 @@ if(races&&races.length>0){
 }
 // Quick action links
 let actHtml=`<div class="detail-actions"><a class="detail-act-btn" href="https://www.vote.org/am-i-registered-to-vote/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Check registration</a><a class="detail-act-btn" href="https://openstates.org/find_your_legislator/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>Find legislators</a><a class="detail-act-btn dl" href="states/${abbr}.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Download PDF</a></div>`;
+// State interventions layer
+let interventionsHtml='';
+const intv=INTERVENTIONS[abbr];
+if(intv&&(intv.threats.length>0||intv.protections.length>0)){
+  interventionsHtml='<div class="interventions-section"><div class="interventions-title">State-Level Bills</div>';
+  const today=new Date('2026-03-05');
+  const allBills=[...intv.threats.map(b=>({...b,type:'threat'})),...intv.protections.map(b=>({...b,type:'protection'}))];
+  allBills.forEach(bill=>{
+    let deadlineHtml='';
+    if(bill.deadline){
+      const dl=new Date(bill.deadline);
+      const daysLeft=Math.ceil((dl-today)/(1000*60*60*24));
+      const cls=daysLeft<=7?'critical':daysLeft<=14?'urgent':'';
+      const label=daysLeft<=0?'Session ended':`Sine die ${bill.deadline.slice(5).replace('-','/')} — ${daysLeft}d left`;
+      deadlineHtml=`<div class="intervention-deadline ${cls}">⏱ ${label}</div>`;
+    }
+    const actionHtml=bill.action?`<a class="intervention-action" href="${bill.action}" target="_blank" rel="noopener">Track bill →</a>`:'';
+    interventionsHtml+=`<div class="intervention-item ${bill.type}"><div class="intervention-bill">${bill.bill}<span class="intervention-type ${bill.type}">${bill.type==='threat'?'Threat':'Protection'}</span></div><div class="intervention-summary">${bill.summary}</div><div class="intervention-status">${bill.status}</div>${deadlineHtml}${actionHtml}</div>`;
+  });
+  interventionsHtml+='</div>';
+}
+
 // Source links
 let srcHtml='';
 const srcs=SOURCES[abbr];
@@ -829,7 +1032,7 @@ if(srcs&&srcs.length>0){
   srcHtml+='</div>';
 }
 
-const fullHtml=`<div style="display:flex;align-items:center;margin-bottom:6px"><span class="detail-dot" style="background:${risk.color};box-shadow:0 0 12px ${risk.color}60"></span><span class="detail-name">${data.name}</span></div><div class="detail-risk" style="color:${risk.color}">${risk.label}</div><div class="detail-text">${data.details}</div>${tagsHtml}${offHtml}${racesHtml}${actHtml}${srcHtml}`;
+const fullHtml=`<div style="display:flex;align-items:center;margin-bottom:6px"><span class="detail-dot" style="background:${risk.color};box-shadow:0 0 12px ${risk.color}60"></span><span class="detail-name">${data.name}</span></div><div class="detail-risk" style="color:${risk.color}">${risk.label}</div><div class="detail-text">${data.details}</div>${tagsHtml}${offHtml}${racesHtml}${interventionsHtml}${actHtml}${srcHtml}`;
 detailContent.innerHTML=fullHtml;detailPanel.style.borderColor=risk.color+'30';detailPanel.style.background=risk.color+'08';
 
 // Mobile: show in modal instead of sidebar panel

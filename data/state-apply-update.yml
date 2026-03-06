@@ -1,0 +1,41 @@
+name: State Bill Apply Update
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  apply:
+    # Only run if:
+    # 1. Comment is on an issue (not a PR)
+    # 2. Comment body is exactly "approved" (case-insensitive)
+    # 3. Issue has the "state-bill" label
+    if: |
+      github.event.issue.pull_request == null &&
+      contains(toLower(github.event.comment.body), 'approved') &&
+      contains(join(github.event.issue.labels.*.name, ','), 'state-bill')
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run apply-update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: python state_apply_update.py

@@ -1,0 +1,47 @@
+name: State Bill Monitor
+
+on:
+  schedule:
+    # 8:15 AM ET daily (12:15 UTC) — runs after federal monitor at 8:00
+    - cron: "15 12 * * *"
+  workflow_dispatch:
+    inputs:
+      force_all:
+        description: "Check all bills including MONITORING tier"
+        required: false
+        default: "false"
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install anthropic requests
+
+      - name: Run state bill monitor
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          FORCE_ALL: ${{ github.event.inputs.force_all }}
+        run: python state_monitor.py
+
+      - name: Commit updated last_checked date
+        run: |
+          git config user.email "bot@electionriskmap.org"
+          git config user.name "ERM State Monitor Bot"
+          git add data/bills.json
+          git diff --staged --quiet || git commit -m "chore: state monitor last_checked $(date +%Y-%m-%d)"
+          git push

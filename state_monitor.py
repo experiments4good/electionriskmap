@@ -78,8 +78,12 @@ Current tracked data for {bill['bill']} ({bill['state']}):
 - Status: {bill['status']}
 - Last changed: {bill['last_changed']}
 - Summary: {bill['summary']}
+- Session year: 2026
+- Legislature URL: {bill['legislature_url']}
 
 Today's date: {TODAY}
+
+CRITICAL: This bill is from the **2026 legislative session only**. The page may contain data from multiple sessions (2024, 2025, 2026). You must IGNORE any data from sessions other than 2026. If you cannot confirm the data is from the 2026 session, respond with changed: false and confidence: low.
 
 Legislature page text (may be partial or messy):
 ---

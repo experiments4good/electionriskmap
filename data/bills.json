@@ -15,6 +15,7 @@
       "legislature_url": "https://www.flsenate.gov/Session/Bill/2026/991",
       "weact": "https://weactnow.com/actions/570018",
       "last_changed": "2026-02-25",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -32,6 +33,7 @@
       "legislature_url": "https://www.flsenate.gov/Session/Bill/2026/1471",
       "weact": "https://weactnow.com/actions/570019",
       "last_changed": "2026-03-03",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -49,6 +51,7 @@
       "legislature_url": "https://www.legis.ga.gov/legislation/64982",
       "weact": "https://weactnow.com/actions/570020",
       "last_changed": "2026-03-03",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -65,6 +68,7 @@
       "action": "https://lis.virginia.gov/cgi-bin/legp604.exe?261+sum+HB965",
       "legislature_url": "https://lis.virginia.gov/cgi-bin/legp604.exe?261+sum+HB965",
       "last_changed": "2026-02-25",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -80,7 +84,9 @@
       "deadline": null,
       "action": "https://le.utah.gov/~2026/bills/static/HB0209.html",
       "legislature_url": "https://le.utah.gov/~2026/bills/static/HB0209.html",
+      "weact": "https://weactnow.com/actions/570021",
       "last_changed": "2026-03-05",
+      "session_year": 2026,
       "last_checked": "2026-03-06",
       "active": true
     },
@@ -96,7 +102,9 @@
       "deadline": null,
       "action": "https://www.gencourt.state.nh.us/bill_status/billinfo.aspx?id=1571",
       "legislature_url": "https://www.gencourt.state.nh.us/bill_status/billinfo.aspx?id=1571",
+      "weact": "https://weactnow.com/actions/570022",
       "last_changed": "2026-02-01",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -112,7 +120,9 @@
       "deadline": null,
       "action": "https://www.legis.iowa.gov/legislation/BillBook?ga=91&ba=SF2203",
       "legislature_url": "https://www.legis.iowa.gov/legislation/BillBook?ga=91&ba=SF2203",
+      "weact": "https://weactnow.com/actions/570023",
       "last_changed": "2026-02-15",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -129,6 +139,7 @@
       "action": "https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26",
       "legislature_url": "https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26",
       "last_changed": "2026-02-17",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -145,6 +156,7 @@
       "action": "https://legiscan.com/AZ/text/SCR1001/id/3284427",
       "legislature_url": "https://legiscan.com/AZ/text/SCR1001/id/3284427",
       "last_changed": "2026-02-18",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -161,6 +173,7 @@
       "action": "https://www.nysenate.gov/legislation/bills/2025/S8500/amendment/A",
       "legislature_url": "https://www.nysenate.gov/legislation/bills/2025/S8500/amendment/A",
       "last_changed": "2026-01-07",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     },
@@ -177,6 +190,7 @@
       "action": "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=54634",
       "legislature_url": "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=54634",
       "last_changed": "2026-01-15",
+      "session_year": 2026,
       "last_checked": "2026-03-05",
       "active": true
     }

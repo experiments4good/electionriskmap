@@ -76,9 +76,16 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 
 
 /* Timeline */
-.timeline{margin-top:20px;margin-bottom:4px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden}
+.timeline{margin-top:0;margin-bottom:16px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden}
+.timeline-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:12px;margin-bottom:0}
+.timeline-header:hover .tl-toggle-btn{color:var(--text)}
+.tl-toggle-btn{background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-family:'DM Sans',system-ui,sans-serif;font-size:11px;font-weight:600;padding:4px 10px;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.02em;flex-shrink:0}
+.tl-toggle-btn:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+.tl-new-badge{font-size:10px;font-weight:700;letter-spacing:0.04em;color:#22C55E;background:rgba(34,197,94,0.12);padding:2px 7px;border-radius:10px;margin-left:8px}
+.tl-expanded{margin-top:4px}
+.tl-collapsed{margin-top:12px}
 .timeline::before{content:'';position:absolute;left:28px;top:42px;bottom:16px;width:1px;background:rgba(239,68,68,0.15)}
-.timeline-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.timeline-title{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0;display:flex;align-items:center;gap:8px}
 .timeline-title .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(239,68,68,0.4)}50%{opacity:0.7;box-shadow:0 0 0 6px rgba(239,68,68,0)}}
 .tl-item{display:flex;gap:12px;padding:6px 0;position:relative}
@@ -380,10 +387,132 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
     </div>
   </header>
 
+
+  <div class="main-grid">
+    <div class="map-container animate d2">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        <input type="text" class="search-input" id="stateSearch" placeholder="Find your state…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search for a state">
+        <div class="search-results" id="searchResults" role="listbox"></div>
+      </div>
+      <div class="tile-grid" id="tileGrid" role="grid" aria-label="State risk level map"></div>
+    </div>
+    <div class="sidebar">
+      <div class="panel animate d3">
+        <div class="panel-title mono">Risk Level</div>
+        <div id="legend"></div>
+      </div>
+      <div class="panel detail-panel animate d3" id="detailPanel">
+        <div class="detail-empty" id="detailEmpty">Hover or tap a state<br>to view threat details</div>
+        <div id="detailContent" style="display:none"></div>
+      </div>
+
+      <div class="stats-grid animate d4">
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">29</div>
+          <div class="stat-label">States Sued</div>
+          <div class="stat-sub">+ D.C. for voter data</div>
+          <div class="stat-expand-hint">tap to see states</div>
+          <div class="stat-states" id="statesSued"></div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Complied</div>
+          <div class="stat-sub">with DOJ demands</div>
+          <div class="stat-expand-hint">tap to see states</div>
+          <div class="stat-states" id="statesComplied"></div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">1,000+</div>
+          <div class="stat-label">CISA Staff Lost</div>
+          <div class="stat-sub">election security gutted</div>
+          <div class="stat-expand-hint">tap for details</div>
+          <div class="stat-states">The Cybersecurity and Infrastructure Security Agency — which helped local officials protect voting systems from hacking — has lost over 1,000 employees through firings, layoffs, and transfers since early 2025. Dismantling CISA was a key Project 2025 recommendation.</div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">47</div>
+          <div class="stat-label">States Contacted</div>
+          <div class="stat-sub">by DOJ total</div>
+          <div class="stat-expand-hint">tap for details</div>
+          <div class="stat-states">At least 47 states and Washington, D.C. received DOJ requests for complete voter registration lists, including driver's license numbers and partial Social Security numbers. Only 11 have provided the data so far. The rest refused or sought clarification.</div>
+        </div>
+      </div>
+
+      <div class="court-wins animate d5">
+        <div class="court-wins-title mono">Courts Fighting Back</div>
+        <div class="court-case">
+          <div class="court-state">Illinois <span style="color:#22C55E">— Former DOJ Attorneys Oppose Lawsuit</span></div>
+          <div class="court-detail">18 former Justice Department attorneys from both parties filed amicus brief arguing DOJ lacks legal authority to demand voter data. Have filed similar briefs in most ongoing lawsuits nationwide.</div>
+          <div class="court-date">Mar 3, 2026 · <a class="court-link" href="https://news.wttw.com/2026/03/03/former-justice-department-lawyers-oppose-trump-admin-lawsuit-over-illinois-voter-data" target="_blank">WTTW</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Minnesota <span style="color:#F59E0B">— Motion to Dismiss Hearing</span></div>
+          <div class="court-detail">Federal judge heard oral arguments on state's motion to dismiss DOJ voter data lawsuit. Decision pending. DOJ's legal strategy has faced dismissals in California, Michigan, and Oregon.</div>
+          <div class="court-date">Mar 3, 2026 · <a class="court-link" href="https://www.mprnews.org/" target="_blank">MPR News</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Federal Appeals <span style="color:#F59E0B">— DOJ Escalating 3 Dismissed Cases</span></div>
+          <div class="court-detail">DOJ appealed dismissals in Oregon and California to the 9th Circuit, and Michigan to the 6th Circuit. After losing 3 for 3 in trial courts, DOJ is escalating rather than accepting the rulings.</div>
+          <div class="court-date">Feb 25, 2026 · <a class="court-link" href="https://www.democracydocket.com/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Utah <span style="color:#22C55E">— Redistricting Map Upheld</span></div>
+          <div class="court-detail">Three-judge federal panel denied GOP challenge to court-ordered congressional map. Utah Supreme Court also rejected separate challenge. Map giving Democrats shot at House seat stands for 2026.</div>
+          <div class="court-date">Feb 23, 2026 · <a class="court-link" href="https://www.nbcnews.com/" target="_blank">NBC News</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Fulton County, GA <span style="color:#F59E0B">— Suing FBI for Ballot Return</span></div>
+          <div class="court-detail">County suing to recover 700+ boxes of 2020 records seized by FBI. Alleges affidavit relied on debunked claims and biased witnesses. Trump-appointed judge ordered FBI agent to testify about potentially misleading warrant.</div>
+          <div class="court-date">Feb 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/fulton-county-raid-fbi-agent-search-warrant-affidavit-hearing/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Ohio <span style="color:#F59E0B">— Voter Purge Lawsuit Filed</span></div>
+          <div class="court-detail">LWV and CAIR challenge SB 293 requiring monthly citizenship checks via flawed databases. Law allows cancellations without notice, even during NVRA 90-day quiet period before elections.</div>
+          <div class="court-date">Feb 13, 2026 · <a class="court-link" href="https://campaignlegal.org/" target="_blank">Campaign Legal Center</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Federal <span style="color:#22C55E">— Trump Election EO Blocked Again</span></div>
+          <div class="court-detail">Judge Kollar-Kotelly permanently blocked two more provisions: agencies cannot assess citizenship before offering voter registration forms, and military/overseas voters cannot be required to show proof of citizenship. 110-page ruling calls it unconstitutional.</div>
+          <div class="court-date">Jan 30, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/judge-permanently-blocks-core-parts-trump-elections-executive-order/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Michigan <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
+          <div class="court-detail">Trump-appointed Judge Jarbou ruled all three federal laws DOJ cited "do not allow the United States to obtain the records at issue." Third dismissal on the merits. DOJ appealed to 6th Circuit (Feb 25).</div>
+          <div class="court-date">Feb 10, 2026 · <a class="court-link" href="https://www.votebeat.org/michigan/2026/02/10/trump-justice-department-lawsuit-voter-rolls-data-dismissed-judge-hala-jarbou-jocelyn-benson/" target="_blank">Votebeat</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">California <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
+          <div class="court-detail">Judge ruled DOJ's voter data demands paint "an alarming picture regarding the centralization of Americans' information within the Executive Branch." DOJ appealed to 9th Circuit (Feb 25).</div>
+          <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/analysis-opinion/trump-administration-has-sued-more-20-states-refusing-turn-over-voter" target="_blank">Brennan Center</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Oregon <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
+          <div class="court-detail">Court rejected DOJ's legal theory that federal law entitles it to unredacted voter files with Social Security numbers. DOJ appealed to 9th Circuit (Feb 25).</div>
+          <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center Tracker</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Georgia <span style="color:#F59E0B">— Dismissed (Jurisdictional)</span></div>
+          <div class="court-detail">Judge dismissed voter data lawsuit because DOJ filed in the wrong court. Dismissed without prejudice — DOJ can refile in Atlanta. (The separate FBI raid on Fulton County is a different action.)</div>
+          <div class="court-date">Jan 23, 2026 · <a class="court-link" href="https://georgiarecorder.com/2026/01/23/federal-judge-tosses-out-doj-lawsuit-seeking-sensitive-voter-data-in-georgia/" target="_blank">Georgia Recorder</a></div>
+        </div>
+        <div class="court-case" style="border-left-color:var(--elevated)">
+          <div class="court-state">Supreme Court <span style="color:#F59E0B">— Watson v. RNC (Pending)</span></div>
+          <div class="court-detail">SCOTUS hearing challenge to mail ballot postmark deadlines. Oral arguments March 23. Ruling expected by summer could invalidate grace periods in 14+ states right before 2026 midterms.</div>
+          <div class="court-date">Oral args Mar 23, 2026 · <a class="court-link" href="https://votingrightslab.org/2025/11/12/supreme-court-case-could-rewrite-rules-for-mail-and-military-voting/" target="_blank">Voting Rights Lab</a></div>
+        </div>
+        <div class="court-updated">Last updated: March 15, 2026</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Timeline -->
-  <div class="timeline animate d1">
-    <div class="timeline-title mono"><span class="pulse"></span> Latest Developments</div>
-    <div class="tl-item">
+  <div class="timeline animate d5" id="timelineSection">
+    <div class="timeline-header" onclick="toggleTimeline()">
+      <div class="timeline-title mono"><span class="pulse"></span> Latest Developments <span class="tl-new-badge" id="newBadge" style="display:none"></span></div>
+      <button class="tl-toggle-btn" id="tlToggleBtn" aria-expanded="false">Show all <span id="tlTotalCount"></span> updates ↓</button>
+    </div>
+    <div class="tl-collapsed" id="tlCollapsed">
+<div class="tl-item">
       <div class="tl-date">Mar 15</div>
       <div class="tl-dot" style="background:var(--critical)"></div>
       <div class="tl-text"><strong>SAVE Act Senate vote this week</strong> — Thune scheduled floor vote week of Mar 16 despite lacking 60 votes. Trump threatened to block all other legislation until it passes. Expected to fail on filibuster but signals escalating pressure <span class="tl-new">New</span></div>
@@ -408,7 +537,9 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
       <div class="tl-dot" style="background:var(--critical)"></div>
       <div class="tl-text"><strong>FBI subpoenas Arizona 2020 election records</strong> — Grand jury subpoena issued to Arizona Senate for records from the Maricopa County Cyber Ninjas audit. Senate President Petersen (R) complied. AZ AG Mayes: "This is not a legitimate law enforcement inquiry." Expands 2020 investigation beyond Georgia <span class="tl-new">New</span></div>
     </div>
-    <div class="tl-item">
+    </div>
+    <div class="tl-expanded" id="tlExpanded" style="display:none">
+<div class="tl-item">
       <div class="tl-date">Mar 3</div>
       <div class="tl-dot" style="background:var(--elevated)"></div>
       <div class="tl-text"><strong>18 former DOJ attorneys file amicus brief in Illinois</strong> — bipartisan group argues Trump administration lacks legal authority to demand voter data. Have filed similar briefs across most ongoing lawsuits</div>
@@ -574,121 +705,6 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
       <div class="tl-text"><strong>CISA gutted</strong> — 1,000+ election security staff fired, transferred, or resigned. FBI banned from countering election disinfo</div>
     </div>
   </div>
-
-  <div class="main-grid">
-    <div class="map-container animate d2">
-      <div class="search-wrap">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-        <input type="text" class="search-input" id="stateSearch" placeholder="Find your state…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-label="Search for a state">
-        <div class="search-results" id="searchResults" role="listbox"></div>
-      </div>
-      <div class="tile-grid" id="tileGrid" role="grid" aria-label="State risk level map"></div>
-    </div>
-    <div class="sidebar">
-      <div class="panel animate d3">
-        <div class="panel-title mono">Risk Level</div>
-        <div id="legend"></div>
-      </div>
-      <div class="panel detail-panel animate d3" id="detailPanel">
-        <div class="detail-empty" id="detailEmpty">Hover or tap a state<br>to view threat details</div>
-        <div id="detailContent" style="display:none"></div>
-      </div>
-
-      <div class="stats-grid animate d4">
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">29</div>
-          <div class="stat-label">States Sued</div>
-          <div class="stat-sub">+ D.C. for voter data</div>
-          <div class="stat-expand-hint">tap to see states</div>
-          <div class="stat-states" id="statesSued"></div>
-        </div>
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">12</div>
-          <div class="stat-label">Complied</div>
-          <div class="stat-sub">with DOJ demands</div>
-          <div class="stat-expand-hint">tap to see states</div>
-          <div class="stat-states" id="statesComplied"></div>
-        </div>
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">1,000+</div>
-          <div class="stat-label">CISA Staff Lost</div>
-          <div class="stat-sub">election security gutted</div>
-          <div class="stat-expand-hint">tap for details</div>
-          <div class="stat-states">The Cybersecurity and Infrastructure Security Agency — which helped local officials protect voting systems from hacking — has lost over 1,000 employees through firings, layoffs, and transfers since early 2025. Dismantling CISA was a key Project 2025 recommendation.</div>
-        </div>
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">47</div>
-          <div class="stat-label">States Contacted</div>
-          <div class="stat-sub">by DOJ total</div>
-          <div class="stat-expand-hint">tap for details</div>
-          <div class="stat-states">At least 47 states and Washington, D.C. received DOJ requests for complete voter registration lists, including driver's license numbers and partial Social Security numbers. Only 11 have provided the data so far. The rest refused or sought clarification.</div>
-        </div>
-      </div>
-
-      <div class="court-wins animate d5">
-        <div class="court-wins-title mono">Courts Fighting Back</div>
-        <div class="court-case">
-          <div class="court-state">Illinois <span style="color:#22C55E">— Former DOJ Attorneys Oppose Lawsuit</span></div>
-          <div class="court-detail">18 former Justice Department attorneys from both parties filed amicus brief arguing DOJ lacks legal authority to demand voter data. Have filed similar briefs in most ongoing lawsuits nationwide.</div>
-          <div class="court-date">Mar 3, 2026 · <a class="court-link" href="https://news.wttw.com/2026/03/03/former-justice-department-lawyers-oppose-trump-admin-lawsuit-over-illinois-voter-data" target="_blank">WTTW</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Minnesota <span style="color:#F59E0B">— Motion to Dismiss Hearing</span></div>
-          <div class="court-detail">Federal judge heard oral arguments on state's motion to dismiss DOJ voter data lawsuit. Decision pending. DOJ's legal strategy has faced dismissals in California, Michigan, and Oregon.</div>
-          <div class="court-date">Mar 3, 2026 · <a class="court-link" href="https://www.mprnews.org/" target="_blank">MPR News</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Federal Appeals <span style="color:#F59E0B">— DOJ Escalating 3 Dismissed Cases</span></div>
-          <div class="court-detail">DOJ appealed dismissals in Oregon and California to the 9th Circuit, and Michigan to the 6th Circuit. After losing 3 for 3 in trial courts, DOJ is escalating rather than accepting the rulings.</div>
-          <div class="court-date">Feb 25, 2026 · <a class="court-link" href="https://www.democracydocket.com/" target="_blank">Democracy Docket</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Utah <span style="color:#22C55E">— Redistricting Map Upheld</span></div>
-          <div class="court-detail">Three-judge federal panel denied GOP challenge to court-ordered congressional map. Utah Supreme Court also rejected separate challenge. Map giving Democrats shot at House seat stands for 2026.</div>
-          <div class="court-date">Feb 23, 2026 · <a class="court-link" href="https://www.nbcnews.com/" target="_blank">NBC News</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Fulton County, GA <span style="color:#F59E0B">— Suing FBI for Ballot Return</span></div>
-          <div class="court-detail">County suing to recover 700+ boxes of 2020 records seized by FBI. Alleges affidavit relied on debunked claims and biased witnesses. Trump-appointed judge ordered FBI agent to testify about potentially misleading warrant.</div>
-          <div class="court-date">Feb 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/fulton-county-raid-fbi-agent-search-warrant-affidavit-hearing/" target="_blank">Democracy Docket</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Ohio <span style="color:#F59E0B">— Voter Purge Lawsuit Filed</span></div>
-          <div class="court-detail">LWV and CAIR challenge SB 293 requiring monthly citizenship checks via flawed databases. Law allows cancellations without notice, even during NVRA 90-day quiet period before elections.</div>
-          <div class="court-date">Feb 13, 2026 · <a class="court-link" href="https://campaignlegal.org/" target="_blank">Campaign Legal Center</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Federal <span style="color:#22C55E">— Trump Election EO Blocked Again</span></div>
-          <div class="court-detail">Judge Kollar-Kotelly permanently blocked two more provisions: agencies cannot assess citizenship before offering voter registration forms, and military/overseas voters cannot be required to show proof of citizenship. 110-page ruling calls it unconstitutional.</div>
-          <div class="court-date">Jan 30, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/judge-permanently-blocks-core-parts-trump-elections-executive-order/" target="_blank">Democracy Docket</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Michigan <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
-          <div class="court-detail">Trump-appointed Judge Jarbou ruled all three federal laws DOJ cited "do not allow the United States to obtain the records at issue." Third dismissal on the merits. DOJ appealed to 6th Circuit (Feb 25).</div>
-          <div class="court-date">Feb 10, 2026 · <a class="court-link" href="https://www.votebeat.org/michigan/2026/02/10/trump-justice-department-lawsuit-voter-rolls-data-dismissed-judge-hala-jarbou-jocelyn-benson/" target="_blank">Votebeat</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">California <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
-          <div class="court-detail">Judge ruled DOJ's voter data demands paint "an alarming picture regarding the centralization of Americans' information within the Executive Branch." DOJ appealed to 9th Circuit (Feb 25).</div>
-          <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/analysis-opinion/trump-administration-has-sued-more-20-states-refusing-turn-over-voter" target="_blank">Brennan Center</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Oregon <span style="color:#22C55E">— Case Dismissed</span> <span style="color:#F59E0B">→ DOJ Appealing</span></div>
-          <div class="court-detail">Court rejected DOJ's legal theory that federal law entitles it to unredacted voter files with Social Security numbers. DOJ appealed to 9th Circuit (Feb 25).</div>
-          <div class="court-date">Jan 2026 · <a class="court-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center Tracker</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Georgia <span style="color:#F59E0B">— Dismissed (Jurisdictional)</span></div>
-          <div class="court-detail">Judge dismissed voter data lawsuit because DOJ filed in the wrong court. Dismissed without prejudice — DOJ can refile in Atlanta. (The separate FBI raid on Fulton County is a different action.)</div>
-          <div class="court-date">Jan 23, 2026 · <a class="court-link" href="https://georgiarecorder.com/2026/01/23/federal-judge-tosses-out-doj-lawsuit-seeking-sensitive-voter-data-in-georgia/" target="_blank">Georgia Recorder</a></div>
-        </div>
-        <div class="court-case" style="border-left-color:var(--elevated)">
-          <div class="court-state">Supreme Court <span style="color:#F59E0B">— Watson v. RNC (Pending)</span></div>
-          <div class="court-detail">SCOTUS hearing challenge to mail ballot postmark deadlines. Oral arguments March 23. Ruling expected by summer could invalidate grace periods in 14+ states right before 2026 midterms.</div>
-          <div class="court-date">Oral args Mar 23, 2026 · <a class="court-link" href="https://votingrightslab.org/2025/11/12/supreme-court-case-could-rewrite-rules-for-mail-and-military-voting/" target="_blank">Voting Rights Lab</a></div>
-        </div>
-        <div class="court-updated">Last updated: March 15, 2026</div>
-      </div>
     </div>
   </div>
 
@@ -998,6 +1014,37 @@ document.getElementById('statesSued').innerHTML=suedStates.map(a=>`<span class="
 document.getElementById('statesComplied').innerHTML=compliedStates.map(a=>`<span class="stat-state-chip">${a}</span>`).join('')+'<span style="font-size:10px;color:var(--text-faint);display:block;margin-top:4px">AK & TX signed confidential MOUs</span>';
 
 function toggleStat(el){const was=el.classList.contains('expanded');document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('expanded'));if(!was)el.classList.add('expanded')}
+
+// Timeline collapse/expand
+function toggleTimeline(){
+  const exp=document.getElementById('tlExpanded');
+  const btn=document.getElementById('tlToggleBtn');
+  const total=document.getElementById('tlTotalCount');
+  const isOpen=exp.style.display!=='none';
+  exp.style.display=isOpen?'none':'block';
+  btn.setAttribute('aria-expanded',String(!isOpen));
+  if(isOpen){btn.textContent='Show all '+(total?total.textContent:'')+' updates ↓';}
+  else{btn.textContent='Show less ↑';}
+}
+
+// New-since-last-visit badge
+(function(){
+  const KEY='erm_last_visit';
+  const NOW=Date.now();
+  const LAST=parseInt(localStorage.getItem(KEY)||'0',10);
+  localStorage.setItem(KEY,String(NOW));
+  // Count tl-new spans that were added after last visit
+  // We use the page's New badges as proxy — count visible tl-new spans
+  const newItems=document.querySelectorAll('.tl-new');
+  const badge=document.getElementById('newBadge');
+  const total=document.getElementById('tlTotalCount');
+  const allItems=document.querySelectorAll('.tl-item');
+  if(total) total.textContent=allItems.length;
+  if(badge&&newItems.length>0&&LAST>0){
+    badge.textContent=newItems.length+' new';
+    badge.style.display='inline';
+  }
+})();
 
 // Interactivity
 const tooltip=document.getElementById('tooltip'),tooltipName=document.getElementById('tooltipName'),tooltipRisk=document.getElementById('tooltipRisk'),detailPanel=document.getElementById('detailPanel'),detailEmpty=document.getElementById('detailEmpty'),detailContent=document.getElementById('detailContent');

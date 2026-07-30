@@ -5,6 +5,62 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>DOJ hits 0 for 18 as New Jersey voter-data case is dismissed</title>
+    <description>Judge Zahid Quraishi dismissed the DOJ's lawsuit seeking New Jersey's voter registration database on July 29, ruling the Civil Rights Act does not authorize access — the administration's 18th consecutive district-court loss in the voter-data campaign, with zero wins. July also saw dismissals in New York, West Virginia, New Mexico, Virginia, Connecticut, and Kentucky, and the 6th Circuit affirmed Michigan's win on appeal. DOJ has appealed its losses to 8 federal circuits.</description>
+    <link>https://electionriskmap.org/#NJ</link>
+    <pubDate>Wed, 29 Jul 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">nj-dismissal-doj-0-18-2026-07-29</guid>
+  </item>
+
+  <item>
+    <title>Trump asks Supreme Court to unleash mail-voting executive order before the midterms</title>
+    <description>After Judge Talwani blocked the core of the March 31 election EO for 2026 (June 25) and ruled Section 3 unconstitutional (July 23), and the 1st Circuit refused a stay (July 25), the administration filed an emergency application at the Supreme Court on July 27 seeking full implementation — USPS mail-ballot gatekeeping and the DHS/SSA citizenship database — before November 3. States' response is due August 3. The D.C. Circuit separately held a parallel challenge premature, splitting the circuits.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 27 Jul 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">scotus-mail-eo-application-2026-07-27</guid>
+  </item>
+
+  <item>
+    <title>23 states sue over DHS tying $1.5B in security grants to election mandates</title>
+    <description>An Illinois-led coalition of 23 states plus D.C. and the governors of Kentucky and Pennsylvania sued July 23 in the District of Rhode Island, challenging DHS's conditioning of Homeland Security Grant Program funds on hand-marked paper ballots, manual audits, and running voter rolls through the SAVE database — at least $148 million at stake. A week earlier, DHS Secretary Mullin conditioned CISA election-security help on SAVE screening and claimed, without methodology, that 250,000+ noncitizens are registered in CA, NJ, NV, and PA.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Fri, 24 Jul 2026 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">dhs-grant-conditions-suit-2026-07-23</guid>
+  </item>
+
+  <item>
+    <title>Trump's primetime election address; D.C. Guard extended through 2029</title>
+    <description>In a July 16 East Room address, Trump claimed China acquired 220 million voter files and that voter data in 18 states was "bought, stolen, or hacked," ordered the FBI to reopen the debunked Muskegon, Michigan registration case, and directed DHS to push states to purge rolls. Fact-checkers found no evidence for the central claims; prior state and federal probes of Muskegon found no fraudulent votes were cast. The same week, the White House confirmed the D.C. National Guard deployment — roughly 5,000 troops — will run through January 2029, spanning the midterms and the next presidential transition.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Thu, 16 Jul 2026 22:00:00 -0400</pubDate>
+    <guid isPermaLink="false">trump-election-address-2026-07-16</guid>
+  </item>
+
+  <item>
+    <title>DOJ threatens election officials in all 50 states; monitors headed to 6 states; 260 FBI personnel on Georgia case</title>
+    <description>On July 7-8, Assistant AG Harmeet Dhillon sent letters warning election officials in all 50 states they could face criminal prosecution over noncitizens on voter rolls, with 5-day deadlines — Utah's Republican Lt. Gov. called the letter "truly bizarre... sprinkled throughout with threats of criminal prosecution." DOJ simultaneously announced federal election monitors for 15 jurisdictions in AZ, MA, MI, MN, NH, and VA. An internal FBI memo revealed 260 personnel assigned to the Fulton County case; a Trump-appointed judge quashed DOJ's subpoena for every Fulton election worker's identity as an "arbitrary fishing expedition." No state is known to have capitulated.</description>
+    <link>https://electionriskmap.org/#GA</link>
+    <pubDate>Wed, 08 Jul 2026 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">dhillon-letters-monitors-2026-07-08</guid>
+  </item>
+
+  <item>
+    <title>Supreme Court upholds mail-ballot grace periods in Watson v. RNC</title>
+    <description>In a 5-4 ruling on June 29 written by Justice Barrett, the Supreme Court held states may count mail ballots postmarked by Election Day but received afterward, upholding Mississippi's grace period. Postmark deadlines in 14+ states and military/overseas grace windows in roughly 30 survive intact for 2026 — the feared invalidation months before the midterms did not happen.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 29 Jun 2026 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">watson-rnc-grace-periods-2026-06-29</guid>
+  </item>
+
+  <item>
+    <title>Callais guts VRA Section 2; Louisiana suspends an active election; Southern redistricting wave follows</title>
+    <description>The Supreme Court's April 29 Louisiana v. Callais ruling (6-3) struck Louisiana's second majority-Black district and held VRA compliance cannot justify race-conscious maps — Justice Kagan wrote that Section 2 is now "all but a dead letter." The next day, Gov. Landry suspended Louisiana's May 16 House primaries mid-election by executive order — the first gubernatorial suspension of an active congressional election in U.S. history — and the state later enacted a map eliminating Rep. Cleo Fields' majority-Black district. Tennessee split Memphis's majority-Black district in a 3-day special session; Florida enacted a map targeting four Democratic incumbents; the Supreme Court reinstated Alabama's blocked map 6-3 on the shadow docket. South Carolina's redraw failed in its state Senate.</description>
+    <link>https://electionriskmap.org/#LA</link>
+    <pubDate>Thu, 30 Apr 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">callais-la-suspension-2026-04-30</guid>
+  </item>
+
+  <item>
     <title>Senate Republicans reject eliminating filibuster for SAVE Act</title>
     <description>Senate Majority Leader John Thune firmly rejected proposals to eliminate the filibuster to pass the SAVE America Act, stating Republicans lack "anywhere close to the votes" for the nuclear option despite Trump pressure. Sen. Mike Lee pushed for a "talking filibuster" approach, but Thune expressed concerns about tying up the Senate floor for weeks.</description>
     <link>https://electionriskmap.org</link>
@@ -39,7 +95,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Sat, 15 Feb 2026 13:47:00 -0500</lastBuildDate>
+  <lastBuildDate>Thu, 30 Jul 2026 12:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

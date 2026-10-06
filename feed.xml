@@ -5,6 +5,13 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Ratings for four states updated to match the map's written definitions</title>
+    <description>On October 6 the map's ratings for Massachusetts, Nevada, and Virginia moved from Elevated to High, and Texas moved from Complied to Moderate, to match the risk-level definitions on the methodology page. Massachusetts and Virginia each face a DOJ voter-data suit plus federal election monitors; Nevada faces a DOJ suit and is a battleground state; and ICE obtained individual voter files from Texas's Webb County, which the methodology counts as documented federal contact with election infrastructure.</description>
+    <link>https://electionriskmap.org/methodology</link>
+    <pubDate>Tue, 06 Oct 2026 20:00:00 -0400</pubDate>
+    <guid isPermaLink="false">ratings-match-definitions-2026-10-06</guid>
+  </item>
+  <item>
     <title>NAACP sues DOJ for records on its plan to send about 1,000 monitors to the polls</title>
     <description>On October 2 the NAACP sued the Justice Department in federal court under the Freedom of Information Act after its September 1 request went unanswered. The suit seeks the legal authority for DOJ's plan to deploy about 1,000 federal personnel to polling places in November, the monitors' training and planned locations, and whether the FBI, ICE, or DHS will take part.</description>
     <link>https://electionriskmap.org</link>
@@ -198,7 +205,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Tue, 06 Oct 2026 12:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Tue, 06 Oct 2026 20:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

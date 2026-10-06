@@ -96,8 +96,10 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 .tl-new{font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--accent);background:rgba(239,68,68,0.1);padding:1px 5px;border-radius:3px;margin-left:6px}
 
 /* Main grid */
-.main-grid{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-top:20px}
-@media(max-width:960px){.main-grid{grid-template-columns:1fr}}
+.main-grid{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-top:20px;align-items:start}
+.main-col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.main-col .timeline{margin-bottom:0}
+@media(max-width:960px){.main-grid{grid-template-columns:1fr}.main-grid>.main-col,.main-grid>.sidebar{display:contents}.map-container{order:1}.legend-panel{order:2}.detail-panel{order:3}.stats-grid{order:4}.timeline{order:5}.court-wins{order:6}}
 .map-container{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
 .map-container::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(185,28,28,0.03),transparent 60%);pointer-events:none}
 .tile-grid{display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(8,1fr);gap:3px;aspect-ratio:11/8;max-width:100%}
@@ -306,7 +308,6 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
   .detail-act-btn{justify-content:center}
   .detail-panel{display:none !important}
   .main-grid{grid-template-columns:1fr}
-  .sidebar{order:-1}
   .header-row{flex-direction:column;gap:10px}
   .header-nav{order:0}
 }
@@ -389,6 +390,7 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
 
 
   <div class="main-grid">
+    <div class="main-col">
     <div class="map-container animate d2">
       <div class="search-wrap">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
@@ -397,124 +399,6 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
       </div>
       <div class="tile-grid" id="tileGrid" role="grid" aria-label="State risk level map"></div>
     </div>
-    <div class="sidebar">
-      <div class="panel animate d3">
-        <div class="panel-title mono">Risk Level</div>
-        <div id="legend"></div>
-      </div>
-      <div class="panel detail-panel animate d3" id="detailPanel">
-        <div class="detail-empty" id="detailEmpty">Hover or tap a state<br>to view threat details</div>
-        <div id="detailContent" style="display:none"></div>
-      </div>
-
-      <div class="stats-grid animate d4">
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">30</div>
-          <div class="stat-label">States Sued</div>
-          <div class="stat-sub">+ D.C. for voter data</div>
-          <div class="stat-expand-hint">tap to see states</div>
-          <div class="stat-states" id="statesSued"></div>
-        </div>
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">16</div>
-          <div class="stat-label">Complied</div>
-          <div class="stat-sub">gave voter data to DOJ</div>
-          <div class="stat-expand-hint">tap to see states</div>
-          <div class="stat-states" id="statesComplied"></div>
-        </div>
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">0–26</div>
-          <div class="stat-label">DOJ Court Record</div>
-          <div class="stat-sub">voter-data lawsuits</div>
-          <div class="stat-expand-hint">tap for details</div>
-          <div class="stat-states">DOJ has lost all 26 district-court rulings on the merits in its voter-data campaign — CA, OR, MI, MA, RI, AZ, WI, ME, MD, PA, NH, NY, WV, VA, NM, CT, KY, NJ, IL, CO, DC, NV, MN, VT, WA, GA. The 6th Circuit affirmed Michigan's win on appeal (Jun 24) and denied DOJ's request for rehearing en banc (Aug 14). DOJ's appeals of earlier dismissals are pending in 10 federal circuits, and none has been decided. Oklahoma settled and handed over its data. Four cases are still undecided: Delaware, Utah, and Hawaii and Idaho (both on hold until the 9th Circuit rules in the California and Oregon appeals). At least 48 states + D.C. received DOJ data demands (per Brennan Center). <strong>No court at any level has ruled for DOJ.</strong> Kansas's reported compliance is disputed by the state.</div>
-        </div>
-        <div class="stat-card" onclick="toggleStat(this)">
-          <div class="stat-num">1,000+</div>
-          <div class="stat-label">CISA Staff Lost</div>
-          <div class="stat-sub">election security gutted</div>
-          <div class="stat-expand-hint">tap for details</div>
-          <div class="stat-states">CISA — which helped local officials protect voting systems from hacking — has lost over 1,000 employees since early 2025. Trump's FY27 budget would eliminate CISA's election security program entirely, cutting its remaining 14 election security employees. In July, DHS began conditioning what election-security help remains on states running voter rolls through the SAVE database.</div>
-        </div>
-      </div>
-
-      <div class="court-wins animate d5">
-        <div class="court-wins-title mono">Courts Fighting Back</div>
-        <div class="court-case">
-          <div class="court-state">Supreme Court <span style="color:#22C55E">— USPS Mail-Ballot Rule Stays Blocked</span></div>
-          <div class="court-detail">On Sept 14, the Supreme Court denied DOJ's emergency request to let USPS enforce its new mail-ballot rule, leaving Judge Talwani's Sept 4 preliminary injunction in place for the November election. The rule, finalized Aug 21 under Trump's March mail-voting executive order, would have required pre-approved ballot-envelope designs, a unique barcode for each voter, and states uploading their voter rosters to a USPS portal before any ballots could be mailed. Talwani found that imposing the rule less than 70 days before the election threatened to disenfranchise millions of mail voters, and that Congress never gave USPS authority to regulate election mail. The Court had earlier lifted her first injunction on Aug 24, 6-3, on the narrow ground that USPS had not yet finalized the rule. DOJ has also appealed the Sept 4 injunction to the 1st Circuit.</div>
-          <div class="court-date">Sept 14, 2026 · <a class="court-link" href="https://www.scotusblog.com/2026/09/supreme-court-denies-trump-administrations-request-to-implement-parts-of-usps-rule-on-mail-in-vo/" target="_blank">SCOTUSblog</a> · <a class="court-link" href="https://www.jurist.org/news/2026/09/us-supreme-court-rejects-doj-bid-to-stay-injunction-blocking-usps-mail-in-ballot-rule/" target="_blank">JURIST</a> · <a class="court-link" href="https://www.cbsnews.com/news/judge-extends-block-postal-service-trump-mail-in-ballot/" target="_blank">CBS (Sept 4 injunction)</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">1st Circuit <span style="color:#22C55E">— Refuses to Revive USPS Mail-Ballot Rule</span></div>
-          <div class="court-detail">On Sept 10, a 1st Circuit panel (Judges Gelpí, Rikelman and Aframe) refused DOJ's request to lift Judge Talwani's Sept 4 preliminary injunction against the USPS mail-ballot rule, holding that she did not abuse her discretion in finding that any harm to the government would be substantially outweighed by the injury to voters and the public. On Sept 13, a second federal judge, Carl Nichols in Washington, D.C., a Trump appointee, separately blocked the rule, also finding it likely beyond the Postal Service's legal authority. Earlier, on June 25, a divided 1st Circuit panel had refused to stay Talwani's first injunction against the executive order itself.</div>
-          <div class="court-date">Sept 10, 2026 · <a class="court-link" href="https://www.courthousenews.com/first-circuit-rejects-bid-to-lift-injunction-blocking-usps-rule-for-mail-in-voting/" target="_blank">Courthouse News</a> · <a class="court-link" href="https://www.washingtonexaminer.com/news/justice/4725698/trump-nominated-judge-blocks-usps-mail-in-ballot-rule/" target="_blank">Washington Examiner (Nichols)</a> · <a class="court-link" href="https://www.votebeat.org/national/2026/06/25/trump-election-overhaul-mail-voting-executive-order-blocked-talwani-usps-dhs/" target="_blank">Votebeat (Jun 25)</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">New Jersey <span style="color:#22C55E">— Civil Rights Act Doesn't Reach Voter Rolls</span></div>
-          <div class="court-detail">Judge Quraishi dismissed DOJ's suit for New Jersey's voter database on Jul 29, holding the Civil Rights Act doesn't cover it. DOJ has appealed to the 3rd Circuit. No court has ruled for DOJ.</div>
-          <div class="court-date">Jul 29, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/trump-doj-loses-bid-for-new-jersey-voter-rolls/" target="_blank">Democracy Docket</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">6th Circuit <span style="color:#22C55E">— First Appellate Ruling Goes Against DOJ</span></div>
-          <div class="court-detail">Affirmed Michigan's dismissal: neither the NVRA nor HAVA compels states to hand over unredacted voter rolls with partial SSNs. Kentucky's district court followed the precedent Jul 23.</div>
-          <div class="court-date">Jun 24, 2026 · <a class="court-link" href="https://www.votebeat.org/michigan/2026/06/24/trump-department-justice-voter-rolls-appeals-court-loss-sixth-circuit/" target="_blank">Votebeat</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Federal Appeals <span style="color:#F59E0B">— DOJ Appeals in 10 Circuits</span></div>
-          <div class="court-detail">DOJ has appealed its voter-data losses to the 1st, 2nd, 3rd, 4th, 6th, 7th, 8th, 9th, 10th, and D.C. Circuits. Only one appeal has been decided: the 6th Circuit affirmed Michigan's dismissal (Jun 24) and refused rehearing by the full court (Aug 14). The 9th Circuit heard the California and Oregon appeals May 19 and has not ruled; the Arizona and Nevada appeals and the Hawaii and Idaho cases are on hold until it does.</div>
-          <div class="court-date">Oct 1, 2026 · <a class="court-link" href="https://statedemocracy.law.wisc.edu/our-work/tracker-doj-lawsuits-seeking-states-sensitive-voter-data" target="_blank">UW State Democracy Research Initiative tracker</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Supreme Court <span style="color:#22C55E">— Watson v. RNC: Grace Periods Upheld</span></div>
-          <div class="court-detail">5-4 ruling (Barrett writing) holds states may count mail ballots postmarked by Election Day but received after. Postmark grace periods in 14+ states — and military/overseas windows in ~30 — survive for 2026. The feared invalidation did not happen.</div>
-          <div class="court-date">Jun 29, 2026 · <a class="court-link" href="https://www.votebeat.org/national/2026/06/29/supreme-court-watson-rnc-mail-ballots-absentee-deadline-grace-period/" target="_blank">Votebeat</a></div>
-        </div>
-        <div class="court-case" style="border-left-color:var(--critical)">
-          <div class="court-state">Supreme Court <span style="color:#EF4444">— Callais Guts VRA Section 2</span></div>
-          <div class="court-detail">6-3 ruling struck Louisiana's second majority-Black district and held VRA compliance cannot justify race-conscious redistricting. Kagan in dissent: Section 2 is now "all but a dead letter." Triggered the Southern redistricting wave — LA, TN, FL, AL new maps; TX's mid-decade map separately upheld Apr 27.</div>
-          <div class="court-date">Apr 29, 2026 · <a class="court-link" href="https://www.scotusblog.com/cases/louisiana-v-callais-2/" target="_blank">SCOTUSblog</a></div>
-        </div>
-        <div class="court-case" style="border-left-color:var(--critical)">
-          <div class="court-state">Supreme Court <span style="color:#EF4444">— Alabama Map Reinstated on Shadow Docket</span></div>
-          <div class="court-detail">6-3 unsigned stay reinstated the map a three-judge panel had blocked as "intentionally racially discriminatory" — in use for the Aug 11 special primaries. First major shadow-docket application of Callais.</div>
-          <div class="court-date">Jun 2, 2026 · <a class="court-link" href="https://alabamareflector.com/2026/06/02/supreme-court-allows-alabama-to-use-2023-congressional-map-in-august-special-primary/" target="_blank">Alabama Reflector</a></div>
-        </div>
-        <div class="court-case" style="border-left-color:var(--critical)">
-          <div class="court-state">Tennessee <span style="color:#EF4444">— Memphis-Splitting Map Survives</span></div>
-          <div class="court-detail">Three-judge panel denied a preliminary injunction against the 9-0 map that splits the state's only majority-Black district across three districts. The map runs in 2026; the merits case continues.</div>
-          <div class="court-date">Jul 23, 2026 · <a class="court-link" href="https://www.nbcnews.com/politics/elections/federal-judges-allow-new-tennessee-congressional-map-splits-majority-b-rcna588997" target="_blank">NBC News</a></div>
-        </div>
-        <div class="court-case" style="border-left-color:var(--critical)">
-          <div class="court-state">Louisiana <span style="color:#EF4444">— Election Suspension Upheld</span></div>
-          <div class="court-detail">State judges denied every TRO against Gov. Landry's EO 26-038 suspending the May 16 House primaries mid-election — "the governor has the authority to suspend the upcoming election." Races reset: primaries Nov 3, general Dec 12.</div>
-          <div class="court-date">May 1, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/louisiana-governor-suspends-active-election-to-allow-for-gerrymander/" target="_blank">Democracy Docket</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Georgia <span style="color:#22C55E">— Poll-Worker Subpoena Quashed</span> <span style="color:#F59E0B">· Ballots Stay with DOJ</span></div>
-          <div class="court-detail">Judge Ray (Trump appointee) quashed DOJ's grand jury subpoena for every Fulton 2020 election worker's personal information as an "arbitrary fishing expedition" (Jul 7). Earlier, Judge Boulee let DOJ keep the 700+ seized boxes while finding the FBI affidavit "misleading" (May 6).</div>
-          <div class="court-date">Jul 7, 2026 · <a class="court-link" href="https://abcnews.com/US/judge-quashes-doj-subpoena-seeking-fulton-county-election/story?id=134562046" target="_blank">ABC News</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Spring Dismissal Wave <span style="color:#22C55E">— RI, AZ, WI, ME, MD, PA, NH</span></div>
-          <div class="court-detail">Seven more voter-data cases dismissed between Apr 17 and Jun 29 (per the UW State Democracy Research Initiative tracker, corroborated by the Brennan Center's tracker). July added NY, WV, NM, VA, CT, KY, and NJ.</div>
-          <div class="court-date">Apr–Jul 2026 · <a class="court-link" href="https://statedemocracy.law.wisc.edu/our-work/tracker-doj-lawsuits-seeking-states-sensitive-voter-data" target="_blank">UW Tracker</a> · <a class="court-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center</a></div>
-        </div>
-        <div class="court-case" style="border-left-color:var(--critical)">
-          <div class="court-state">Federal <span style="color:#EF4444">— 23 States Sue Over Grant Conditions</span></div>
-          <div class="court-detail">Illinois-led coalition (23 states + D.C., plus the governors of KY and PA) challenges DHS's conditioning of $1.5B in Homeland Security grants on hand-marked ballots, manual audits, and SAVE voter-roll screening as unconstitutional coercion. At least $148M at stake.</div>
-          <div class="court-date">Filed Jul 23, 2026 · <a class="court-link" href="https://www.votebeat.org/national/2026/07/24/democratic-states-trump-election-priorities-fema-grants-lawsuit/" target="_blank">Votebeat</a></div>
-        </div>
-        <div class="court-case">
-          <div class="court-state">Federal <span style="color:#F59E0B">— National Voter Database Challenge Pending</span></div>
-          <div class="court-detail">Common Cause/LWV/ACLU suit to block DOJ's "surveil-and-purge" database (filed Apr 21) awaits a ruling on cross-motions for summary judgment. A separate LWV challenge to the mail-voting EO survived a motion to dismiss (Jun 18).</div>
-          <div class="court-date">Apr 21, 2026 · <a class="court-link" href="https://www.democracydocket.com/cases/doj-national-voter-roll-database-challenge/" target="_blank">Democracy Docket</a></div>
-        </div>
-        <div class="court-updated">Last updated: October 6, 2026</div>
-      </div>
-    </div>
-  </div>
-
   <!-- Timeline -->
   <div class="timeline animate d5" id="timelineSection">
     <div class="timeline-header" onclick="toggleTimeline()">
@@ -1177,6 +1061,125 @@ h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;letter-spacing:-0.03em;lin
     </div>
   </div>
     </div>
+    </div>
+    <div class="sidebar">
+      <div class="panel legend-panel animate d3">
+        <div class="panel-title mono">Risk Level</div>
+        <div id="legend"></div>
+      </div>
+      <div class="panel detail-panel animate d3" id="detailPanel">
+        <div class="detail-empty" id="detailEmpty">Hover or tap a state<br>to view threat details</div>
+        <div id="detailContent" style="display:none"></div>
+      </div>
+
+      <div class="stats-grid animate d4">
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">30</div>
+          <div class="stat-label">States Sued</div>
+          <div class="stat-sub">+ D.C. for voter data</div>
+          <div class="stat-expand-hint">tap to see states</div>
+          <div class="stat-states" id="statesSued"></div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">16</div>
+          <div class="stat-label">Complied</div>
+          <div class="stat-sub">gave voter data to DOJ</div>
+          <div class="stat-expand-hint">tap to see states</div>
+          <div class="stat-states" id="statesComplied"></div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">0–26</div>
+          <div class="stat-label">DOJ Court Record</div>
+          <div class="stat-sub">voter-data lawsuits</div>
+          <div class="stat-expand-hint">tap for details</div>
+          <div class="stat-states">DOJ has lost all 26 district-court rulings on the merits in its voter-data campaign — CA, OR, MI, MA, RI, AZ, WI, ME, MD, PA, NH, NY, WV, VA, NM, CT, KY, NJ, IL, CO, DC, NV, MN, VT, WA, GA. The 6th Circuit affirmed Michigan's win on appeal (Jun 24) and denied DOJ's request for rehearing en banc (Aug 14). DOJ's appeals of earlier dismissals are pending in 10 federal circuits, and none has been decided. Oklahoma settled and handed over its data. Four cases are still undecided: Delaware, Utah, and Hawaii and Idaho (both on hold until the 9th Circuit rules in the California and Oregon appeals). At least 48 states + D.C. received DOJ data demands (per Brennan Center). <strong>No court at any level has ruled for DOJ.</strong> Kansas's reported compliance is disputed by the state.</div>
+        </div>
+        <div class="stat-card" onclick="toggleStat(this)">
+          <div class="stat-num">1,000+</div>
+          <div class="stat-label">CISA Staff Lost</div>
+          <div class="stat-sub">election security gutted</div>
+          <div class="stat-expand-hint">tap for details</div>
+          <div class="stat-states">CISA — which helped local officials protect voting systems from hacking — has lost over 1,000 employees since early 2025. Trump's FY27 budget would eliminate CISA's election security program entirely, cutting its remaining 14 election security employees. In July, DHS began conditioning what election-security help remains on states running voter rolls through the SAVE database.</div>
+        </div>
+      </div>
+
+      <div class="court-wins animate d5">
+        <div class="court-wins-title mono">Courts Fighting Back</div>
+        <div class="court-case">
+          <div class="court-state">Supreme Court <span style="color:#22C55E">— USPS Mail-Ballot Rule Stays Blocked</span></div>
+          <div class="court-detail">On Sept 14, the Supreme Court denied DOJ's emergency request to let USPS enforce its new mail-ballot rule, leaving Judge Talwani's Sept 4 preliminary injunction in place for the November election. The rule, finalized Aug 21 under Trump's March mail-voting executive order, would have required pre-approved ballot-envelope designs, a unique barcode for each voter, and states uploading their voter rosters to a USPS portal before any ballots could be mailed. Talwani found that imposing the rule less than 70 days before the election threatened to disenfranchise millions of mail voters, and that Congress never gave USPS authority to regulate election mail. The Court had earlier lifted her first injunction on Aug 24, 6-3, on the narrow ground that USPS had not yet finalized the rule. DOJ has also appealed the Sept 4 injunction to the 1st Circuit.</div>
+          <div class="court-date">Sept 14, 2026 · <a class="court-link" href="https://www.scotusblog.com/2026/09/supreme-court-denies-trump-administrations-request-to-implement-parts-of-usps-rule-on-mail-in-vo/" target="_blank">SCOTUSblog</a> · <a class="court-link" href="https://www.jurist.org/news/2026/09/us-supreme-court-rejects-doj-bid-to-stay-injunction-blocking-usps-mail-in-ballot-rule/" target="_blank">JURIST</a> · <a class="court-link" href="https://www.cbsnews.com/news/judge-extends-block-postal-service-trump-mail-in-ballot/" target="_blank">CBS (Sept 4 injunction)</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">1st Circuit <span style="color:#22C55E">— Refuses to Revive USPS Mail-Ballot Rule</span></div>
+          <div class="court-detail">On Sept 10, a 1st Circuit panel (Judges Gelpí, Rikelman and Aframe) refused DOJ's request to lift Judge Talwani's Sept 4 preliminary injunction against the USPS mail-ballot rule, holding that she did not abuse her discretion in finding that any harm to the government would be substantially outweighed by the injury to voters and the public. On Sept 13, a second federal judge, Carl Nichols in Washington, D.C., a Trump appointee, separately blocked the rule, also finding it likely beyond the Postal Service's legal authority. Earlier, on June 25, a divided 1st Circuit panel had refused to stay Talwani's first injunction against the executive order itself.</div>
+          <div class="court-date">Sept 10, 2026 · <a class="court-link" href="https://www.courthousenews.com/first-circuit-rejects-bid-to-lift-injunction-blocking-usps-rule-for-mail-in-voting/" target="_blank">Courthouse News</a> · <a class="court-link" href="https://www.washingtonexaminer.com/news/justice/4725698/trump-nominated-judge-blocks-usps-mail-in-ballot-rule/" target="_blank">Washington Examiner (Nichols)</a> · <a class="court-link" href="https://www.votebeat.org/national/2026/06/25/trump-election-overhaul-mail-voting-executive-order-blocked-talwani-usps-dhs/" target="_blank">Votebeat (Jun 25)</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">New Jersey <span style="color:#22C55E">— Civil Rights Act Doesn't Reach Voter Rolls</span></div>
+          <div class="court-detail">Judge Quraishi dismissed DOJ's suit for New Jersey's voter database on Jul 29, holding the Civil Rights Act doesn't cover it. DOJ has appealed to the 3rd Circuit. No court has ruled for DOJ.</div>
+          <div class="court-date">Jul 29, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/trump-doj-loses-bid-for-new-jersey-voter-rolls/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">6th Circuit <span style="color:#22C55E">— First Appellate Ruling Goes Against DOJ</span></div>
+          <div class="court-detail">Affirmed Michigan's dismissal: neither the NVRA nor HAVA compels states to hand over unredacted voter rolls with partial SSNs. Kentucky's district court followed the precedent Jul 23.</div>
+          <div class="court-date">Jun 24, 2026 · <a class="court-link" href="https://www.votebeat.org/michigan/2026/06/24/trump-department-justice-voter-rolls-appeals-court-loss-sixth-circuit/" target="_blank">Votebeat</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Federal Appeals <span style="color:#F59E0B">— DOJ Appeals in 10 Circuits</span></div>
+          <div class="court-detail">DOJ has appealed its voter-data losses to the 1st, 2nd, 3rd, 4th, 6th, 7th, 8th, 9th, 10th, and D.C. Circuits. Only one appeal has been decided: the 6th Circuit affirmed Michigan's dismissal (Jun 24) and refused rehearing by the full court (Aug 14). The 9th Circuit heard the California and Oregon appeals May 19 and has not ruled; the Arizona and Nevada appeals and the Hawaii and Idaho cases are on hold until it does.</div>
+          <div class="court-date">Oct 1, 2026 · <a class="court-link" href="https://statedemocracy.law.wisc.edu/our-work/tracker-doj-lawsuits-seeking-states-sensitive-voter-data" target="_blank">UW State Democracy Research Initiative tracker</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Supreme Court <span style="color:#22C55E">— Watson v. RNC: Grace Periods Upheld</span></div>
+          <div class="court-detail">5-4 ruling (Barrett writing) holds states may count mail ballots postmarked by Election Day but received after. Postmark grace periods in 14+ states — and military/overseas windows in ~30 — survive for 2026. The feared invalidation did not happen.</div>
+          <div class="court-date">Jun 29, 2026 · <a class="court-link" href="https://www.votebeat.org/national/2026/06/29/supreme-court-watson-rnc-mail-ballots-absentee-deadline-grace-period/" target="_blank">Votebeat</a></div>
+        </div>
+        <div class="court-case" style="border-left-color:var(--critical)">
+          <div class="court-state">Supreme Court <span style="color:#EF4444">— Callais Guts VRA Section 2</span></div>
+          <div class="court-detail">6-3 ruling struck Louisiana's second majority-Black district and held VRA compliance cannot justify race-conscious redistricting. Kagan in dissent: Section 2 is now "all but a dead letter." Triggered the Southern redistricting wave — LA, TN, FL, AL new maps; TX's mid-decade map separately upheld Apr 27.</div>
+          <div class="court-date">Apr 29, 2026 · <a class="court-link" href="https://www.scotusblog.com/cases/louisiana-v-callais-2/" target="_blank">SCOTUSblog</a></div>
+        </div>
+        <div class="court-case" style="border-left-color:var(--critical)">
+          <div class="court-state">Supreme Court <span style="color:#EF4444">— Alabama Map Reinstated on Shadow Docket</span></div>
+          <div class="court-detail">6-3 unsigned stay reinstated the map a three-judge panel had blocked as "intentionally racially discriminatory" — in use for the Aug 11 special primaries. First major shadow-docket application of Callais.</div>
+          <div class="court-date">Jun 2, 2026 · <a class="court-link" href="https://alabamareflector.com/2026/06/02/supreme-court-allows-alabama-to-use-2023-congressional-map-in-august-special-primary/" target="_blank">Alabama Reflector</a></div>
+        </div>
+        <div class="court-case" style="border-left-color:var(--critical)">
+          <div class="court-state">Tennessee <span style="color:#EF4444">— Memphis-Splitting Map Survives</span></div>
+          <div class="court-detail">Three-judge panel denied a preliminary injunction against the 9-0 map that splits the state's only majority-Black district across three districts. The map runs in 2026; the merits case continues.</div>
+          <div class="court-date">Jul 23, 2026 · <a class="court-link" href="https://www.nbcnews.com/politics/elections/federal-judges-allow-new-tennessee-congressional-map-splits-majority-b-rcna588997" target="_blank">NBC News</a></div>
+        </div>
+        <div class="court-case" style="border-left-color:var(--critical)">
+          <div class="court-state">Louisiana <span style="color:#EF4444">— Election Suspension Upheld</span></div>
+          <div class="court-detail">State judges denied every TRO against Gov. Landry's EO 26-038 suspending the May 16 House primaries mid-election — "the governor has the authority to suspend the upcoming election." Races reset: primaries Nov 3, general Dec 12.</div>
+          <div class="court-date">May 1, 2026 · <a class="court-link" href="https://www.democracydocket.com/news-alerts/louisiana-governor-suspends-active-election-to-allow-for-gerrymander/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Georgia <span style="color:#22C55E">— Poll-Worker Subpoena Quashed</span> <span style="color:#F59E0B">· Ballots Stay with DOJ</span></div>
+          <div class="court-detail">Judge Ray (Trump appointee) quashed DOJ's grand jury subpoena for every Fulton 2020 election worker's personal information as an "arbitrary fishing expedition" (Jul 7). Earlier, Judge Boulee let DOJ keep the 700+ seized boxes while finding the FBI affidavit "misleading" (May 6).</div>
+          <div class="court-date">Jul 7, 2026 · <a class="court-link" href="https://abcnews.com/US/judge-quashes-doj-subpoena-seeking-fulton-county-election/story?id=134562046" target="_blank">ABC News</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Spring Dismissal Wave <span style="color:#22C55E">— RI, AZ, WI, ME, MD, PA, NH</span></div>
+          <div class="court-detail">Seven more voter-data cases dismissed between Apr 17 and Jun 29 (per the UW State Democracy Research Initiative tracker, corroborated by the Brennan Center's tracker). July added NY, WV, NM, VA, CT, KY, and NJ.</div>
+          <div class="court-date">Apr–Jul 2026 · <a class="court-link" href="https://statedemocracy.law.wisc.edu/our-work/tracker-doj-lawsuits-seeking-states-sensitive-voter-data" target="_blank">UW Tracker</a> · <a class="court-link" href="https://www.brennancenter.org/our-work/research-reports/tracker-justice-department-requests-voter-information" target="_blank">Brennan Center</a></div>
+        </div>
+        <div class="court-case" style="border-left-color:var(--critical)">
+          <div class="court-state">Federal <span style="color:#EF4444">— 23 States Sue Over Grant Conditions</span></div>
+          <div class="court-detail">Illinois-led coalition (23 states + D.C., plus the governors of KY and PA) challenges DHS's conditioning of $1.5B in Homeland Security grants on hand-marked ballots, manual audits, and SAVE voter-roll screening as unconstitutional coercion. At least $148M at stake.</div>
+          <div class="court-date">Filed Jul 23, 2026 · <a class="court-link" href="https://www.votebeat.org/national/2026/07/24/democratic-states-trump-election-priorities-fema-grants-lawsuit/" target="_blank">Votebeat</a></div>
+        </div>
+        <div class="court-case">
+          <div class="court-state">Federal <span style="color:#F59E0B">— National Voter Database Challenge Pending</span></div>
+          <div class="court-detail">Common Cause/LWV/ACLU suit to block DOJ's "surveil-and-purge" database (filed Apr 21) awaits a ruling on cross-motions for summary judgment. A separate LWV challenge to the mail-voting EO survived a motion to dismiss (Jun 18).</div>
+          <div class="court-date">Apr 21, 2026 · <a class="court-link" href="https://www.democracydocket.com/cases/doj-national-voter-roll-database-challenge/" target="_blank">Democracy Docket</a></div>
+        </div>
+        <div class="court-updated">Last updated: October 6, 2026</div>
+      </div>
+    </div>
+  </div>
+
   </div>
 
   <div class="actions animate d6">
@@ -1694,7 +1697,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))searc
       Object.entries(STATES).forEach(([abbr,data])=>{nameToAbbr[data.name.toLowerCase()]=abbr});
       const detected=nameToAbbr[geo.region.toLowerCase()];
       if(detected&&!activeState){
-        showDetail(detected);
+        if(window.innerWidth>768) showDetail(detected);
         // Subtle highlight without locking
         const tile=document.querySelector(`.tile[data-state="${detected}"]`);
         if(tile){tile.style.outline='2px solid rgba(255,255,255,0.3)';tile.style.outlineOffset='1px'}

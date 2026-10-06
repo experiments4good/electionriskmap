@@ -5,6 +5,86 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>DOJ falls to 0 for 26 as Vermont, Washington, and Georgia voter-data suits are dismissed</title>
+    <description>Three more federal judges dismissed the Justice Department's suits for states' unredacted voter rolls in September: Vermont (September 17), Washington (September 22, with prejudice), and Georgia (September 30). In Georgia, Judge Victoria Calvert ruled that federal law does not override the state's voter-privacy law and that the Civil Rights Act does not entitle DOJ to the full roll; it was DOJ's second Georgia suit after the first was dismissed in January for being filed in the wrong court. DOJ has now lost all 26 district-court rulings on the merits. The 6th Circuit affirmed Michigan's dismissal and denied rehearing; appeals of other dismissals are pending in 10 federal circuits. Oklahoma settled and handed over its data. Cases in Delaware, Utah, Hawaii, and Idaho remain undecided. No court at any level has ruled for DOJ.</description>
+    <link>https://electionriskmap.org/#GA</link>
+    <pubDate>Wed, 30 Sep 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">doj-0-26-vt-wa-ga-2026-09-30</guid>
+  </item>
+
+  <item>
+    <title>Judge strikes election conditions from DHS anti-terrorism grants</title>
+    <description>On September 28, Judge Amir Ali of the U.S. District Court for the District of Columbia vacated FEMA's requirement that states and localities check voter rolls against DHS's SAVE citizenship database, hand-audit 5 percent of ballots, and move to hand-marked ballots or lose 20 percent of their Homeland Security Grant Program funds. He held that Congress never authorized FEMA to use counterterrorism grants to force changes in how elections are run. The suit was brought by six counties and cities, including Harris and El Paso counties in Texas, Nashville, and Columbus. A separate suit by 23 states is still pending, and DHS says it will impose new requirements.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 28 Sep 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">fema-grant-conditions-vacated-2026-09-28</guid>
+  </item>
+
+  <item>
+    <title>Supreme Court orders Missouri to use its 2022 congressional map in November</title>
+    <description>In a unanimous unsigned order on September 25, the Supreme Court held that "the 2022 map — not the 2025 map — must be used in the 2026 congressional election." The order ended a month of conflicting rulings: the Missouri Supreme Court held on September 3 that the 2025 map never took effect because of a citizen referendum against it; a federal judge on September 8 and the 8th Circuit on September 21 ordered the 2025 map instead; and on September 10 the Missouri Supreme Court found Secretary of State Denny Hoskins in contempt for following the federal order, which he reversed the same day. Absentee voting had already begun. Voters will decide the 2025 map as Proposition A on November 3.</description>
+    <link>https://electionriskmap.org/#MO</link>
+    <pubDate>Fri, 25 Sep 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">mo-scotus-2022-map-2026-09-25</guid>
+  </item>
+
+  <item>
+    <title>Texas: 200,000 voter registrations stalled; Tarrant County cuts 92 polling sites</title>
+    <description>The Texas Department of Public Safety failed to send counties at least 200,000 voter registration applications and updates submitted through its online driver's-license portal since October 2025, which DPS blamed on a third-party vendor's software update. The state says affected voters who do not appear on the rolls can cast a provisional ballot that will count once their registration is confirmed. Separately, on September 1 Tarrant County commissioners voted 3-2 along party lines to cut Election Day polling sites from 316 in the 2022 midterms to 224 this November, in a county of more than 1.3 million registered voters.</description>
+    <link>https://electionriskmap.org/#TX</link>
+    <pubDate>Fri, 25 Sep 2026 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">tx-dps-backlog-tarrant-sites-2026-09-25</guid>
+  </item>
+
+  <item>
+    <title>California expands its state Voting Rights Act</title>
+    <description>Governor Gavin Newsom signed SB 1164 and SB 1360 on September 19. The laws bar voter suppression and vote dilution, add a process to stop discriminatory voting changes before they take effect, and expand language access for voters with limited English. According to the NAACP Legal Defense Fund, California is the fourth state in 2026 to enact or expand a state Voting Rights Act, after Maryland, New Jersey, and Delaware.</description>
+    <link>https://electionriskmap.org/#CA</link>
+    <pubDate>Sat, 19 Sep 2026 12:00:00 -0400</pubDate>
+    <guid isPermaLink="false">ca-vra-signed-2026-09-19</guid>
+  </item>
+
+  <item>
+    <title>Supreme Court keeps the USPS mail-ballot rule blocked for the midterms</title>
+    <description>On September 14 the Supreme Court denied the Justice Department's emergency request to let the Postal Service enforce its new mail-ballot rule, finding the government "unlikely to succeed on the merits" of its challenge to Judge Indira Talwani's September 4 preliminary injunction. Justices Alito and Thomas dissented; Justice Kavanaugh concurred, writing that applying the rule in 2026 would be arbitrary and capricious because election officials lack time to implement it. The rule would have required pre-approved ballot-envelope designs, a unique barcode for each voter, and states uploading voter rosters to a USPS portal. On September 13 a second judge, Carl Nichols in Washington, D.C., separately blocked the rule, writing that "No statute grants the Postal Service the power to issue key parts of the Rule," and on September 10 the 1st Circuit refused to lift Talwani's injunction.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 14 Sep 2026 20:00:00 -0400</pubDate>
+    <guid isPermaLink="false">scotus-usps-rule-stay-denied-2026-09-14</guid>
+  </item>
+
+  <item>
+    <title>DOJ warns 29 states and D.C. of criminal sanctions over 2024 election records</title>
+    <description>Letters from Eric Neff, acting chief of the Justice Department's Voting Section, made public September 10, ordered the 29 states and the District of Columbia that DOJ is suing for voter data to preserve their 2024 election records, warning that failure "may constitute spoliation of evidence" that could bring "civil and criminal sanctions." Utah's Republican Lt. Gov. Deidre Henderson said DOJ should "focus on actual problems instead of baselessly harassing election officials." In Wyoming, Republican Gov. Mark Gordon objected that two DOJ election monitors at the August 18 primary, who sought to examine tabulators and interview voters, behaved in a way that "seemed to exceed what the authority that Congress had given them was." DOJ plans to deploy about 1,000 monitors nationwide in November.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Thu, 10 Sep 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">doj-litigation-hold-letters-2026-09-10</guid>
+  </item>
+
+  <item>
+    <title>Maryland redistricting question restored to the ballot; Michigan citizenship amendment stays off</title>
+    <description>On September 3 the Supreme Court of Maryland overturned lower-court orders that had blocked Question 3, the congressional redistricting amendment, from the November ballot, but found the legislature's ballot wording misleading and replaced it with the purpose paragraph from the bill itself; Justice Steven Gould dissented, joined by Senior Justice Glenn Harrell. The same day, the U.S. Supreme Court and the Michigan Supreme Court rejected requests to put a citizenship-verification amendment on Michigan's ballot after the Board of State Canvassers deadlocked 2-2 on certifying it. That amendment would have required voters to prove citizenship to vote a full ballot, creating two separate voter rolls.</description>
+    <link>https://electionriskmap.org/#MD</link>
+    <pubDate>Thu, 03 Sep 2026 22:00:00 -0400</pubDate>
+    <guid isPermaLink="false">md-q3-restored-mi-amendment-off-2026-09-03</guid>
+  </item>
+
+  <item>
+    <title>Mail-voting order blocked again after Supreme Court lifts one of two injunctions</title>
+    <description>The Supreme Court stayed Judge Talwani's June injunction 6-3 on August 24, holding only that she ruled before USPS finalized its rule and expressly declining to decide the order's legality. USPS published its final rule for federal ballot mail on August 21. Talwani lifted her own earlier nationwide order on August 26 in light of the Supreme Court's ruling, then issued a 14-day temporary restraining order against the finalized rule on August 27, finding the challengers likely to succeed and no evidence of mail-voting fraud in the record. Justice Jackson dissented from the August 24 order, writing that it "needlessly injects chaos and uncertainty into the upcoming midterm elections."</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Thu, 27 Aug 2026 20:00:00 -0400</pubDate>
+    <guid isPermaLink="false">talwani-tro-usps-rule-2026-08-27</guid>
+  </item>
+
+  <item>
+    <title>DOJ falls to 0 for 23 in voter-data campaign as 6th Circuit refuses rehearing</title>
+    <description>Five more district courts dismissed the Justice Department's voter-data suits after July 30: Illinois (July 31), Colorado (August 3), Washington, D.C. (August 6), Nevada (August 14), and Minnesota (August 17), bringing the merits total to 23 dismissals and zero wins. On August 14 the 6th Circuit denied DOJ's petition to rehear United States v. Benson en banc, leaving intact the only appellate ruling in the campaign. The 9th Circuit heard the California and Oregon appeals on May 19 and has not ruled.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 17 Aug 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">doj-0-23-sixth-circuit-en-banc-2026-08-17</guid>
+  </item>
+
+  <item>
     <title>DOJ hits 0 for 18 as New Jersey voter-data case is dismissed</title>
     <description>Judge Zahid Quraishi dismissed the DOJ's lawsuit seeking New Jersey's voter registration database on July 29, ruling the Civil Rights Act does not authorize access — the administration's 18th consecutive district-court loss in the voter-data campaign, with zero wins. July also saw dismissals in New York, West Virginia, New Mexico, Virginia, Connecticut, and Kentucky, and the 6th Circuit affirmed Michigan's win on appeal. DOJ has appealed its losses to 8 federal circuits.</description>
     <link>https://electionriskmap.org/#NJ</link>
@@ -95,7 +175,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Thu, 30 Jul 2026 12:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Tue, 06 Oct 2026 12:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

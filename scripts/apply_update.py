@@ -25,7 +25,7 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 BUTTONDOWN_API_KEY = os.environ.get("BUTTONDOWN_API_KEY", "")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "")
-CLAUDE_MODEL = "claude-sonnet-4-20250514"
+CLAUDE_MODEL = "claude-sonnet-5-5"
 MAX_TOKENS = 8192
 SITE_URL = "https://electionriskmap.org"
 

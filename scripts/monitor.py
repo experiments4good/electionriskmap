@@ -29,7 +29,7 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "")
 CLAUDE_MODEL = "claude-sonnet-5-5"
-MAX_TOKENS = 4096
+MAX_TOKENS = 16000
 
 # ---------------------------------------------------------------------------
 # Auto-extract current site state from index.html (no manual maintenance)
@@ -135,40 +135,60 @@ Be conservative. Only include developments you are confident actually happened.
 
 
 def call_claude(prompt: str, max_retries: int = 3) -> dict:
-    """Call Claude API with web search enabled. Retries on 529/5xx errors."""
-    payload = {
-        "model": CLAUDE_MODEL,
-        "max_tokens": MAX_TOKENS,
-        "tools": [{"type": "web_search_20250305", "name": "web_search"}],
-        "messages": [{"role": "user", "content": prompt}],
-    }
+    """Call Claude API with web search enabled. Retries on 529/5xx errors.
+    Continues paused turns (stop_reason "pause_turn") up to 5 times."""
+    messages = [{"role": "user", "content": prompt}]
+    content = []
+    stop_reason = None
 
-    data = json.dumps(payload).encode("utf-8")
+    for continuation in range(6):  # first request + up to 5 continuations
+        payload = {
+            "model": CLAUDE_MODEL,
+            "max_tokens": MAX_TOKENS,
+            "tools": [{"type": "web_search_20250305", "name": "web_search"}],
+            "messages": messages,
+        }
 
-    for attempt in range(max_retries + 1):
-        req = urllib.request.Request(
-            "https://api.anthropic.com/v1/messages",
-            data=data,
-            headers={
-                "Content-Type": "application/json",
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01",
-            },
-            method="POST",
-        )
+        data = json.dumps(payload).encode("utf-8")
 
-        try:
-            with urllib.request.urlopen(req, timeout=120) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-        except urllib.error.HTTPError as e:
-            body = e.read().decode("utf-8") if e.fp else ""
-            if e.code in (529, 500, 502, 503) and attempt < max_retries:
-                wait = (2 ** attempt) * 30  # 30s, 60s, 120s
-                print(f"Claude API {e.code} (attempt {attempt + 1}/{max_retries + 1}), retrying in {wait}s...", file=sys.stderr)
-                time.sleep(wait)
-                continue
-            print(f"Claude API error {e.code}: {body}", file=sys.stderr)
-            sys.exit(1)
+        for attempt in range(max_retries + 1):
+            req = urllib.request.Request(
+                "https://api.anthropic.com/v1/messages",
+                data=data,
+                headers={
+                    "Content-Type": "application/json",
+                    "x-api-key": ANTHROPIC_API_KEY,
+                    "anthropic-version": "2023-06-01",
+                },
+                method="POST",
+            )
+
+            try:
+                with urllib.request.urlopen(req, timeout=300) as resp:
+                    response = json.loads(resp.read().decode("utf-8"))
+                break
+            except urllib.error.HTTPError as e:
+                body = e.read().decode("utf-8") if e.fp else ""
+                if e.code in (529, 500, 502, 503) and attempt < max_retries:
+                    wait = (2 ** attempt) * 30  # 30s, 60s, 120s
+                    print(f"Claude API {e.code} (attempt {attempt + 1}/{max_retries + 1}), retrying in {wait}s...", file=sys.stderr)
+                    time.sleep(wait)
+                    continue
+                print(f"Claude API error {e.code}: {body}", file=sys.stderr)
+                sys.exit(1)
+
+        stop_reason = response.get("stop_reason")
+        print(f"Claude stop_reason: {stop_reason} usage: {json.dumps(response.get('usage', {}))}", file=sys.stderr)
+        content.extend(response.get("content", []))
+
+        if stop_reason != "pause_turn":
+            break
+        messages.append({"role": "assistant", "content": response["content"]})
+
+    if stop_reason == "max_tokens":
+        print(f"Warning: Claude reply was truncated at max_tokens ({MAX_TOKENS}).", file=sys.stderr)
+
+    return {"content": content, "stop_reason": stop_reason}
 
 
 def extract_text(response: dict) -> str:

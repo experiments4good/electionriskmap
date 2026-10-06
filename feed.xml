@@ -5,6 +5,14 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Supreme Court lets DHS resume expanded SAVE citizenship checks; Ohio, Georgia, and New Hampshire moves</title>
+    <description>On September 25 the Supreme Court, 6-3, paused Judge Sparkle Sooknanan's ruling that the overhauled SAVE citizenship database violates federal privacy law, the Social Security Act, and the Administrative Procedure Act, letting states again run bulk checks of their voter rolls against it through November; Justices Jackson, Sotomayor, and Kagan dissented. The same day, Judge Paula Xinis ordered the government to give her court 30 days' notice before releasing the state citizenship lists called for by Trump's March executive order, making October 28 the earliest possible release. On September 24 a divided 6th Circuit panel let Ohio require documentary proof of citizenship to register at the BMV. On September 28 Georgia's State Election Board voted 3-2 to ask DOJ and DHS to press the Secretary of State to change the state's QR-code ballot system before November. On October 2 a federal judge declined to block New Hampshire's ban on student IDs as voter identification for the general election.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Fri, 02 Oct 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">save-scotus-oh-ga-nh-2026-10-02</guid>
+  </item>
+
+  <item>
     <title>DOJ falls to 0 for 26 as Vermont, Washington, and Georgia voter-data suits are dismissed</title>
     <description>Three more federal judges dismissed the Justice Department's suits for states' unredacted voter rolls in September: Vermont (September 17), Washington (September 22, with prejudice), and Georgia (September 30). In Georgia, Judge Victoria Calvert ruled that federal law does not override the state's voter-privacy law and that the Civil Rights Act does not entitle DOJ to the full roll; it was DOJ's second Georgia suit after the first was dismissed in January for being filed in the wrong court. DOJ has now lost all 26 district-court rulings on the merits. The 6th Circuit affirmed Michigan's dismissal and denied rehearing; appeals of other dismissals are pending in 10 federal circuits. Oklahoma settled and handed over its data. Cases in Delaware, Utah, Hawaii, and Idaho remain undecided. No court at any level has ruled for DOJ.</description>
     <link>https://electionriskmap.org/#GA</link>
@@ -42,6 +50,14 @@
     <link>https://electionriskmap.org/#CA</link>
     <pubDate>Sat, 19 Sep 2026 12:00:00 -0400</pubDate>
     <guid isPermaLink="false">ca-vra-signed-2026-09-19</guid>
+  </item>
+
+  <item>
+    <title>Lawsuits seek to keep armed federal agents away from polling places</title>
+    <description>The NAACP, four national unions, and civil rights groups sued in federal court in Washington, D.C., on September 18 under the Voting Rights Act's ban on voter intimidation, asking the court to block deployment of federal agents to polling places. A September 10 suit by Denver Clerk Paul Lopez and a coalition including LULAC cites a Civil War-era federal law that makes it a crime to send armed federal officers to the polls. DHS says ICE is not planning operations targeting polling locations but that it may still make targeted arrests.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Fri, 18 Sep 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">federal-agents-polling-places-suits-2026-09-18</guid>
   </item>
 
   <item>

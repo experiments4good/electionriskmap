@@ -1581,7 +1581,7 @@ let interventionsHtml='';
 const intv=INTERVENTIONS[abbr];
 if(intv&&(intv.threats.length>0||intv.protections.length>0)){
   interventionsHtml='<div class="interventions-section"><div class="interventions-title">State-Level Bills</div>';
-  const today=new Date('2026-03-05');
+  const today=new Date();
   const allBills=[...intv.threats.map(b=>({...b,type:'threat'})),...intv.protections.map(b=>({...b,type:'protection'}))];
   allBills.forEach(bill=>{
     let deadlineHtml='';

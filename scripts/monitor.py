@@ -129,6 +129,7 @@ Respond in this exact JSON format (no markdown, no backticks, just raw JSON):
 }}
 
 If nothing new is found, set "findings" to an empty array and "no_updates" to true.
+Inside JSON string values, never use double quotation marks; use single quotation marks for any quoted words.
 Be conservative. Only include developments you are confident actually happened.
 """
 
@@ -176,7 +177,7 @@ def extract_text(response: dict) -> str:
     for block in response.get("content", []):
         if block.get("type") == "text":
             parts.append(block["text"])
-    return "\n".join(parts)
+    return "".join(parts)
 
 
 def parse_findings(text: str) -> dict:
@@ -190,14 +191,16 @@ def parse_findings(text: str) -> dict:
     # Find the JSON object
     start = cleaned.find("{")
     end = cleaned.rfind("}") + 1
+    parse_failure = {"findings": [], "no_updates": False, "parse_error": True,
+                     "summary": "Scan reply could not be parsed as JSON.", "raw_text": text}
     if start == -1 or end == 0:
-        return {"findings": [], "no_updates": True, "summary": "Failed to parse response."}
+        return parse_failure
     try:
         return json.loads(cleaned[start:end])
     except json.JSONDecodeError as e:
         print(f"JSON parse error: {e}", file=sys.stderr)
         print(f"Raw text: {cleaned[start:end][:500]}", file=sys.stderr)
-        return {"findings": [], "no_updates": True, "summary": "Failed to parse response."}
+        return parse_failure
 
 
 def format_issue_body(data: dict) -> str:
@@ -318,6 +321,14 @@ def main():
 
     print("📋 Parsing findings...")
     findings = parse_findings(text)
+
+    if findings.get("parse_error"):
+        today = datetime.now(timezone.utc).strftime("%b %d, %Y")
+        title = f"⚠️ Scan reply could not be parsed — {today}"
+        body = ("The scan ran, but its reply was not valid JSON, so no findings could be read. "
+                "Raw reply below.\n\n```\n" + findings.get("raw_text", "")[:60000] + "\n```")
+        create_github_issue(title, body, labels=["automated-scan", "needs-review"])
+        sys.exit(1)
 
     num_findings = len(findings.get("findings", []))
     no_updates = findings.get("no_updates", False)

@@ -6,6 +6,15 @@ on:
     - cron: '0 13 * * *'
   workflow_dispatch:
     # Manual trigger — click "Run workflow" in GitHub Actions tab
+    inputs:
+      scan_start:
+        description: "Catch-up only: first date to cover (YYYY-MM-DD). Leave blank for a normal scan."
+        required: false
+        default: ""
+      scan_end:
+        description: "Catch-up only: last date to cover (YYYY-MM-DD)."
+        required: false
+        default: ""
 
 permissions:
   issues: write
@@ -28,4 +37,6 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          SCAN_START: ${{ inputs.scan_start }}
+          SCAN_END: ${{ inputs.scan_end }}
         run: python scripts/monitor.py

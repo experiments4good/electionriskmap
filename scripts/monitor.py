@@ -20,7 +20,7 @@ import json
 import time
 import urllib.request
 import urllib.error
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 # ---------------------------------------------------------------------------
 # Config
@@ -30,6 +30,25 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "")
 CLAUDE_MODEL = "claude-sonnet-5-5"
 MAX_TOKENS = 16000
+
+# Optional one-time catch-up window, set from workflow_dispatch inputs.
+# Blank on scheduled runs, which keep the normal 7-day lookback.
+SCAN_START = os.environ.get("SCAN_START", "").strip()
+SCAN_END = os.environ.get("SCAN_END", "").strip()
+if SCAN_START or SCAN_END:
+    try:
+        if datetime.strptime(SCAN_START, "%Y-%m-%d") > datetime.strptime(SCAN_END, "%Y-%m-%d"):
+            raise ValueError("start is after end")
+    except ValueError as e:
+        print(f"Error: SCAN_START and SCAN_END must both be YYYY-MM-DD, start on or before end ({e}).", file=sys.stderr)
+        sys.exit(1)
+    SEARCH_WINDOW = (f"Search for election interference news dated {SCAN_START} through {SCAN_END} inclusive. "
+                     "Ignore anything dated outside that window. Report at most 12 findings; if more qualify, "
+                     "keep the most significant and say in the summary how many you left out.")
+else:
+    TODAY = datetime.now(timezone.utc).date()
+    SEARCH_WINDOW = (f"Search for recent election interference news (last 7 days: "
+                     f"{TODAY - timedelta(days=7)} through {TODAY}, today is {TODAY})")
 
 # ---------------------------------------------------------------------------
 # Auto-extract current site state from index.html (no manual maintenance)
@@ -98,7 +117,7 @@ Focus on:
 {CURRENT_TIMELINE}
 
 INSTRUCTIONS:
-1. Search for recent election interference news (last 7 days)
+1. {SEARCH_WINDOW}
 2. For each potential update, search for at least 2 INDEPENDENT sources confirming it
 3. Only report findings confirmed by 2+ independent sources
 4. For each finding, rate confidence: HIGH (3+ sources), MEDIUM (2 sources)
@@ -357,8 +376,10 @@ def main():
         print("✅ No new verified developments found.")
         # Still create an issue on Mondays for visibility (optional)
         today = datetime.now(timezone.utc).strftime("%A")
-        if today == "Monday":
+        if today == "Monday" or SCAN_START:
             title = f"Weekly scan: No updates found — {datetime.now(timezone.utc).strftime('%b %d, %Y')}"
+            if SCAN_START:
+                title = f"Catch-up {SCAN_START} to {SCAN_END}: no updates found"
             body = format_issue_body(findings)
             create_github_issue(title, body, labels=["automated-scan", "no-updates"])
         return
@@ -368,6 +389,8 @@ def main():
     # Format and create the issue
     today = datetime.now(timezone.utc).strftime("%b %d, %Y")
     title = f"🔔 {num_findings} election update(s) found — {today}"
+    if SCAN_START:
+        title = f"🔔 Catch-up {SCAN_START} to {SCAN_END}: {num_findings} election update(s) found"
     body = format_issue_body(findings)
 
     create_github_issue(title, body, labels=["automated-scan", "needs-review"])

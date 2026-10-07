@@ -5,6 +5,13 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Added: North Carolina voting changes, Riverside ballot ruling, Syracuse poll worker, and more</title>
+    <description>New entries from June through October. North Carolina's State Board of Elections dropped Sunday early voting in 10 counties that had it in 2022 (August 20), and voting groups sued in federal court on September 22 over absentee rules the board adopted September 4, under which a ballot with an unsealed inner envelope is spoiled and reissued when time remains. On September 24 the California Supreme Court unanimously ordered Riverside County's sheriff to return about 650,000 ballots he seized from the November 2025 special election. Shasta County, California destroyed its 2024 ballots on October 3 after the retention period ended; a federal grand jury subpoena for its June primary ballots has been reported but not confirmed. In New York, two federal officers gave a Syracuse poll worker a written notice at her polling place during the June 23 primary. DOJ monitored Miami-Dade County's August 18 primary. Mississippi's SB 2588, requiring annual SAVE checks of the full voter roll, took effect July 1. The League of Women Voters sued South Dakota on August 24 over how it administers its new registration law. Massachusetts' September 1 monitors also covered Lowell.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Tue, 06 Oct 2026 21:00:00 -0400</pubDate>
+    <guid isPermaLink="false">catchup-findings-batch-2026-10-06</guid>
+  </item>
+  <item>
     <title>Ratings for four states updated to match the map's written definitions</title>
     <description>On October 6 the map's ratings for Massachusetts, Nevada, and Virginia moved from Elevated to High, and Texas moved from Complied to Moderate, to match the risk-level definitions on the methodology page. Massachusetts and Virginia each face a DOJ voter-data suit plus federal election monitors; Nevada faces a DOJ suit and is a battleground state; and ICE obtained individual voter files from Texas's Webb County, which the methodology counts as documented federal contact with election infrastructure.</description>
     <link>https://electionriskmap.org/methodology</link>
@@ -205,7 +212,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Tue, 06 Oct 2026 20:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Tue, 06 Oct 2026 21:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

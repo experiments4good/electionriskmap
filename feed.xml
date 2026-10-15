@@ -5,6 +5,13 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Added: Judge strikes down DOJ voter-roll program, DOJ deadline for California, and more</title>
+    <description>New entries from September 23 through October 14. On October 9 Judge Sparkle Sooknanan vacated the Justice Department's nationwide policy of collecting state voter rolls, running them through the SAVE citizenship database, and urging states to remove flagged voters, holding that no federal statute authorizes it and that it violates the Privacy Act and the Paperwork Reduction Act; DOJ says it is reviewing the ruling. On October 13 DOJ gave California and Los Angeles County 48 hours to review a list of suspected noncitizens and set aside their mail ballots, threatening emergency court action. ICE records released October 7 show Homeland Security Investigations took in about 99 million voter records and reviewed dozens of voter-registration groups. Judges declined to restore Tarrant County, Texas's 92 cut polling sites and to halt Ocean County, New Jersey's residency probe of Bay Head voters (both October 13). On October 14 the 1st Circuit let New Hampshire election officials keep considering student IDs under the state's safety-valve process. Also added: Georgia's election board dispute over its director's letters to DOJ and DHS, an expanded suit over armed agents at polling places, Montana's birth-year ruling, the Supreme Court's Washington remand, a Florida ruling on the federal noncitizen-voting law, the DNC's overseas-voter-form suit, and the missing OSCE invitation.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Thu, 15 Oct 2026 18:00:00 -0400</pubDate>
+    <guid isPermaLink="false">findings-batch-2026-10-15</guid>
+  </item>
+  <item>
     <title>Added: North Carolina voting changes, Riverside ballot ruling, Syracuse poll worker, and more</title>
     <description>New entries from June through October. North Carolina's State Board of Elections dropped Sunday early voting in 10 counties that had it in 2022 (August 20), and voting groups sued in federal court on September 22 over absentee rules the board adopted September 4, under which a ballot with an unsealed inner envelope is spoiled and reissued when time remains. On September 24 the California Supreme Court unanimously ordered Riverside County's sheriff to return about 650,000 ballots he seized from the November 2025 special election. Shasta County, California destroyed its 2024 ballots on October 3 after the retention period ended; a federal grand jury subpoena for its June primary ballots has been reported but not confirmed. In New York, two federal officers gave a Syracuse poll worker a written notice at her polling place during the June 23 primary. DOJ monitored Miami-Dade County's August 18 primary. Mississippi's SB 2588, requiring annual SAVE checks of the full voter roll, took effect July 1. The League of Women Voters sued South Dakota on August 24 over how it administers its new registration law. Massachusetts' September 1 monitors also covered Lowell.</description>
     <link>https://electionriskmap.org</link>
@@ -27,7 +34,7 @@
   </item>
   <item>
     <title>Supreme Court lets DHS resume expanded SAVE citizenship checks; Ohio, Georgia, and New Hampshire moves</title>
-    <description>On September 25 the Supreme Court, 6-3, paused Judge Sparkle Sooknanan's ruling that the overhauled SAVE citizenship database violates federal privacy law, the Social Security Act, and the Administrative Procedure Act, letting states again run bulk checks of their voter rolls against it through November; Justices Jackson, Sotomayor, and Kagan dissented. The same day, Judge Paula Xinis ordered the government to give her court 30 days' notice before releasing the state citizenship lists called for by Trump's March executive order, making October 28 the earliest possible release. On September 24 a divided 6th Circuit panel let Ohio require documentary proof of citizenship to register at the BMV. On September 28 Georgia's State Election Board voted 3-2 to urge the Secretary of State to install pending Dominion software updates and to seek help from DOJ and DHS, including with their review of the state's QR-code ballots. On October 2 a federal judge declined to block New Hampshire's ban on student IDs as voter identification for the general election. Corrected Oct 6.</description>
+    <description>On September 25 the Supreme Court, 6-3, paused Judge Sparkle Sooknanan's ruling that the overhauled SAVE citizenship database violates federal privacy law, the Social Security Act, and the Administrative Procedure Act, letting states again run bulk checks of their voter rolls against it through November; Justices Jackson, Sotomayor, and Kagan dissented. The same day, Judge Paula Xinis ordered the government to give her court 30 days' notice before releasing the state citizenship lists called for by Trump's March executive order, making October 28 the earliest possible release. On September 24 a divided 6th Circuit panel let Ohio require documentary proof of citizenship to register at the BMV. On September 28 Georgia's State Election Board voted 3-2 to urge the Secretary of State to install pending Dominion software updates and to seek help from DOJ and DHS, including with their review of the state's QR-code ballots. On October 2 a federal judge declined to block New Hampshire's law removing student IDs from the list of accepted voter identification, but blocked the Secretary of State's directive that student IDs could never be used under the law's safety-valve process. Corrected Oct 6 and Oct 15.</description>
     <link>https://electionriskmap.org</link>
     <pubDate>Fri, 02 Oct 2026 18:00:00 -0400</pubDate>
     <guid isPermaLink="false">save-scotus-oh-ga-nh-2026-10-02</guid>
@@ -212,7 +219,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Tue, 06 Oct 2026 21:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Thu, 15 Oct 2026 18:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

@@ -5,6 +5,13 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Risk levels now count state and local actions; all 51 states re-rated</title>
+    <description>The map's risk levels are now built from documented threat vectors. Six are federal, such as a Justice Department voter-data lawsuit, federal monitors at the polls, or a federal criminal investigation of a state's elections. Five are state or local, such as running voter rolls through the SAVE citizenship database, cutting early voting or polling sites, or a post-Callais map that eliminates a majority-minority or minority opportunity district. Battleground status no longer affects a level, and refusing a federal demand now earns a tag instead of changing a level. Twenty states changed level. Up: Delaware, D.C., Idaho, Iowa, Kentucky, Maryland, Mississippi, New Mexico, New York, North Carolina, Ohio, Oklahoma, Rhode Island, Texas, Utah, Vermont, Washington, West Virginia, and Wyoming. Down: Missouri. The methodology page lists every vector and the states at each level.</description>
+    <link>https://electionriskmap.org/methodology</link>
+    <pubDate>Fri, 16 Oct 2026 17:00:00 -0400</pubDate>
+    <guid isPermaLink="false">methodology-threat-vectors-2026-10-16</guid>
+  </item>
+  <item>
     <title>California raised to High after DOJ sues to block mail ballots; groups sue DHS over voter files; powder mailed to election offices</title>
     <description>On October 15 the Justice Department sued California, Secretary of State Shirley Weber, and Los Angeles County Registrar-Recorder/County Clerk Dean Logan in federal court in Los Angeles (No. 2:26-cv-12025). It asks the court to declare that counting mail ballots from more than 20,000 people federal agencies call likely noncitizens would violate the Supremacy Clause, and to bar the state from counting those ballots in federal elections until their citizenship is verified. There is no ruling yet. The map now rates California High, and the methodology page records the change. The same day, the League of Women Voters, the Electronic Privacy Information Center, and LULAC sued DHS in federal court in Washington (No. 1:26-cv-03602), alleging that it obtained voter files from at least 47 states and added commercial data without the notice the Privacy Act requires, and asking the court to order the data deleted. Also added: mail containing white powder sent to election offices in Arizona, Delaware, Louisiana, Oklahoma, and Wisconsin from October 13 to 15, which the FBI and the Postal Inspection Service are investigating.</description>
     <link>https://electionriskmap.org</link>
@@ -226,7 +233,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Thu, 15 Oct 2026 18:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Fri, 16 Oct 2026 17:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

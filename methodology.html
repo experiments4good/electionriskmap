@@ -44,6 +44,8 @@ a{color:var(--accent);text-underline-offset:2px}
 .risk-swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:middle}
 .risk-name{font-weight:700;color:var(--text);white-space:nowrap}
 .risk-criteria{color:var(--text-dim);line-height:1.6}
+.vector-list{font-size:14px;color:var(--text-dim);line-height:1.75;margin:0 0 14px 1.4rem}
+.vector-list li{margin-bottom:4px}
 .source-list{margin:16px 0 28px}
 .source-item{padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;
   display:flex;gap:12px;align-items:flex-start;font-size:13px}
@@ -63,7 +65,27 @@ a{color:var(--accent);text-underline-offset:2px}
   <h1>How Risk Levels Are Assigned</h1>
   <p class="updated">Last updated: October 16, 2026</p>
 
-  <p>Every state and the District of Columbia is assigned one of six risk levels based on <strong>observable federal actions</strong> — not predictions, partisanship, or speculation. Risk levels reflect what has already happened, not what might happen.</p>
+  <p>Every state and the District of Columbia is assigned one of six risk levels based on documented actions, not predictions, partisanship, or speculation. Each level is built from <strong>threat vectors</strong>: specific actions, by federal, state, or local officials, that have already happened and are documented by a primary source or original reporting. Risk levels reflect what has already happened, not what might happen.</p>
+
+  <h2>Threat Vectors</h2>
+  <p><strong>Federal threat vectors</strong></p>
+  <ol class="vector-list">
+    <li>A Justice Department lawsuit for the state's voter data, in any wave and whatever its status.</li>
+    <li>A federal demand or threat aimed at state or local election officials.</li>
+    <li>Federal monitors or agents at polling places or election offices.</li>
+    <li>A federal criminal investigation of the state's elections.</li>
+    <li>Federal access to voter files or election equipment, obtained or attempted.</li>
+    <li>A Justice Department lawsuit to block ballots from being counted.</li>
+  </ol>
+  <p><strong>State and local threat vectors.</strong> These count when they carry out or coordinate with federal pressure, or restrict voting access, during the 2026 election period.</p>
+  <ol class="vector-list" start="7">
+    <li>Running voter rolls through the federal SAVE database, or requiring documentary proof of citizenship.</li>
+    <li>Cutting early voting days, polling sites, or absentee options, or changing absentee rules after ballots have gone out.</li>
+    <li>A state or local election body formally asking federal agencies to intervene.</li>
+    <li>A map drawn after Louisiana v. Callais that eliminates a majority-minority or minority opportunity district.</li>
+    <li>Officials seizing or destroying election materials outside the lawful process.</li>
+  </ol>
+  <p><strong>How vectors count.</strong> Each type of vector counts once per state. A vector stops counting while a court order blocks it for the 2026 election. Refusing a federal demand never lowers a state's level; it earns a "Refused Federal Demand" tag. Battleground status is shown as a tag and does not count toward any level. A vector counts for a state only when the action is aimed at that state; letters or demands sent in the same form to every state are described on the map but do not count for any one state. A state's own transfer of its voter file to the Justice Department is shown by the Complied level and is not counted as vector 5.</p>
 
   <h2>Risk Level Criteria</h2>
   <table class="risk-table">
@@ -71,33 +93,33 @@ a{color:var(--accent);text-underline-offset:2px}
     <tbody>
       <tr>
         <td><span class="risk-swatch" style="background:#B91C1C"></span><span class="risk-name">Critical</span></td>
-        <td class="risk-criteria">Direct attack on election infrastructure or an active election itself. Applies to Georgia — where the FBI physically raided county election offices and 260 FBI personnel now work the seized 2020 materials — and Louisiana, where the governor suspended active U.S. House primaries mid-election and the state then eliminated a majority-Black congressional district.</td>
+        <td class="risk-criteria">A direct attack on election infrastructure or an active election, by any level of government. Applies to Georgia, where the FBI raided Fulton County's election offices and seized 2020 ballots and voter rolls, and Louisiana, where the governor suspended active U.S. House primaries mid-election.</td>
       </tr>
       <tr>
         <td><span class="risk-swatch" style="background:#DC2626"></span><span class="risk-name">High</span></td>
-        <td class="risk-criteria">Multiple simultaneous threat vectors: a DOJ suit plus battleground status, coercion or machine-access attempts, a DOJ suit to block ballots from being counted, federal election monitors, an FBI 2020-election probe, or a post-Callais redistricting attack on the state's voters (AL, TN qualify on redistricting alone). States: AL, AZ, CA, CO, FL, MA, MI, MN, NH, NJ, NV, PA, TN, VA, WI.</td>
+        <td class="risk-criteria">A Justice Department voter-data lawsuit plus at least one other vector, or any three vectors, or a post-Callais map that eliminates a majority-minority or minority opportunity district. States: AL, AZ, CA, CO, FL, MA, MI, MN, NH, NJ, NV, NY, PA, TN, UT, VA, WI.</td>
       </tr>
       <tr>
         <td><span class="risk-swatch" style="background:#EA580C"></span><span class="risk-name">Elevated</span></td>
-        <td class="risk-criteria">State has been sued by the DOJ for voter data (first wave or January 2026 wave) or has had its case already dismissed by a court. These states were among the earliest or most prominent targets. States: CT, HI, IL, ME, NY, OR, UT.</td>
+        <td class="risk-criteria">A Justice Department voter-data lawsuit, or any two vectors. States: CT, DC, DE, HI, ID, IL, KY, MD, ME, NC, NM, OK, OR, RI, TX, VT, WA, WV, WY.</td>
       </tr>
       <tr>
         <td><span class="risk-swatch" style="background:#D97706"></span><span class="risk-name">Moderate</span></td>
-        <td class="risk-criteria">State was sued in a later wave with no additional risk factors beyond the lawsuit itself, or has had documented federal contact with its election infrastructure (e.g., ICE obtaining county voter files in NC). States: DC, DE, ID, KY, MD, MO, NC, NM, RI, TX, VT, WA, WV.</td>
+        <td class="risk-criteria">Any one vector. States: IA, MS, OH.</td>
       </tr>
       <tr>
         <td><span class="risk-swatch" style="background:#6B7280"></span><span class="risk-name">Complied</span></td>
-        <td class="risk-criteria">State provided full voter registration files to the DOJ, including sensitive personal information (driver's license numbers, partial SSNs). Some signed confidential memoranda of understanding. Per the Brennan Center tracker, 16 states have provided or committed to provide data; Kansas's reported compliance is disputed by the state. Map tiles shown gray: AK, AR, IA, IN, KS, MS, NE, OH, OK, SC, SD, WY (states like AL, FL, LA, TN that gave data but face other risks are colored by their higher risk level).</td>
+        <td class="risk-criteria">The state gave its voter file to the Justice Department and has no threat vectors. A state that complied and also has a vector gets the level its vectors earn. Per the Brennan Center tracker, 16 states have provided or committed to provide data; Kansas's reported compliance is disputed by the state. Map tiles shown gray: AK, AR, IN, KS, NE, SC, SD.</td>
       </tr>
       <tr>
         <td><span class="risk-swatch" style="background:#1E293B"></span><span class="risk-name">No Major Action</span></td>
-        <td class="risk-criteria">No major reported federal election interference action targeting this state as of the last update. This does not mean these states are safe — only that no specific federal enforcement actions have been publicly reported.</td>
+        <td class="risk-criteria">No threat vector has been documented for this state as of the last update. This does not mean a state is safe, only that no qualifying action has been publicly reported. States: MO, MT, ND.</td>
       </tr>
     </tbody>
   </table>
 
   <h2>What This Map Does Not Do</h2>
-  <p>This map does not assess the overall health of state election systems, predict future interference, rate state-level voting laws, or evaluate partisan gerrymandering. It is narrowly focused on federal executive branch actions that target state election infrastructure and data.</p>
+  <p>This map does not assess the overall health of state election systems, predict future interference, or evaluate partisan gerrymandering. It counts state and local actions only when they carry out or coordinate with federal pressure or restrict voting access during the 2026 election period, and it counts redistricting only when a map drawn after Louisiana v. Callais eliminates a majority-minority or minority opportunity district.</p>
 
   <h2>Official and Race Data</h2>
   <p>Secretary of State and Attorney General names and party affiliations are sourced from the National Association of Secretaries of State (NASS) official roster, cross-referenced with <a href="https://teritome.com" target="_blank">Teri Tome's tracker</a> (updated January 24, 2026) and <a href="https://ballotpedia.org" target="_blank">Ballotpedia</a> for 2026 ballot status. Competitive House race ratings use the <a href="https://www.cookpolitical.com/ratings/house-race-ratings" target="_blank">Cook Political Report</a> ratings as of their January 15, 2026 update.</p>
@@ -157,6 +179,7 @@ a{color:var(--accent);text-underline-offset:2px}
   <p>This map is updated as events unfold. If you spot an error or have a correction with a primary source, email <a href="mailto:info@electionriskmap.org">info@electionriskmap.org</a>. Accuracy matters more than speed.</p>
   <p>Oct 6, 2026: ratings for Massachusetts, Nevada, and Virginia (to High) and Texas (to Moderate) updated to match the written definitions.</p>
   <p>Oct 16, 2026: California raised to High after DOJ sued to block the counting of mail ballots; the High definition now names a DOJ suit to block ballot counting as a threat vector.</p>
+  <p>Oct 16, 2026: Risk levels are now built from documented threat vectors, federal, state, and local, as listed above. Battleground status no longer affects a level, and refusing a federal demand earns a tag instead of changing a level. 20 states changed level. Up: Delaware, D.C., Idaho, Iowa, Kentucky, Maryland, Mississippi, New Mexico, New York, North Carolina, Ohio, Oklahoma, Rhode Island, Texas, Utah, Vermont, Washington, West Virginia, and Wyoming. Down: Missouri.</p>
 
   <div class="footer">
     <a href="index.html">← Back to map</a> · <a href="about.html">About this project</a>

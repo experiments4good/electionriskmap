@@ -5,6 +5,14 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Added: Nebraska court upholds overseas-voter law; New Hampshire asks Supreme Court to block student IDs; two Texas registration backlogs</title>
+    <description>On October 16, the Nebraska Supreme Court, 6-1, rejected the Republican National Committee's challenge to a 2005 law letting U.S. citizens who have never lived in Nebraska register where a parent is registered, finding the RNC lacked standing and had not shown the law unconstitutional in every application; 116 voters were registered under it as of July. On October 15, after the 1st Circuit refused to stay Judge Joseph Laplante's ruling allowing limited use of student IDs, New Hampshire Secretary of State David Scanlan's office asked Justice Ketanji Brown Jackson for an administrative stay; the Coalition for Open Democracy filed its opposition October 19 and the application is pending. The same day, the Texas Secretary of State's office disclosed that an address-validation error on texas.gov had delayed name and address updates submitted since Sept. 1, and later sent 15,000 records back to counties to verify before early voting opened October 19. On October 9, the League of Women Voters of Texas and MOVE Texas Civic Fund sued the Department of Public Safety and the Secretary of State in Bexar County district court to enforce the state's 2021 registration settlement over a 500,000-record DPS backlog reaching back to October 2025.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Sat, 24 Oct 2026 10:00:00 -0400</pubDate>
+    <guid isPermaLink="false">erm-additions-ne-nh-tx-2026-10-24</guid>
+  </item>
+
+  <item>
     <title>Added: NAACP suit against 1,000-monitor plan, North Carolina absentee ruling, senators' ballot-seizure letter; DHS nine-state order now in effect</title>
     <description>The stay on Judge Araceli Martinez-Olguin's October 21 order barring Homeland Security Investigations door-knocking operations on suspected noncitizen voters in nine states expired at 5 p.m. October 23; as of October 24 no appeal or stay request had been reported. On October 19, Judge Thomas D. Schroeder denied a preliminary injunction against North Carolina's Sept. 4 absentee-ballot rules, which require signature verification and reject ballots returned in an unsealed inner envelope; county boards must send a new ballot to any voter whose ballot arrives unsealed, and the State Board said 31,582 absentee ballots had already been cast under the rules. On October 16, the NAACP sued in federal court in Washington under the Voting Rights Act's voter-intimidation provision to block the Justice Department's planned deployment of 1,000 election monitors and to make DOJ disclose the jurisdictions it is targeting. The same day, Sens. Alex Padilla, Dick Durbin and Sheldon Whitehouse asked Attorney General Todd Blanche to commit that DOJ will not seize ballots, voting equipment or other election materials before the 2026 midterms are certified, with written answers due October 29.</description>
     <link>https://electionriskmap.org</link>
@@ -257,7 +265,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Sat, 24 Oct 2026 09:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Sat, 24 Oct 2026 10:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

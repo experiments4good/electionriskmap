@@ -5,6 +5,14 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>Added: NAACP suit against 1,000-monitor plan, North Carolina absentee ruling, senators' ballot-seizure letter; DHS nine-state order now in effect</title>
+    <description>The stay on Judge Araceli Martinez-Olguin's October 21 order barring Homeland Security Investigations door-knocking operations on suspected noncitizen voters in nine states expired at 5 p.m. October 23; as of October 24 no appeal or stay request had been reported. On October 19, Judge Thomas D. Schroeder denied a preliminary injunction against North Carolina's Sept. 4 absentee-ballot rules, which require signature verification and reject ballots returned in an unsealed inner envelope; county boards must send a new ballot to any voter whose ballot arrives unsealed, and the State Board said 31,582 absentee ballots had already been cast under the rules. On October 16, the NAACP sued in federal court in Washington under the Voting Rights Act's voter-intimidation provision to block the Justice Department's planned deployment of 1,000 election monitors and to make DOJ disclose the jurisdictions it is targeting. The same day, Sens. Alex Padilla, Dick Durbin and Sheldon Whitehouse asked Attorney General Todd Blanche to commit that DOJ will not seize ballots, voting equipment or other election materials before the 2026 midterms are certified, with written answers due October 29.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Sat, 24 Oct 2026 09:00:00 -0400</pubDate>
+    <guid isPermaLink="false">erm-additions-nc-naacp-senate-2026-10-24</guid>
+  </item>
+
+  <item>
     <title>DOJ falls to 0 for 27 as Utah suit is dismissed; DOJ sues Alaska over certification; judge curbs DHS door-knocking</title>
     <description>On October 23, Judge David Barlow, a Trump appointee, dismissed the Justice Department's suit for Utah's unredacted voter database with prejudice, DOJ's 27th straight district-court loss; only Delaware still awaits a ruling, with Hawaii and Idaho on hold behind the 9th Circuit. On October 22, DOJ sued Alaska to bar certification of its Senate race if Sen. Dan Sullivan loses but would have won had votes for a same-named candidate been counted for him; Trump said, "I'm the one that said do it," and Attorney General Todd Blanche said DOJ would act on certification only in a "doomsday scenario." On October 21, Judge Araceli Martinez-Olguin barred Homeland Security Investigations from door-knocking operations on suspected noncitizen voters in nine states through Election Day, finding the practice likely violates the Voting Rights Act's ban on voter intimidation and citing a "high likelihood of error" in the target lists; the order was paused until Friday to allow an appeal. On October 20, Democratic congressional leaders and party committees sued in Washington under the Voting Rights Act to stop threats of prosecution against election officials, and Arlington County, Virginia sued to keep armed federal agents from its polls. Border Patrol agents appeared at early-voting sites in Leon and Monroe counties, Florida, on October 19 and 20; investigators found the Leon County agents had stopped to ask about voting.</description>
     <link>https://electionriskmap.org</link>
@@ -249,7 +257,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Fri, 23 Oct 2026 20:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Sat, 24 Oct 2026 09:00:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

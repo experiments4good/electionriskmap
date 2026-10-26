@@ -5,6 +5,14 @@
   <link>https://electionriskmap.org</link>
   <description>Tracking DOJ lawsuits, FBI actions, and Project 2025 implementation across all 50 US states ahead of the 2026 midterms.</description>
   <item>
+    <title>New Hampshire student-ID ban back in force; DOJ's 48-hour ultimatum to California counties; 9th Circuit hears ballot case; DOJ names counties for Nov 3 monitors</title>
+    <description>On October 22, the U.S. Supreme Court, in an unsigned order over Justice Ketanji Brown Jackson's dissent, granted New Hampshire's request to stay Judge Joseph Laplante's ruling that let election officials consider student IDs, so Secretary of State David Scanlan's directive barring student IDs applies on November 3; this corrects our October 15 entry, which described the application as pending. On October 23, federal prosecutors sent letters to at least 18 California county registrars giving them 48 hours to set aside the mail ballots of voters on the Justice Department's list of suspected noncitizens and to turn over those voters' Social Security numbers, ID information and registration records, warning of criminal charges. On October 25, a 9th Circuit panel heard the Justice Department's emergency request to make California hold mail ballots from about 20,000 people federal agencies flagged as likely noncitizens and did not rule; Judge David O. Carter holds a trial-court hearing October 27. The same day, the Peltola Senate campaign and the Democratic Senatorial Campaign Committee asked U.S. District Judge Sharon Gleason to dismiss the Justice Department's suit seeking to block certification of Alaska's Senate race, calling it "wholly baseless." On October 20, the Justice Department's Civil Rights Division began notifying counties, including Adams County, Colo.; Hennepin and Ramsey counties, Minn.; King County, Wash.; Miami-Dade County, Fla.; and seven Texas counties, that it will send election monitors on November 3.</description>
+    <link>https://electionriskmap.org</link>
+    <pubDate>Mon, 26 Oct 2026 19:30:00 -0400</pubDate>
+    <guid isPermaLink="false">erm-nh-scotus-ca-letters-monitors-2026-10-26</guid>
+  </item>
+
+  <item>
     <title>Added: Nebraska court upholds overseas-voter law; New Hampshire asks Supreme Court to block student IDs; two Texas registration backlogs</title>
     <description>On October 16, the Nebraska Supreme Court, 6-1, rejected the Republican National Committee's challenge to a 2005 law letting U.S. citizens who have never lived in Nebraska register where a parent is registered, finding the RNC lacked standing and had not shown the law unconstitutional in every application; 116 voters were registered under it as of July. On October 15, after the 1st Circuit refused to stay Judge Joseph Laplante's ruling allowing limited use of student IDs, New Hampshire Secretary of State David Scanlan's office asked Justice Ketanji Brown Jackson for an administrative stay; the Coalition for Open Democracy filed its opposition October 19 and the application is pending. The same day, the Texas Secretary of State's office disclosed that an address-validation error on texas.gov had delayed name and address updates submitted since Sept. 1, and later sent 15,000 records back to counties to verify before early voting opened October 19. On October 9, the League of Women Voters of Texas and MOVE Texas Civic Fund sued the Department of Public Safety and the Secretary of State in Bexar County district court to enforce the state's 2021 registration settlement over a 500,000-record DPS backlog reaching back to October 2025.</description>
     <link>https://electionriskmap.org</link>
@@ -265,7 +273,7 @@
 
 
   <language>en-us</language>
-  <lastBuildDate>Sat, 24 Oct 2026 10:00:00 -0400</lastBuildDate>
+  <lastBuildDate>Mon, 26 Oct 2026 19:30:00 -0400</lastBuildDate>
   <atom:link href="https://electionriskmap.org/feed.xml" rel="self" type="application/rss+xml"/>
   
   <item>

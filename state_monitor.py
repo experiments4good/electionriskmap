@@ -268,12 +268,7 @@ def create_github_issue(bill, check_result, level):
 **Confidence:** {check_result.get('confidence', 'unknown')}
 
 ### Action Required
-Review the change, then comment **`approved`** on this issue to apply the update.
-
-The apply-update bot will:
-1. Update `data/bills.json` with the new status and today's date
-2. Rebuild the relevant section of `index.html`
-3. Open a draft PR for final deploy review
+Comment exactly approved (repo writers only) to have the bot update data/bills.json and open a pull request for review.
 
 **Legislature page:** {bill.get('legislature_url', 'N/A')}
 **Bill ID:** `{bill['id']}`
@@ -329,9 +324,12 @@ def check_bill(client, bill):
     reason = verification_failure(result, page_text)
     if reason:
         mark_unchecked(bill, reason)
-    else:
-        mark_verified(bill, result)
-        print(f"  ✅ Verified: {bill['check_note']}")
+        if result.get("changed") or result.get("dead"):
+            print("  ⚠️  No issue opened: the read was not verified")
+        return False
+
+    mark_verified(bill, result)
+    print(f"  ✅ Verified: {bill['check_note']}")
 
     level = urgency_level(bill)
     if result.get("changed"):

@@ -169,6 +169,16 @@ class MonitorTest(unittest.TestCase):
         # The body this script writes must be recognized as its own duplicate
         self.assertTrue(sm.is_duplicate_issue(self.issue_posts[0][1]["json"], "FL-HB991"))
 
+    def test_unverified_change_opens_no_issue(self):
+        for flag in ("changed", "dead"):
+            with self.subTest(flag):
+                data = self.run_main(answer={flag: True, "new_status": "Signed",
+                                             "session_confirmed": False})
+                self.assertEqual(self.issue_posts, [])
+                self.assertEqual(data["last_run_summary"]["issues_opened"], 0)
+                self.assert_unchecked(data, "session not confirmed")
+                self.assertIn("No issue opened: the read was not verified", self.log)
+
     def test_matching_bill_id_skips_only_the_issue(self):
         dup = {"title": "x", "body": "text\r\n**Bill ID:** `FL-HB991`\r\n"}
         data = self.run_main(answer={"changed": True, "new_status": "Signed"}, issue_pages=[[dup]])

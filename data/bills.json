@@ -16,7 +16,9 @@
       "last_changed": "2026-07-30",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "fetch error: HTTP 429"
     },
     {
       "id": "FL-HB1471",
@@ -33,7 +35,9 @@
       "last_changed": "2026-07-14",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "fetch error: HTTP 429"
     },
     {
       "id": "FED-EO-MAIL",
@@ -50,7 +54,9 @@
       "last_changed": "2026-07-27",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "no source URL"
     },
     {
       "id": "GA-SB568",
@@ -84,7 +90,9 @@
       "last_changed": "2026-04-14",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "wrong bill: not confirmed on page"
     },
     {
       "id": "UT-HB209",
@@ -101,7 +109,9 @@
       "last_changed": "2026-05-27",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "session not confirmed"
     },
     {
       "id": "NH-HB323",
@@ -118,7 +128,9 @@
       "last_changed": "2026-04-06",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "wrong bill: not confirmed on page"
     },
     {
       "id": "IA-SF2203",
@@ -135,7 +147,9 @@
       "last_changed": "2026-06-02",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "unreadable answer"
     },
     {
       "id": "NM-SB264",
@@ -151,8 +165,10 @@
       "legislature_url": "https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26",
       "last_changed": "2026-03-09",
       "session_year": 2026,
-      "last_checked": "2026-07-30",
-      "active": true
+      "last_checked": "2026-11-23",
+      "active": true,
+      "check_status": "verified",
+      "check_note": "2026-03-09 Signed by Governor - Chapter 58 - Mar. 9"
     },
     {
       "id": "AZ-SCR1001",
@@ -168,8 +184,10 @@
       "legislature_url": "https://www.votebeat.org/arizona/2026/06/13/2026-ballot-measure-voting-changes-republican-voter-id-fast-election-results/",
       "last_changed": "2026-06-13",
       "session_year": 2026,
-      "last_checked": "2026-07-30",
-      "active": true
+      "last_checked": "2026-11-23",
+      "active": true,
+      "check_status": "verified",
+      "check_note": "2026-06-13 In a contentious late-night vote, the Republican-controlled Arizona Legislature on Friday placed a measure on the November ballot that, if passed by voters, would significantly alter voting"
     },
     {
       "id": "NY-SB8500A",
@@ -186,7 +204,9 @@
       "last_changed": "2026-02-09",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "fetch error: HTTP 403"
     },
     {
       "id": "NE-LR24CA",
@@ -220,7 +240,27 @@
       "last_changed": "2026-07-02",
       "session_year": 2026,
       "last_checked": "2026-07-30",
-      "active": true
+      "active": true,
+      "check_status": "unchecked",
+      "check_note": "wrong bill: not confirmed on page"
     }
-  ]
+  ],
+  "last_run": "2026-11-23",
+  "last_run_summary": {
+    "checked": 11,
+    "verified": 2,
+    "unchecked": 9,
+    "issues_opened": 1,
+    "unchecked_ids": [
+      "FL-HB991",
+      "FL-HB1471",
+      "FED-EO-MAIL",
+      "VA-HB965",
+      "UT-HB209",
+      "NH-HB323",
+      "IA-SF2203",
+      "NY-SB8500A",
+      "NJ-A1715"
+    ]
+  }
 }

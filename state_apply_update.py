@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 State Bill Apply-Update for ElectionRiskMap.org
-Triggered by state-apply-update.yml when a GitHub issue comment contains "approved".
+Triggered by state-apply-update.yml on comments on state-bill issues. Proceeds only
+if the comment is exactly "approved" and the commenter can write to the repo.
 
 Reads the issue, finds the bill ID, updates bills.json, and opens a PR.
 """
@@ -13,6 +14,7 @@ import subprocess
 import sys
 from datetime import date
 from pathlib import Path
+from urllib.parse import quote
 
 import requests
 
@@ -23,12 +25,45 @@ INDEX_HTML     = Path("index.html")
 GH_TOKEN       = os.environ["GITHUB_TOKEN"]
 GH_REPO        = os.environ.get("GITHUB_REPOSITORY", "experiments4good/electionriskmap")
 ISSUE_NUMBER   = os.environ["ISSUE_NUMBER"]
+COMMENT_BODY   = os.environ.get("COMMENT_BODY", "")
+COMMENT_AUTHOR = os.environ.get("COMMENT_AUTHOR", "")
 TODAY          = date.today().isoformat()
 
 HEADERS = {
     "Authorization": f"token {GH_TOKEN}",
     "Accept": "application/vnd.github+json",
 }
+
+ALLOWED_PERMISSIONS = {"admin", "maintain", "write"}
+
+# ── Approval gate ─────────────────────────────────────────────────────────────
+
+def author_can_write(user):
+    """True only if GitHub confirms write access. Any failure means not allowed."""
+    if not user:
+        return False
+    try:
+        resp = requests.get(
+            f"https://api.github.com/repos/{GH_REPO}/collaborators/{quote(user, safe='')}/permission",
+            headers=HEADERS,
+            timeout=15,
+        )
+        resp.raise_for_status()
+        return resp.json().get("permission") in ALLOWED_PERMISSIONS
+    except Exception as exc:
+        print(f"Permission check failed ({type(exc).__name__}); treating as not allowed.")
+        return False
+
+
+def require_approval():
+    """Exit 0 without changes unless a repo writer commented exactly "approved"."""
+    if COMMENT_BODY.strip().lower() != "approved":
+        print('Skipping: comment is not exactly "approved". Nothing changed.')
+        sys.exit(0)
+    if not author_can_write(COMMENT_AUTHOR):
+        print("Skipping: commenter is not confirmed to have write access. Nothing changed.")
+        sys.exit(0)
+
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -62,7 +97,6 @@ def update_bills_json(bill_id, new_status):
             old_status = bill["status"]
             bill["status"] = new_status
             bill["last_changed"] = TODAY
-            bill["last_checked"] = TODAY
             updated = True
             print(f"  ✅ Updated {bill_id}")
             print(f"     Old: {old_status}")
@@ -77,6 +111,8 @@ def update_bills_json(bill_id, new_status):
     return data
 
 
+# Disabled: not called from main(). index.html expects threats and protections
+# for each state, not a list, so this output would break the page.
 def rebuild_interventions_block(data):
     """
     Rebuild the INTERVENTIONS constant in index.html from bills.json.
@@ -140,7 +176,7 @@ def git_commit_and_pr(bill_id, new_status):
         ["git", "config", "user.email", "bot@electionriskmap.org"],
         ["git", "config", "user.name", "ERM State Monitor Bot"],
         ["git", "checkout", "-b", branch],
-        ["git", "add", "data/bills.json", "index.html"],
+        ["git", "add", "data/bills.json"],
         ["git", "commit", "-m", f"state: update {bill_id} status ({TODAY})"],
         ["git", "push", "origin", branch],
     ]
@@ -157,7 +193,7 @@ def git_commit_and_pr(bill_id, new_status):
         headers=HEADERS,
         json={
             "title": f"[State Update] {bill_id} — {TODAY}",
-            "body": f"Auto-generated from approved issue #{ISSUE_NUMBER}.\n\nUpdates `{bill_id}` status in `data/bills.json` and rebuilds `index.html` INTERVENTIONS block.\n\n**Deploy:** Drag `index.html` to Netlify after merging.",
+            "body": f"Auto-generated from approved issue #{ISSUE_NUMBER}.\n\nUpdates `{bill_id}` status in `data/bills.json`.\n\nReview before merging. Merging to main may deploy the site.",
             "head": branch,
             "base": "main",
         }
@@ -189,6 +225,8 @@ def close_issue():
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
+    require_approval()
+
     print(f"🔧 State Apply-Update — Issue #{ISSUE_NUMBER} — {TODAY}\n")
 
     issue = get_issue(ISSUE_NUMBER)
@@ -202,8 +240,7 @@ def main():
     print(f"📋 Bill ID: {bill_id}")
     print(f"📋 New status: {new_status}\n")
 
-    data = update_bills_json(bill_id, new_status)
-    rebuild_interventions_block(data)
+    update_bills_json(bill_id, new_status)
     git_commit_and_pr(bill_id, new_status)
     close_issue()
 

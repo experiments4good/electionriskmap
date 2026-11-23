@@ -8,11 +8,11 @@ jobs:
   apply:
     # Only run if:
     # 1. Comment is on an issue (not a PR)
-    # 2. Comment body is exactly "approved" (case-insensitive)
-    # 3. Issue has the "state-bill" label
+    # 2. Issue has the "state-bill" label
+    # state_apply_update.py then requires the comment to be exactly "approved"
+    # (case-insensitive) from someone with write access to the repo.
     if: |
       github.event.issue.pull_request == null &&
-      contains(github.event.comment.body, 'approved') &&
       contains(join(github.event.issue.labels.*.name, ','), 'state-bill')
 
     runs-on: ubuntu-latest
@@ -38,4 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
         run: python state_apply_update.py

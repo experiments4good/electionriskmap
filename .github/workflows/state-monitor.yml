@@ -5,11 +5,6 @@ on:
     # 8:15 AM ET daily (12:15 UTC) — runs after federal monitor at 8:00
     - cron: "15 12 * * *"
   workflow_dispatch:
-    inputs:
-      force_all:
-        description: "Check all bills including MONITORING tier"
-        required: false
-        default: "false"
 
 jobs:
   monitor:
@@ -35,13 +30,13 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          FORCE_ALL: ${{ github.event.inputs.force_all }}
         run: python state_monitor.py
 
-      - name: Commit updated last_checked date
+      - name: Commit run results
         run: |
           git config user.email "bot@electionriskmap.org"
           git config user.name "ERM State Monitor Bot"
           git add data/bills.json
-          git diff --staged --quiet || git commit -m "chore: state monitor last_checked $(date +%Y-%m-%d)"
+          MSG=$(python -c 'import json; d = json.load(open("data/bills.json")); s = d["last_run_summary"]; print("chore: state monitor run %s (%d verified, %d unchecked)" % (d["last_run"], s["verified"], s["unchecked"]))')
+          git diff --staged --quiet || git commit -m "$MSG"
           git push

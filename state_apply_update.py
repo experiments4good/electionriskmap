@@ -169,7 +169,10 @@ def rebuild_interventions_block(data):
 
 
 def git_commit_and_pr(bill_id, new_status):
-    """Commit changes and open a PR."""
+    """Commit changes and open a PR. Returns True only if the PR opened.
+
+    Exits 1 on the first failed git command.
+    """
     branch = f"state-update/{bill_id.lower()}-{TODAY}"
 
     cmds = [
@@ -186,6 +189,7 @@ def git_commit_and_pr(bill_id, new_status):
         if result.returncode != 0:
             print(f"  ⚠️  Git command failed: {' '.join(cmd)}")
             print(f"     {result.stderr}")
+            sys.exit(1)
 
     # Open PR
     pr_resp = requests.post(
@@ -203,14 +207,23 @@ def git_commit_and_pr(bill_id, new_status):
         pr_url = pr_resp.json()["html_url"]
         print(f"  ✅ PR opened: {pr_url}")
 
-        # Comment PR link on the original issue
-        requests.post(
-            f"https://api.github.com/repos/{GH_REPO}/issues/{ISSUE_NUMBER}/comments",
-            headers=HEADERS,
-            json={"body": f"✅ Update applied. PR ready for review and deploy: {pr_url}"}
-        )
-    else:
-        print(f"  ❌ PR creation failed: {pr_resp.status_code} {pr_resp.text}")
+        # Comment PR link on the original issue. The PR is open either way.
+        try:
+            comment_on_issue(f"✅ Update applied. PR ready for review and deploy: {pr_url}")
+        except Exception as exc:
+            print(f"  ⚠️  Could not comment PR link on issue ({type(exc).__name__})")
+        return True
+
+    print(f"  ❌ PR creation failed: {pr_resp.status_code} {pr_resp.text}")
+    return False
+
+
+def comment_on_issue(body):
+    requests.post(
+        f"https://api.github.com/repos/{GH_REPO}/issues/{ISSUE_NUMBER}/comments",
+        headers=HEADERS,
+        json={"body": body}
+    )
 
 
 def close_issue():
@@ -241,7 +254,16 @@ def main():
     print(f"📋 New status: {new_status}\n")
 
     update_bills_json(bill_id, new_status)
-    git_commit_and_pr(bill_id, new_status)
+
+    pr_opened = False
+    try:
+        pr_opened = git_commit_and_pr(bill_id, new_status)
+    finally:
+        # Also covers the exit on a failed git command and any request error
+        if not pr_opened:
+            comment_on_issue("The update failed and no PR was opened. Check the Actions log.")
+    if not pr_opened:
+        sys.exit(1)
     close_issue()
 
     print(f"\n✅ Done.")

@@ -18,7 +18,7 @@
       "last_checked": "2026-07-30",
       "active": true,
       "check_status": "unchecked",
-      "check_note": "fetch error: HTTP 429"
+      "check_note": "fetch error: ReadTimeout"
     },
     {
       "id": "FL-HB1471",
@@ -165,7 +165,7 @@
       "legislature_url": "https://nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=264&year=26",
       "last_changed": "2026-03-09",
       "session_year": 2026,
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-03-09 Signed by Governor - Chapter 58 - Mar. 9"
@@ -184,7 +184,7 @@
       "legislature_url": "https://www.votebeat.org/arizona/2026/06/13/2026-ballot-measure-voting-changes-republican-voter-id-fast-election-results/",
       "last_changed": "2026-06-13",
       "session_year": 2026,
-      "last_checked": "2026-11-23",
+      "last_checked": "2026-11-24",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-06-13 In a contentious late-night vote, the Republican-controlled Arizona Legislature on Friday placed a measure on the November ballot that, if passed by voters, would significantly alter voting"
@@ -245,12 +245,12 @@
       "check_note": "wrong bill: not confirmed on page"
     }
   ],
-  "last_run": "2026-11-23",
+  "last_run": "2026-11-24",
   "last_run_summary": {
     "checked": 11,
     "verified": 2,
     "unchecked": 9,
-    "issues_opened": 1,
+    "issues_opened": 0,
     "unchecked_ids": [
       "FL-HB991",
       "FL-HB1471",

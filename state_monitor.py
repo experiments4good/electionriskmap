@@ -11,8 +11,11 @@ import json
 import os
 import sys
 import re
+import time
 from datetime import date, datetime, timedelta
+from email.utils import parsedate_to_datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 import anthropic
 import requests
@@ -22,6 +25,22 @@ import requests
 BILLS_JSON   = Path("data/bills.json")
 PAGE_TEXT_LIMIT = 30000
 CHECK_NOTE_LIMIT = 200
+MIN_PAGE_TEXT = 500
+
+OFFICIAL_HOST_SUFFIXES = (".gov", ".us")
+NO_BILL_TEXT = "page has no readable bill text (may be built by script)"
+
+FETCH_HEADERS = {
+    "User-Agent": "ElectionRiskMap-Monitor/1.1 (+https://electionriskmap.org/about.html)",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+HOST_DELAY = 5             # seconds between requests to the same host
+RETRY_STATUSES = (429, 503)
+RETRY_DEFAULT = 20         # seconds, when the server gives no usable Retry-After
+RETRY_MAX = 60
+
+_last_request = {}         # host -> time.monotonic() when its last request ended
 
 TODAY = date.today().isoformat()
 
@@ -83,13 +102,60 @@ def html_to_text(html):
     return normalize_ws(re.sub(r"<[^>]+>", " ", html))[:PAGE_TEXT_LIMIT]
 
 
+def url_host(url):
+    try:
+        return (urlparse(url).hostname or "").lower()
+    except ValueError:
+        return ""
+
+
+def is_official_source(url):
+    return url_host(url).endswith(OFFICIAL_HOST_SUFFIXES)
+
+
+def has_bill_text(bill, page_text):
+    """True only if the text is long enough and contains the bill's first number."""
+    number = re.search(r"[0-9]+", bill["bill"])
+    return len(page_text) >= MIN_PAGE_TEXT and number is not None and number.group() in page_text
+
+
+def retry_wait(value):
+    """Seconds to wait for a Retry-After header, given in seconds or as an HTTP date."""
+    try:
+        seconds = int(value)
+    except (TypeError, ValueError):
+        try:
+            seconds = parsedate_to_datetime(value).timestamp() - time.time()
+        except (TypeError, ValueError):
+            seconds = RETRY_DEFAULT
+    return max(0, min(seconds, RETRY_MAX))
+
+
+def polite_get(url):
+    """GET a page, keeping requests to the same host at least HOST_DELAY apart."""
+    host = url_host(url)
+    if host in _last_request:
+        wait = HOST_DELAY - (time.monotonic() - _last_request[host])
+        if wait > 0:
+            time.sleep(wait)
+    try:
+        return requests.get(url, timeout=15, headers=FETCH_HEADERS)
+    finally:
+        _last_request[host] = time.monotonic()
+
+
 def fetch_bill_page(url):
     """Return (page text, None) on success or (None, short reason) on failure."""
     try:
-        resp = requests.get(url, timeout=15, headers={"User-Agent": "ElectionRiskMap-Monitor/1.0"})
+        resp = polite_get(url)
+        if resp.status_code in RETRY_STATUSES:
+            time.sleep(retry_wait(resp.headers.get("Retry-After")))
+            resp = polite_get(url)
+        text = html_to_text(resp.text)
+        print(f"  Fetched: HTTP {resp.status_code}, {len(text)} characters: {text[:200]}")
         if resp.status_code >= 400:
             return None, f"fetch error: HTTP {resp.status_code}"
-        return html_to_text(resp.text), None
+        return text, None
     except Exception as e:
         return None, f"fetch error: {type(e).__name__}"
 
@@ -105,12 +171,12 @@ Current tracked data for {bill['bill']} ({bill['state']}):
 - Status: {bill['status']}
 - Last changed: {bill['last_changed']}
 - Summary: {bill['summary']}
-- Session year: 2026
+- Session year: 2026 (or a two-year session or term that includes 2026)
 - Legislature URL: {bill['legislature_url']}
 
 Today's date: {TODAY}
 
-CRITICAL: This bill is from the **2026 legislative session only**. The page may contain data from multiple sessions (2024, 2025, 2026). You must IGNORE any data from sessions other than 2026. If you cannot confirm the data is from the 2026 session, respond with changed: false and confidence: low.
+CRITICAL: The bill must be from the 2026 session, or from a two-year session or term that includes 2026 (for example "2025-2026", "2026-2027", or a bill carried over from 2025 and acted on in 2026). The page may contain data from other sessions. You must IGNORE any data from a session or term that does not include 2026. If you cannot confirm the session from the page, respond with changed: false and confidence: low.
 
 Legislature page text (may be partial or messy):
 ---
@@ -126,7 +192,7 @@ Has the bill status changed from what we have tracked? Look for:
 
 Also report what the page itself confirms:
 - bill_confirmed: true only if the page is clearly this bill number in this state
-- session_confirmed: true only if the page shows the 2026 session
+- session_confirmed: true only if the page shows the 2026 session, or a two-year session or term that includes 2026, as described above
 - latest_action_date: date of the latest recorded action shown on the page
 - evidence: an exact quote, copied character for character from the page text, of the latest recorded action
 
@@ -147,17 +213,25 @@ Respond ONLY in this exact JSON format (no markdown, no explanation):
 
     resp = client.messages.create(
         model="claude-opus-4-5-20251101",
-        max_tokens=800,
+        max_tokens=1500,
         messages=[{"role": "user", "content": prompt}]
     )
 
     raw = resp.content[0].text.strip()
-    # Strip any accidental markdown fences
-    raw = re.sub(r"```json|```", "", raw).strip()
-    result = json.loads(raw)
-    if not isinstance(result, dict):
+    try:
+        return parse_answer(raw)
+    except ValueError:
+        # repr keeps the reply on one log line
+        print(f"  Reply: {raw[:200]!r}")
+        raise
+
+
+def parse_answer(raw):
+    """Parse the JSON object from the first "{" to the last "}". Raises ValueError."""
+    start, end = raw.find("{"), raw.rfind("}")
+    if start == -1 or end < start:
         raise ValueError("answer is not a JSON object")
-    return result
+    return json.loads(raw[start:end + 1])
 
 
 def verification_failure(result, page_text):
@@ -306,10 +380,16 @@ def check_bill(client, bill):
     if not url:
         mark_unchecked(bill, "no source URL")
         return False
+    if not is_official_source(url):
+        mark_unchecked(bill, "not an official source")
+        return False
 
     page_text, error = fetch_bill_page(url)
     if error:
         mark_unchecked(bill, error)
+        return False
+    if not has_bill_text(bill, page_text):
+        mark_unchecked(bill, NO_BILL_TEXT)
         return False
 
     try:

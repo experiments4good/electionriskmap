@@ -2,8 +2,8 @@ name: State Bill Monitor
 
 on:
   schedule:
-    # 8:15 AM ET daily (12:15 UTC) — runs after federal monitor at 8:00
-    - cron: "15 12 * * *"
+    # 5:37 AM ET in winter, 6:37 AM ET in summer (10:37 UTC), off the busy top of the hour; GitHub may still start it late
+    - cron: "37 10 * * *"
   workflow_dispatch:
 
 jobs:

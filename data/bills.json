@@ -15,7 +15,7 @@
       "legislature_url": "https://www.flsenate.gov/Session/Bill/2026/991",
       "last_changed": "2026-07-30",
       "session_year": 2026,
-      "last_checked": "2026-11-26",
+      "last_checked": "2026-11-27",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-04-02 4/2/2026 - Chapter No. 2026-26 ; Companion bill(s) passed, see CS/HB 91 (Ch. 2026-25 )"
@@ -34,7 +34,7 @@
       "legislature_url": "https://www.flsenate.gov/Session/Bill/2026/1471",
       "last_changed": "2026-07-14",
       "session_year": 2026,
-      "last_checked": "2026-11-26",
+      "last_checked": "2026-11-27",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-04-07 4/7/2026 - Chapter No. 2026-28 ; Companion bill(s) passed, see CS/CS/HB 1473 (Ch. 2026-29 )"
@@ -111,7 +111,7 @@
       "last_checked": "2026-07-30",
       "active": true,
       "check_status": "unchecked",
-      "check_note": "wrong bill: not confirmed on page"
+      "check_note": "session not confirmed"
     },
     {
       "id": "NH-HB323",
@@ -127,7 +127,7 @@
       "legislature_url": "https://gc.nh.gov/bill_Status/billinfo.aspx?id=413",
       "last_changed": "2026-04-06",
       "session_year": 2026,
-      "last_checked": "2026-11-26",
+      "last_checked": "2026-11-27",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-04-03 H Signed by Governor Ayotte 04/03/2026; Chapter 20; eff: 06/02/2026"
@@ -146,7 +146,7 @@
       "legislature_url": "https://www.legis.iowa.gov/legislation/billTracking/billHistory?billName=SF2218&ga=91",
       "last_changed": "2026-06-02",
       "session_year": 2026,
-      "last_checked": "2026-11-26",
+      "last_checked": "2026-11-27",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-06-02 June 02, 2026 Signed by Governor . S.J. 1030 ."
@@ -167,8 +167,8 @@
       "session_year": 2026,
       "last_checked": "2026-11-26",
       "active": true,
-      "check_status": "verified",
-      "check_note": "2026-03-09 Signed by Governor - Chapter 58 - Mar. 9"
+      "check_status": "unchecked",
+      "check_note": "fetch error: SSLError"
     },
     {
       "id": "AZ-SCR1001",
@@ -184,7 +184,7 @@
       "legislature_url": "https://www.azleg.gov/legtext/57leg/2R/summary/H.HCR2001_061226_TRANSMITTED.DOCX.htm",
       "last_changed": "2026-06-13",
       "session_year": 2026,
-      "last_checked": "2026-11-26",
+      "last_checked": "2026-11-27",
       "active": true,
       "check_status": "verified",
       "check_note": "2026-06-12 6/12/2026 Page 0 Transmitted to SOS"
@@ -245,16 +245,17 @@
       "check_note": "page has no readable bill text (may be built by script)"
     }
   ],
-  "last_run": "2026-11-26",
+  "last_run": "2026-11-27",
   "last_run_summary": {
     "checked": 11,
-    "verified": 6,
-    "unchecked": 5,
+    "verified": 5,
+    "unchecked": 6,
     "issues_opened": 0,
     "unchecked_ids": [
       "FED-EO-MAIL",
       "VA-HB965",
       "UT-HB209",
+      "NM-SB264",
       "NY-SB8500A",
       "NJ-A1715"
     ]
